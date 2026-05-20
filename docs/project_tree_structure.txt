@@ -1,0 +1,20 @@
+📁 accounting_hr_forms
+├── 📁 .venv
+├── 📂 Noto_Sans_TC
+│   ├── 📂 static
+│   │   ├── 📊 ... 還有 6 個 .ttf 檔案
+│   │   ├── 📄 NotoSansTC-Black.ttf
+│   │   ├── 📄 NotoSansTC-Bold.ttf
+│   │   └── 📄 NotoSansTC-ExtraBold.ttf
+│   ├── 📄 NotoSansTC-VariableFont_wght.ttf
+│   ├── 📄 OFL.txt
+│   └── 📖 README.txt
+├── 📝 Specification.md
+├── 🐍 payment_request.py
+├── 🌐 payment_request_form.html
+├── 📄 project_tree_structure.txt
+├── 🐍 project_tree_structure_generator.py
+├── 📦 請款單.rar
+├── 🖼️ 請款單_空白版範本圖.png
+├── 📕 請款單_空白版範本圖_193mm_106mm.pdf
+└── 🖼️ 請款單_空白版範本圖_193mm_106mm.png

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>請假單 — 填寫工具</title>
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+<div id="fillPage">
+<header class="toolbar">
+  <div class="toolbar-left">
+    <div class="toolbar-logo">🗓</div>
+    <div class="toolbar-brand">
+      <h1>請假單</h1>
+      <p>Leave Request Form</p>
+    </div>
+  </div>
+  <div class="toolbar-right">
+    <button class="btn btn-outline-white" onclick="fillSample()" title="填入範例資料">
+      ✏️ 填入範例
+    </button>
+    <button class="btn btn-outline-white" onclick="clearForm()" title="清除所有欄位">
+      🗑 清除
+    </button>
+    <button class="btn btn-white" onclick="goToPreview()">
+      下一步 →
+    </button>
+  </div>
+</header>
+
+<main class="main">
+  <div class="banner">
+    <span class="banner-icon">ℹ️</span>
+    <span>
+      此表單用於員工請假申請。完成填寫後可先進入預覽頁確認，再列印或另存 PDF 作為簽核文件。
+    </span>
+  </div>
+
+  <div class="print-header" id="printHeader">
+    <div class="print-header-title">請 假 單</div>
+    <div class="print-header-meta">
+      <span>單號：<span id="phDocNo">____________</span></span>
+      <span>日期：<span id="phDate">____________</span></span>
+    </div>
+  </div>
+
+  <div class="doc-no-row">
+    <div class="doc-no-badge">
+      <span>單據編號（人資填）</span>
+      <input type="text" class="fi" id="docNo" placeholder="LRF-2026-0001">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-num">1</div>
+      <h2>基本資訊</h2>
+    </div>
+    <div class="card-body">
+      <div class="frow">
+        <div class="fg fg-lg">
+          <label class="flabel">申請日期 <span class="req">*</span></label>
+          <input type="date" class="fi" id="reqDate">
+        </div>
+        <div class="fg fg-md">
+          <label class="flabel">星期</label>
+          <input type="text" class="fi fi-auto" id="weekday" placeholder="自動帶入" readonly>
+        </div>
+        <div class="fg fg-xl">
+          <label class="flabel">姓名 <span class="req">*</span></label>
+          <input type="text" class="fi" id="applicant" placeholder="員工姓名">
+        </div>
+        <div class="fg fg-xl">
+          <label class="flabel">單位 <span class="req">*</span></label>
+          <input type="text" class="fi" id="department" placeholder="所屬部門">
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fg fg-lg">
+          <label class="flabel">職稱</label>
+          <input type="text" class="fi" id="jobTitle" placeholder="例：行銷專員">
+        </div>
+        <div class="fg fg-lg">
+          <label class="flabel">卡片號碼</label>
+          <input type="text" class="fi" id="employeeId" placeholder="例：EMP0012">
+        </div>
+        <div class="fg">
+          <label class="flabel">直屬主管</label>
+          <input type="text" class="fi" id="manager" placeholder="主管姓名">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-num">2</div>
+      <h2>請假資訊</h2>
+    </div>
+    <div class="card-body">
+      <div class="frow">
+        <div class="fg" style="flex:0 0 auto">
+          <label class="flabel">假別 <span class="req">*</span></label>
+          <div class="rg">
+            <label class="rpill"><input type="radio" name="leaveType" value="annual" onchange="onRadio(this)"> 特休</label>
+            <label class="rpill"><input type="radio" name="leaveType" value="personal" onchange="onRadio(this)"> 事假</label>
+            <label class="rpill"><input type="radio" name="leaveType" value="sick" onchange="onRadio(this)"> 病假</label>
+            <label class="rpill"><input type="radio" name="leaveType" value="official" onchange="onRadio(this)"> 公假</label>
+            <label class="rpill"><input type="radio" name="leaveType" value="marriage" onchange="onRadio(this)"> 婚假</label>
+            <label class="rpill"><input type="radio" name="leaveType" value="maternity" onchange="onRadio(this)"> 產假</label>
+            <label class="rpill"><input type="radio" name="leaveType" value="menstrual" onchange="onRadio(this)"> 生理假</label>
+            <label class="rpill"><input type="radio" name="leaveType" value="bereavement" onchange="onRadio(this)"> 喪假</label>
+            <label class="rpill"><input type="radio" name="leaveType" value="other" onchange="onRadio(this)"> 其他</label>
+          </div>
+        </div>
+        <div class="fg fg-lg" id="leaveTypeOtherGroup" style="display:none">
+          <label class="flabel">其他假別說明</label>
+          <input type="text" class="fi" id="leaveTypeOther" placeholder="請補充假別">
+        </div>
+      </div>
+      <div class="banner" id="leaveTypeTip" style="display:none; margin-bottom: 16px;">
+        <span class="banner-icon">ℹ️</span>
+        <div style="flex: 1;">
+          <span id="leaveTypeTipText"></span>
+          <div class="frow" id="leaveTypeSummary" style="display:none; margin-top:10px; margin-bottom:0;">
+            <div class="fg fg-md">
+              <label class="flabel">法定上限參考</label>
+              <input type="text" class="fi fi-auto" id="allowedLeaveDays" placeholder="自動帶入" readonly>
+            </div>
+            <div class="fg fg-md">
+              <label class="flabel">本次申請</label>
+              <input type="text" class="fi fi-auto" id="requestedLeaveDays" placeholder="自動計算" readonly>
+            </div>
+          </div>
+          <div id="bereavementHelper" style="display:none; margin-top:10px;">
+            <div class="frow" style="margin-bottom:0;">
+              <div class="fg fg-lg">
+                <label class="flabel">與逝者關係</label>
+                <select class="fi" id="bereavementRelation" onchange="updateBereavementDays()">
+                  <option value="">請選擇</option>
+                  <option value="8">父母、養父母、繼父母、配偶</option>
+                  <option value="6">祖父母、子女、配偶之父母、配偶之養父母或繼父母</option>
+                  <option value="3">曾祖父母、兄弟姊妹、配偶之祖父母</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="frow">
+        <div class="fg fg-lg">
+          <label class="flabel">開始日期 <span class="req">*</span></label>
+          <input type="date" class="fi" id="startDate" onchange="updateLeaveSummary()">
+        </div>
+        <div class="fg fg-sm">
+          <label class="flabel">時 <span class="req">*</span></label>
+          <select class="fi" id="startHour" onchange="updateLeaveSummary()">
+            <option value="">請選擇</option>
+            <option value="8">08</option>
+            <option value="9">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+          </select>
+        </div>
+        <div class="fg fg-sm">
+          <label class="flabel">分 <span class="req">*</span></label>
+          <select class="fi" id="startMinute" onchange="updateLeaveSummary()">
+            <option value="">請選擇</option>
+            <option value="0">00</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fg fg-lg">
+          <label class="flabel">結束日期 <span class="req">*</span></label>
+          <input type="date" class="fi" id="endDate" onchange="updateLeaveSummary()">
+        </div>
+        <div class="fg fg-sm">
+          <label class="flabel">時 <span class="req">*</span></label>
+          <select class="fi" id="endHour" onchange="updateLeaveSummary()">
+            <option value="">請選擇</option>
+            <option value="8">08</option>
+            <option value="9">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+          </select>
+        </div>
+        <div class="fg fg-sm">
+          <label class="flabel">分 <span class="req">*</span></label>
+          <select class="fi" id="endMinute" onchange="updateLeaveSummary()">
+            <option value="">請選擇</option>
+            <option value="0">00</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="frow">
+        <div class="fg fg-lg">
+          <label class="flabel">請假天數</label>
+          <input type="text" class="fi fi-auto" id="leaveDays" placeholder="自動計算" readonly>
+        </div>
+        <div class="fg fg-lg">
+          <label class="flabel">請假時數</label>
+          <input type="text" class="fi fi-auto" id="leaveHours" placeholder="自動計算" readonly>
+        </div>
+        <div class="fg fg-lg">
+          <label class="flabel">請假分鐘</label>
+          <input type="text" class="fi fi-auto" id="leaveMinutes" placeholder="30 分鐘為單位" readonly>
+        </div>
+      </div>
+      <div class="frow" id="reasonPresetRow" style="display:none;">
+        <div class="fg fg-lg">
+          <label class="flabel">事由模式</label>
+          <div class="rg">
+            <label class="rpill active">
+              <input type="radio" name="reasonMode" value="preset" checked onchange="onReasonModeChange(this)"> 範本
+            </label>
+            <label class="rpill">
+              <input type="radio" name="reasonMode" value="manual" onchange="onReasonModeChange(this)"> 自填
+            </label>
+          </div>
+        </div>
+        <div class="fg">
+          <label class="flabel">範例庫</label>
+          <select class="fi" id="reasonPreset" onchange="applyReasonPreset(this.value)">
+            <option value="">請先選擇假別</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fg">
+          <label class="flabel reason-label" id="reasonLabel">請假事由 <span class="req">*</span></label>
+          <input type="text" class="fi fi-reason" id="reason" placeholder="請具體說明請假原因">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-num">3</div>
+        <h2>代理與聯絡</h2>
+      </div>
+      <div class="card-body">
+        <div class="frow">
+          <div class="fg">
+            <label class="flabel">代理人 <span class="req">*</span></label>
+            <input type="text" class="fi" id="agent" placeholder="代理人姓名">
+          </div>
+          <div class="fg">
+            <label class="flabel">請假人聯絡電話 <span class="req">*</span></label>
+            <input type="text" class="fi" id="contactPhone" placeholder="手機或緊急聯絡電話">
+          </div>
+        </div>
+        <div class="frow">
+          <div class="fg">
+            <label class="flabel">工作交接說明 <span class="req">*</span></label>
+            <textarea class="fi" id="handover" placeholder="請填寫待辦事項、交接內容或注意事項" style="height:96px; padding:10px 11px; resize:vertical;"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-num">4</div>
+        <h2>附件、備與註</h2>
+      </div>
+      <div class="card-body">
+      <div class="frow">
+          <div class="fg" style="flex:0 0 auto">
+            <label class="flabel">是否附證明文件</label>
+            <div class="rg">
+              <label class="rpill"><input type="radio" name="hasProof" value="yes" onchange="onProofChange(this)"> 有</label>
+              <label class="rpill"><input type="radio" name="hasProof" value="no" onchange="onProofChange(this)"> 無</label>
+            </div>
+          </div>
+          <div class="fg" id="proofNoteGroup" style="display:none">
+            <label class="flabel">證明文件說明</label>
+            <input type="text" class="fi" id="proofNote" placeholder="例：診斷證明、訃聞、喜帖影本">
+          </div>
+        </div>
+        <div class="frow">
+          <div class="fg">
+            <label class="flabel">備註</label>
+            <textarea class="fi" id="remark" placeholder="其他補充說明" style="height:96px; padding:10px 11px; resize:vertical;"></textarea>
+          </div>
+        </div>
+        <div class="frow">
+          <div class="fg">
+            <label class="flabel">注意事項</label>
+            <textarea class="fi" id="note" placeholder="請假須經獲批准後始生效，假滿後請準時上班" style="height:96px; padding:10px 11px; resize:vertical;"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="print-only" id="printBottomSections">
+    <div class="pbo-top">
+      <div class="pbo-cell">
+        <div class="pbo-head">核決主管審核</div>
+        <div class="pbo-body">
+          <div class="pbo-row"><span class="pbl">核准結果</span><span class="pcheck">□ 同意</span><span class="pcheck">□ 退回</span></div>
+          <div class="pbo-row"><span class="pbl">簽核意見</span><span class="uline uline-lg"></span></div>
+        </div>
+      </div>
+      <div class="pbo-cell">
+        <div class="pbo-head">人資確認</div>
+        <div class="pbo-body">
+          <div class="pbo-row"><span class="pbl">假別確認</span><span class="uline uline-md"></span></div>
+          <div class="pbo-row"><span class="pbl">假期扣抵</span><span class="uline uline-lg"></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="pbo-sign">
+      <div class="pbo-sign-cell"><div class="pbo-head">申請人</div><div class="pbo-sign-body"></div></div>
+      <div class="pbo-sign-cell"><div class="pbo-head">代理人</div><div class="pbo-sign-body"></div></div>
+      <div class="pbo-sign-cell"><div class="pbo-head">核決主管</div><div class="pbo-sign-body"></div></div>
+      <div class="pbo-sign-cell"><div class="pbo-head">人資</div><div class="pbo-sign-body"></div></div>
+      <div class="pbo-sign-cell"><div class="pbo-head">備查</div><div class="pbo-sign-body"></div></div>
+      <div class="pbo-sign-cell"><div class="pbo-head">歸檔</div><div class="pbo-sign-body"></div></div>
+    </div>
+  </div>
+</main>
+</div>
+
+<div id="previewPage">
+  <div class="pv-toolbar">
+    <div class="pv-toolbar-left">
+      <button class="btn btn-outline-white" onclick="goBack()">← 返回編輯</button>
+      <span class="pv-hint">確認內容後再列印</span>
+    </div>
+    <div class="pv-toolbar-right">
+      <span class="pv-hint">A5 橫向 210 × 148 mm</span>
+      <button class="btn btn-white" onclick="window.print()">🖨 列印 / 另存 PDF</button>
+    </div>
+  </div>
+
+  <div class="pv-outer">
+    <div class="pv-sheet" id="pvSheet">
+      <div class="pv-hd">
+        <div class="pv-hd-title">請　假　單</div>
+        <div class="pv-hd-meta">
+          <span class="pv-hd-field">單號：<span id="pv-docno" class="pv-hd-uline"></span></span>
+          <span class="pv-hd-divider">|</span>
+          <span class="pv-hd-field">日期：<span id="pv-date"></span></span>
+        </div>
+      </div>
+
+      <div class="pv-wrap">
+        <div class="pv-row">
+          <div class="pv-lbl" style="width:15mm"><span>民</span><span>國</span><span>日</span><span>期</span></div>
+          <div class="pv-val" style="width:25mm;flex:none" id="pv-reqdate"></div>
+          <div class="pv-lbl" style="width:12mm"><span>星</span><span>期</span></div>
+          <div class="pv-val" style="width:18mm;flex:none" id="pv-weekday"></div>
+          <div class="pv-lbl" style="width:12mm"><span>姓</span><span>名</span></div>
+          <div class="pv-val" style="width:28mm;flex:none" id="pv-applicant"></div>
+          <div class="pv-lbl" style="width:12mm"><span>單</span><span>位</span></div>
+          <div class="pv-val" style="width:28mm;flex:none" id="pv-dept"></div>
+          <div class="pv-lbl" style="width:12mm"><span>職</span><span>稱</span></div>
+          <div class="pv-val" id="pv-jobtitle"></div>
+        </div>
+
+        <div class="pv-row">
+          <div class="pv-lbl" style="width:15mm"><span>卡</span><span>號</span></div>
+          <div class="pv-val" style="width:30mm;flex:none" id="pv-employeeid"></div>
+          <div class="pv-lbl" style="width:15mm"><span>主</span><span>管</span></div>
+          <div class="pv-val" id="pv-manager"></div>
+        </div>
+
+        <div class="pv-row pv-twocol">
+          <div class="pv-tcol-l">
+            <div class="pv-subcell-hd">請假資訊</div>
+            <div class="pv-subrow">
+              <div class="pv-sublbl" style="width:14mm"><span>假</span><span>別</span></div>
+              <div class="pv-subval" id="pv-leavetype"></div>
+            </div>
+            <div class="pv-subrow">
+              <div class="pv-sublbl" style="width:14mm"><span>起</span><span>訖</span></div>
+              <div class="pv-subval" id="pv-period"></div>
+            </div>
+            <div class="pv-subrow">
+              <div class="pv-sublbl" style="width:14mm"><span>天</span><span>數</span></div>
+              <div class="pv-subval" style="flex:none;width:16mm" id="pv-days"></div>
+              <div class="pv-sublbl" style="width:14mm"><span>時</span><span>數</span></div>
+              <div class="pv-subval" style="flex:none;width:16mm" id="pv-hours"></div>
+              <div class="pv-sublbl" style="width:14mm"><span>分</span><span>鐘</span></div>
+              <div class="pv-subval" id="pv-minutes"></div>
+            </div>
+            <div class="pv-subrow">
+              <div class="pv-sublbl" style="width:14mm"><span>事</span><span>由</span></div>
+              <div class="pv-subval" id="pv-reason"></div>
+            </div>
+          </div>
+          <div class="pv-tcol-r">
+            <div class="pv-subcell-hd">代理與聯絡</div>
+            <div class="pv-subrow">
+              <div class="pv-sublbl" style="width:15mm"><span>代</span><span>理</span><span>人</span></div>
+              <div class="pv-subval" id="pv-agent"></div>
+            </div>
+            <div class="pv-subrow">
+              <div class="pv-sublbl" style="width:15mm"><span>請</span><span>假</span><span>人</span><span>電</span><span>話</span></div>
+              <div class="pv-subval" id="pv-phone"></div>
+            </div>
+            <div class="pv-subrow">
+              <div class="pv-sublbl" style="width:15mm"><span>交</span><span>接</span></div>
+              <div class="pv-subval" id="pv-handover"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pv-row">
+          <div class="pv-lbl" style="width:18mm"><span>證</span><span>明</span><span>文</span><span>件</span></div>
+          <div class="pv-val" style="width:18mm;flex:none" id="pv-proof"></div>
+          <div class="pv-lbl" style="width:22mm"><span>證</span><span>明</span><span>說</span><span>明</span></div>
+          <div class="pv-val" style="width:42mm;flex:none" id="pv-proofnote"></div>
+          <div class="pv-lbl" style="width:15mm"><span>備</span><span>註</span></div>
+          <div class="pv-val" id="pv-remark"></div>
+        </div>
+        <div class="pv-row">
+          <div class="pv-lbl" style="width:20mm"><span>注</span><span>意</span><span>事</span><span>項</span></div>
+          <div class="pv-val" id="pv-note"></div>
+        </div>
+      </div>
+
+      <div class="pv-spacer"></div>
+
+      <div class="pv-bottom">
+        <div class="pv-acct-cashier">
+          <div class="pv-ac-head">核決主管審核</div>
+          <div class="pv-ac-body">
+            <div class="pv-ac-row">
+              <span class="pv-ac-lbl">核決主管審核</span><span class="pv-pcheck">□ 同意</span><span class="pv-pcheck">□ 退回</span>
+              <span class="pv-ac-sep"></span>
+              <span class="pv-ac-lbl">人資確認</span><span class="pv-uline pv-uline-lg"></span>
+            </div>
+            <div class="pv-ac-row">
+              <span class="pv-ac-lbl">簽核備註</span><span class="pv-uline pv-uline-lg"></span>
+            </div>
+          </div>
+        </div>
+        <div class="pv-sign">
+          <div class="pv-sign-cell"><div class="pv-sign-head">申請人</div><div class="pv-sign-body"></div></div>
+          <div class="pv-sign-cell"><div class="pv-sign-head">代理人</div><div class="pv-sign-body"></div></div>
+          <div class="pv-sign-cell"><div class="pv-sign-head">核決主管</div><div class="pv-sign-body"></div></div>
+          <div class="pv-sign-cell"><div class="pv-sign-head">人資</div><div class="pv-sign-body"></div></div>
+          <div class="pv-sign-cell"><div class="pv-sign-head">備查</div><div class="pv-sign-body"></div></div>
+          <div class="pv-sign-cell"><div class="pv-sign-head">歸檔</div><div class="pv-sign-body"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="main" style="padding-top: 0; padding-bottom: 24px;">
+  <div class="banner" style="margin-top: 12px;">
+    <span class="banner-icon">※</span>
+    <span>注意：1. 請假須經獲批准後始生效　2. 假滿後請準時上班</span>
+  </div>
+</main>
+
+<script src="../assets/js/data/leave_reason_library.js"></script>
+<script src="../assets/js/forms/leave_request_form.js"></script>
+</body>
+</html>

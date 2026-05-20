@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>內部請款單 — 填寫工具</title>
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+<div id="fillPage">
+<header class="toolbar">
+  <div class="toolbar-left">
+    <div class="toolbar-logo">📋</div>
+    <div class="toolbar-brand">
+      <h1>內部請款單</h1>
+      <p>Internal Payment Request Form</p>
+    </div>
+  </div>
+  <div class="toolbar-right">
+    <button class="btn btn-outline-white" onclick="fillSample()" title="填入範例資料">
+      ✏️ 填入範例
+    </button>
+    <button class="btn btn-outline-white" onclick="clearForm()" title="清除所有欄位">
+      🗑 清除
+    </button>
+    <button class="btn btn-white" onclick="goToPreview()">
+      下一步 →
+    </button>
+  </div>
+</header>
+
+<main class="main">
+  <div class="banner">
+    <span class="banner-icon">ℹ️</span>
+    <span>
+      列印時請選擇「另存為 PDF」，紙張尺寸設定為 <strong>A5 橫向（210 × 148 mm）</strong>，
+      縮放設為 <strong>100%（實際大小）</strong>，頁面邊距設為 <strong>無</strong>，即可輸出 300 DPI 高品質 PDF。
+    </span>
+  </div>
+
+  <div class="print-header" id="printHeader">
+    <div class="print-header-title">請 款 單</div>
+    <div class="print-header-meta">
+      <span>單號：<span id="phDocNo">____________</span></span>
+      <span>日期：<span id="phDate">____________</span></span>
+    </div>
+  </div>
+
+  <div class="doc-no-row">
+    <div class="doc-no-badge">
+      <span>單據編號（出納填）</span>
+      <input type="text" class="fi" id="docNo" placeholder="PRF-2026-0001">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-num">1</div>
+      <h2>基本資訊</h2>
+    </div>
+    <div class="card-body">
+      <div class="frow">
+        <div class="fg fg-lg">
+          <label class="flabel">請款日期 <span class="req">*</span></label>
+          <input type="date" class="fi" id="reqDate">
+        </div>
+        <div class="fg fg-xl">
+          <label class="flabel">申請人 <span class="req">*</span></label>
+          <input type="text" class="fi" id="applicant" placeholder="員工姓名">
+        </div>
+        <div class="fg fg-xl">
+          <label class="flabel">部門 <span class="req">*</span></label>
+          <input type="text" class="fi" id="department" placeholder="所屬部門">
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fg fg-lg">
+          <label class="flabel">科目 <span class="req">*</span></label>
+          <input type="text" class="fi" id="acctCategory" placeholder="例：廣告費、差旅費、合約費用">
+        </div>
+        <div class="fg">
+          <label class="flabel reason-label">請款事由 <span class="req">*</span></label>
+          <input type="text" class="fi fi-reason" id="reason" placeholder="請具體描述費用事由（例：3 月蝦皮廣告投放費用）">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-num">2</div>
+        <h2>金額資訊</h2>
+      </div>
+      <div class="card-body">
+        <div class="amt-bar" id="amtBar" style="display:none">
+          <div>
+            <div class="amt-bar-label" id="amtBarLabel">含稅金額</div>
+            <div class="amt-bar-num" id="amtBarNum">NT$ 0</div>
+            <div class="amt-bar-zh" id="amtBarZh"></div>
+          </div>
+          <div class="amt-bar-badge" id="amtBarBadge">應稅</div>
+        </div>
+        <div class="frow" style="margin-bottom:8px">
+          <div class="fg" style="flex:0 0 auto">
+            <label class="flabel">稅務模式 <span class="req">*</span></label>
+            <div class="rg">
+              <label class="rpill active" id="rp-incl">
+                <input type="radio" name="taxMode" value="incl" checked onchange="onTaxMode(this)"> 應稅 5%
+              </label>
+              <label class="rpill" id="rp-excl">
+                <input type="radio" name="taxMode" value="excl" onchange="onTaxMode(this)"> 免稅
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="frow">
+          <div class="fg">
+            <label class="flabel" id="mainAmtLabel">金額（NT$）<span class="req">*</span></label>
+            <div class="amt-wrap">
+              <span class="amt-prefix">NT$</span>
+              <input type="number" class="fi" id="amtGross" placeholder="0" min="0" step="1" oninput="onAmtInput()">
+            </div>
+          </div>
+        </div>
+        <div class="frow">
+          <div class="fg">
+            <label class="flabel">中文大寫金額 <span class="req">*</span></label>
+            <input type="text" class="fi fi-auto" id="amtChinese" placeholder="將依輸入金額自動轉換" readonly>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="frow" id="netRow">
+          <div class="fg">
+            <label class="flabel" id="netLabel">未稅金額（NT$）</label>
+            <input type="number" class="fi fi-auto" id="amtNet" placeholder="自動計算" readonly>
+          </div>
+          <div class="fg">
+            <label class="flabel">稅額（NT$）</label>
+            <input type="number" class="fi fi-auto" id="amtTax" placeholder="自動計算" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-num">3</div>
+        <h2>付款對象與付款方式</h2>
+      </div>
+      <div class="card-body">
+        <div class="frow">
+          <div class="fg">
+            <label class="flabel">付款對象（戶名）<span class="req">*</span></label>
+            <input type="text" class="fi" id="payee" placeholder="公司名稱 / 個人姓名">
+          </div>
+        </div>
+        <div class="frow">
+          <div class="fg" style="flex:0 0 auto">
+            <label class="flabel">受款方身分 <span class="req">*</span></label>
+            <div class="rg">
+              <label class="rpill" id="rp-company">
+                <input type="radio" name="payeeType" value="company" onchange="onRadio(this)"> 公司
+              </label>
+              <label class="rpill" id="rp-person">
+                <input type="radio" name="payeeType" value="person" onchange="onRadio(this)"> 自然人
+              </label>
+              <label class="rpill" id="rp-employee">
+                <input type="radio" name="payeeType" value="employee" onchange="onRadio(this)"> 員工
+              </label>
+            </div>
+          </div>
+          <div class="fg" id="taxIdGroup">
+            <label class="flabel">統一編號 <span class="req">*</span></label>
+            <input type="text" class="fi" id="taxId" placeholder="統一編號（8 碼）">
+          </div>
+        </div>
+        <div class="frow">
+          <div class="fg" style="flex:0 0 auto">
+            <label class="flabel">付款方式 <span class="req">*</span></label>
+            <div class="rg">
+              <label class="rpill"><input type="radio" name="payMethod" value="transfer" onchange="onRadio(this)"> 匯款轉帳</label>
+              <label class="rpill"><input type="radio" name="payMethod" value="cash" onchange="onRadio(this)"> 現金</label>
+              <label class="rpill"><input type="radio" name="payMethod" value="check" onchange="onRadio(this)"> 支票</label>
+            </div>
+          </div>
+        </div>
+        <div class="frow" id="bankInfoRow" style="display:none">
+          <div class="fg">
+            <label class="flabel">匯款銀行 <span class="req">*</span></label>
+            <input type="text" class="fi" id="bankName" placeholder="銀行名稱">
+          </div>
+          <div class="fg fg-lg">
+            <label class="flabel">分行</label>
+            <input type="text" class="fi" id="bankBranch" placeholder="分行名稱">
+          </div>
+        </div>
+        <div class="frow" id="bankAccountRow" style="display:none">
+          <div class="fg">
+            <label class="flabel">帳號 <span class="req">*</span></label>
+            <input type="text" class="fi" id="bankAccount" placeholder="匯款帳號" inputmode="numeric">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-num">4</div>
+      <h2>憑證與附件</h2>
+    </div>
+    <div class="card-body">
+      <div class="frow">
+        <div class="fg" style="flex:0 0 auto">
+          <label class="flabel">憑證類型 <span class="req">*</span></label>
+          <div class="rg">
+            <label class="rpill"><input type="radio" name="voucherType" value="invoice" onchange="onRadio(this)"> 發票</label>
+            <label class="rpill"><input type="radio" name="voucherType" value="receipt" onchange="onRadio(this)"> 收據</label>
+            <label class="rpill"><input type="radio" name="voucherType" value="other" onchange="onRadio(this)"> 其他</label>
+          </div>
+        </div>
+        <div class="fg">
+          <label class="flabel">憑證號碼 <span class="req">*</span></label>
+          <input type="text" class="fi" id="voucherNo" placeholder="發票 / 憑證號碼">
+        </div>
+        <div class="fg fg-lg">
+          <label class="flabel">開立日期 <span class="req">*</span></label>
+          <input type="date" class="fi" id="voucherDate">
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fg" style="flex:0 0 auto">
+          <label class="flabel">是否附單據</label>
+          <div class="rg">
+            <label class="rpill"><input type="radio" name="hasAttach" value="yes" onchange="onAttach(this)"> 有</label>
+            <label class="rpill"><input type="radio" name="hasAttach" value="no" onchange="onAttach(this)"> 無</label>
+          </div>
+        </div>
+        <div class="fg fg-sm" id="attachCountGroup" style="display:none">
+          <label class="flabel">件數</label>
+          <input type="number" class="fi" id="attachCount" min="1" step="1" value="1">
+        </div>
+      </div>
+      <div class="frow" id="attachTypesRow" style="display:none">
+        <div class="fg">
+          <label class="flabel">附件類型（可複選）</label>
+          <div class="attach-types" id="attachTypes">
+            <label class="cbox-item"><input type="checkbox" value="invoice" onchange="onCbox(this)"> 統一發票</label>
+            <label class="cbox-item"><input type="checkbox" value="receipt" onchange="onCbox(this)"> 收據</label>
+            <label class="cbox-item"><input type="checkbox" value="reqform" onchange="onCbox(this)"> 請款單</label>
+            <label class="cbox-item"><input type="checkbox" value="transfer" onchange="onCbox(this)"> 匯款證明</label>
+            <label class="cbox-item"><input type="checkbox" value="contract" onchange="onCbox(this)"> 合約 / 訂單</label>
+            <label class="cbox-item"><input type="checkbox" value="other" onchange="onCbox(this)"> 其他</label>
+          </div>
+          <div id="attachOtherRow" style="display:none; margin-top:8px">
+            <input type="text" class="fi" id="attachOtherText" placeholder="請補充其他附件說明" style="max-width:320px">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="print-only" id="printBottomSections">
+    <div class="pbo-top">
+      <div class="pbo-cell">
+        <div class="pbo-head">會計審核</div>
+        <div class="pbo-body">
+          <div class="pbo-row"><span class="pbl">科目代碼</span><span class="uline uline-md"></span></div>
+          <div class="pbo-row"><span class="pbl">稅別</span><span class="pcheck">□ 應稅</span><span class="pcheck">□ 免稅</span><span class="pcheck">□ 零稅率</span></div>
+          <div class="pbo-row"><span class="pbl">憑證編號</span><span class="uline uline-lg"></span></div>
+        </div>
+      </div>
+      <div class="pbo-cell">
+        <div class="pbo-head">出納資訊</div>
+        <div class="pbo-body">
+          <div class="pbo-row"><span class="pbl">付款日期</span><span class="uline uline-lg"></span></div>
+          <div class="pbo-row"><span class="pbl">付款編號</span><span class="uline uline-lg"></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="pbo-sign">
+      <div class="pbo-sign-cell"><div class="pbo-head">申請人</div><div class="pbo-sign-body"></div></div>
+      <div class="pbo-sign-cell"><div class="pbo-head">部門主管</div><div class="pbo-sign-body"></div></div>
+      <div class="pbo-sign-cell"><div class="pbo-head">會計</div><div class="pbo-sign-body"></div></div>
+      <div class="pbo-sign-cell"><div class="pbo-head">出納</div><div class="pbo-sign-body"></div></div>
+    </div>
+  </div>
+</main>
+</div>
+
+<div id="previewPage">
+  <div class="pv-toolbar">
+    <div class="pv-toolbar-left">
+      <button class="btn btn-outline-white" onclick="goBack()">← 返回編輯</button>
+      <span class="pv-hint">確認內容後再列印</span>
+    </div>
+    <div class="pv-toolbar-right">
+      <span class="pv-hint">A5 橫向 210 × 148 mm</span>
+      <button class="btn btn-white" onclick="window.print()">🖨 列印 / 另存 PDF</button>
+    </div>
+  </div>
+
+  <div class="pv-outer">
+    <div class="pv-sheet" id="pvSheet">
+      <div class="pv-hd">
+        <div class="pv-hd-title">請　款　單</div>
+        <div class="pv-hd-meta">
+          <span class="pv-hd-field">單號：<span id="pv-docno" class="pv-hd-uline"></span></span>
+          <span class="pv-hd-divider">|</span>
+          <span class="pv-hd-field">日期：<span id="pv-date"></span></span>
+        </div>
+      </div>
+
+      <div class="pv-wrap">
+        <div class="pv-row">
+          <div class="pv-lbl" style="width:15mm"><span>請</span><span>款</span><span>日</span><span>期</span></div>
+          <div class="pv-val" style="width:36mm;flex:none" id="pv-reqdate"></div>
+          <div class="pv-lbl" style="width:15mm"><span>申</span><span>請</span><span>人</span></div>
+          <div class="pv-val" style="width:34mm;flex:none" id="pv-applicant"></div>
+          <div class="pv-lbl" style="width:15mm"><span>部</span><span>門</span></div>
+          <div class="pv-val" id="pv-dept"></div>
+        </div>
+
+        <div class="pv-row">
+          <div class="pv-lbl" style="width:15mm"><span>科</span><span>目</span></div>
+          <div class="pv-val" style="width:36mm;flex:none" id="pv-acct"></div>
+          <div class="pv-lbl" style="width:15mm"><span>請</span><span>款</span><span>事</span><span>由</span></div>
+          <div class="pv-val" id="pv-reason"></div>
+        </div>
+
+        <div class="pv-row pv-twocol">
+          <div class="pv-tcol-l">
+            <div class="pv-subcell-hd">金額資訊</div>
+            <div class="pv-subrow">
+              <div class="pv-sublbl" style="width:14mm" id="pv-grosslbl"><span>含</span><span>稅</span><span>金</span><span>額</span></div>
+              <div class="pv-subval" id="pv-gross"></div>
+            </div>
+            <div class="pv-subrow">
+              <div class="pv-sublbl" style="width:14mm"><span>中</span><span>文</span><span>大</span><span>寫</span></div>
+              <div class="pv-subval" id="pv-chinese"></div>
+            </div>
+            <div class="pv-subrow">
+              <div class="pv-sublbl" style="width:14mm"><span>未</span><span>稅</span><span>金</span><span>額</span></div>
+              <div class="pv-subval" style="flex:none;width:26mm" id="pv-net"></div>
+              <div class="pv-sublbl" style="width:10mm"><span>稅</span><span>額</span></div>
+              <div class="pv-subval" id="pv-tax"></div>
+            </div>
+          </div>
+          <div class="pv-tcol-r">
+            <div class="pv-subcell-hd">付款對象與方式</div>
+            <div class="pv-subrow">
+              <div class="pv-sublbl" style="width:15mm"><span>受</span><span>款</span><span>對</span><span>象</span></div>
+              <div class="pv-subval" id="pv-payee"></div>
+            </div>
+            <div class="pv-subrow">
+              <div class="pv-sublbl" style="width:15mm"><span>身</span><span>分</span></div>
+              <div class="pv-subval" style="flex:none;width:14mm" id="pv-payee-type"></div>
+              <div class="pv-sublbl pv-taxid-part" id="pv-taxid-lbl" style="width:15mm"><span>統</span><span>一</span><span>編</span><span>號</span></div>
+              <div class="pv-subval pv-taxid-part" id="pv-taxid"></div>
+            </div>
+            <div class="pv-subrow">
+              <div class="pv-sublbl" style="width:15mm"><span>付</span><span>款</span><span>方</span><span>式</span></div>
+              <div class="pv-subval" id="pv-paymethod"></div>
+            </div>
+            <div class="pv-subrow" id="pv-bankrow">
+              <div class="pv-sublbl" style="width:15mm"><span>銀</span><span>行</span></div>
+              <div class="pv-subval" id="pv-bank"></div>
+            </div>
+            <div class="pv-subrow" id="pv-acctrow">
+              <div class="pv-sublbl" style="width:15mm"><span>帳</span><span>號</span></div>
+              <div class="pv-subval" id="pv-bankacct"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pv-row">
+          <div class="pv-lbl" style="width:15mm"><span>憑</span><span>證</span><span>類</span><span>型</span></div>
+          <div class="pv-val" style="width:14mm;flex:none" id="pv-vtype"></div>
+          <div class="pv-lbl" style="width:15mm"><span>憑</span><span>證</span><span>號</span><span>碼</span></div>
+          <div class="pv-val" style="width:32mm;flex:none" id="pv-vno"></div>
+          <div class="pv-lbl" style="width:15mm"><span>開</span><span>立</span><span>日</span><span>期</span></div>
+          <div class="pv-val" style="width:28mm;flex:none" id="pv-vdate"></div>
+          <div class="pv-lbl" style="width:19mm"><span>是</span><span>否</span><span>附</span><span>單</span><span>據</span></div>
+          <div class="pv-val" style="width:10mm;flex:none" id="pv-attach"></div>
+          <div class="pv-lbl" style="width:15mm"><span>件</span><span>數</span></div>
+          <div class="pv-val" id="pv-attachcnt"></div>
+        </div>
+
+        <div class="pv-row" id="pv-attachrow" style="display:none">
+          <div class="pv-lbl" style="width:15mm"><span>附</span><span>件</span><span>類</span><span>型</span></div>
+          <div class="pv-val" id="pv-attachtype"></div>
+        </div>
+      </div>
+
+      <div class="pv-spacer"></div>
+
+      <div class="pv-bottom">
+        <div class="pv-acct-cashier">
+          <div class="pv-ac-head">審核 · 確認</div>
+          <div class="pv-ac-body">
+            <div class="pv-ac-row">
+              <span class="pv-ac-lbl">科目代碼</span><span class="pv-uline pv-uline-md"></span>
+              <span class="pv-ac-sep"></span>
+              <span class="pv-ac-lbl">稅別</span><span class="pv-pcheck">□ 應稅</span><span class="pv-pcheck">□ 免稅</span><span class="pv-pcheck">□ 零稅率</span>
+              <span class="pv-ac-sep"></span>
+              <span class="pv-ac-lbl">憑證編號</span><span class="pv-uline pv-uline-md"></span>
+            </div>
+            <div class="pv-ac-row">
+              <span class="pv-ac-lbl">付款日期</span><span class="pv-uline pv-uline-md"></span>
+              <span class="pv-ac-sep"></span>
+              <span class="pv-ac-lbl">付款編號</span><span class="pv-uline pv-uline-lg"></span>
+            </div>
+          </div>
+        </div>
+        <div class="pv-sign">
+          <div class="pv-sign-cell"><div class="pv-sign-head">總經理</div><div class="pv-sign-body"></div></div>
+          <div class="pv-sign-cell"><div class="pv-sign-head">經理</div><div class="pv-sign-body"></div></div>
+          <div class="pv-sign-cell"><div class="pv-sign-head">覆核</div><div class="pv-sign-body"></div></div>
+          <div class="pv-sign-cell"><div class="pv-sign-head">會計</div><div class="pv-sign-body"></div></div>
+          <div class="pv-sign-cell"><div class="pv-sign-head">出納</div><div class="pv-sign-body"></div></div>
+          <div class="pv-sign-cell"><div class="pv-sign-head">製單</div><div class="pv-sign-body"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/forms/payment_request_form.js"></script>
+</body>
+</html>
