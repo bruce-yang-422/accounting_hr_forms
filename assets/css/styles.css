@@ -69,7 +69,10 @@ body {
   border-radius: 9px;
   display: flex; align-items: center; justify-content: center;
   font-size: 19px; flex-shrink: 0;
+  text-decoration: none;
 }
+a.toolbar-logo { cursor: pointer; }
+a.toolbar-logo:hover { background: rgba(255,255,255,.28); }
 
 .toolbar-brand h1 { font-size: 15.5px; font-weight: 700; letter-spacing: .04em; }
 .toolbar-brand p  { font-size: 10.5px; opacity: .65; margin-top: 1px; letter-spacing: .02em; }
@@ -579,5 +582,6 @@ select.fi {
 @media (max-width: 480px) {
   .rg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
   .rpill { justify-content: center; padding: 8px 6px; font-size: 12px; border-radius: 10px; }
+  .fg-full { flex: 1 1 100%; }
 }
 
