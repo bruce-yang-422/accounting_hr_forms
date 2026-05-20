@@ -46,12 +46,18 @@ body {
   z-index: 200;
   background: var(--c-head-grad);
   color: #fff;
+  height: 60px;
+  box-shadow: 0 2px 16px rgba(139,62,16,.35);
+}
+
+.toolbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 28px;
-  height: 60px;
-  box-shadow: 0 2px 16px rgba(139,62,16,.35);
 }
 
 .toolbar-left { display: flex; align-items: center; gap: 14px; }
@@ -154,6 +160,28 @@ body {
 
 @media (max-width: 660px) {
   .two-col { grid-template-columns: 1fr; }
+}
+
+/* ── MOBILE (≤480px) ── */
+@media (max-width: 480px) {
+  /* Field groups: release fixed widths so they wrap naturally */
+  .fg-sm, .fg-md, .fg-lg, .fg-xl { flex: 1 1 100%; }
+  .main { padding: 20px 14px 48px; }
+
+  /* Preview toolbar */
+  .pv-toolbar { padding: 0 14px; flex-wrap: wrap; height: auto; min-height: 52px; gap: 6px; }
+  .pv-toolbar-left, .pv-toolbar-right { gap: 6px; }
+  .pv-hint { display: none; }
+
+  /* Toolbar */
+  .toolbar-inner { padding: 0 14px; }
+  .toolbar-brand p { display: none; }
+  .toolbar-logo { width: 32px; height: 32px; font-size: 16px; }
+  .toolbar-right { gap: 6px; }
+  /* Hide "填入範例" and "清除" (2nd & 3rd children), keep Home link + Next button */
+  .toolbar-right > :nth-child(2),
+  .toolbar-right > :nth-child(3) { display: none; }
+  .btn { padding: 6px 11px; font-size: 12px; }
 }
 
 /* FIELD ROWS */
@@ -372,6 +400,12 @@ select.fi {
 
 @media screen and (max-width: 860px) {
   .pv-sheet { transform-origin: top center; transform: scale(0.75); margin-bottom: -37mm; }
+}
+@media screen and (max-width: 600px) {
+  .pv-sheet { transform: scale(0.55); margin-bottom: -89mm; }
+}
+@media screen and (max-width: 400px) {
+  .pv-sheet { transform: scale(0.42); margin-bottom: -121mm; }
 }
 
 /* A5 landscape sheet: 210 ? 148mm */

@@ -17,28 +17,70 @@
 <header class="nav">
   <div class="page-inner">
     <div class="nav-brand">
-      <div class="nav-logo">🐾</div>
+      <a href="index.html" class="nav-logo" aria-label="回到首頁">🐾</a>
       <div>
         <div class="nav-title">宜加寵物生活館</div>
         <div class="nav-sub">YI JIA FORM CENTER</div>
       </div>
     </div>
-    <nav class="nav-links">
+    <nav class="nav-links" id="navLinks">
       <a href="index.html" class="nav-link active">🏠 首頁 <span class="nav-dot"></span></a>
       <a href="./forms/leave_request_form.html" class="nav-link">📅 請假單</a>
       <a href="./forms/payment_request_form.html" class="nav-link">📋 請款單</a>
     </nav>
+    <button class="nav-hamburger" id="navHamburger" aria-label="選單" aria-expanded="false" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+<div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
 
 <!-- HERO BANNER -->
 <div class="hero-banner">
-  <img src="./assets/images/branding/form-center-hero-banner.png" alt="宜加寵物生活館 表單填寫中心">
+  <picture>
+    <source media="(max-width: 480px)" srcset="./assets/images/branding/form-center-hero-banner-mobile.png">
+    <img src="./assets/images/branding/form-center-hero-banner-desktop.png" alt="宜加寵物生活館 表單填寫中心">
+  </picture>
 </div>
 
 
 <!-- MAIN -->
 <main class="idx-main">
+
+  <!-- PROFILE MANAGER -->
+  <div class="sec-head">
+    <div class="sec-head-icon">👤</div>
+    <div>
+      <h2>個人資料記憶庫</h2>
+      <p>儲存於瀏覽器，填寫表單時自動帶入</p>
+    </div>
+  </div>
+
+  <div class="pm-wrap">
+    <div id="pm-empty" class="pm-empty" style="display:none">尚無記錄，請新增第一筆資料。</div>
+    <div id="pm-list" class="pm-list"></div>
+
+    <div id="pm-form" class="pm-form">
+      <div class="pm-form-fields">
+        <div class="fg">
+          <label class="flabel">姓名 <span class="req">*</span></label>
+          <input id="pm-name" type="text" class="fi" placeholder="員工姓名">
+        </div>
+        <div class="fg">
+          <label class="flabel">單位 <span class="req">*</span></label>
+          <input id="pm-dept" type="text" class="fi" placeholder="所屬部門">
+        </div>
+        <div class="fg">
+          <label class="flabel">職稱</label>
+          <input id="pm-title" type="text" class="fi" placeholder="例：行銷專員">
+        </div>
+      </div>
+      <div class="pm-form-actions">
+        <button id="pm-add-btn" class="btn pm-save-btn">新增</button>
+        <button id="pm-cancel-btn" class="btn pm-cancel-btn" style="display:none">取消</button>
+      </div>
+    </div>
+  </div>
 
   <!-- FORM LIST -->
   <div class="sec-head">
@@ -187,5 +229,19 @@
 </footer>
 
 </div><!-- /.page-wrap -->
+<script src="./assets/js/profile-store.js"></script>
+<script src="./assets/js/profile-manager.js"></script>
+<script>
+function toggleNav() {
+  const open = document.getElementById('navLinks').classList.toggle('nav-links--open');
+  document.getElementById('navOverlay').classList.toggle('nav-overlay--show', open);
+  document.getElementById('navHamburger').setAttribute('aria-expanded', open);
+}
+function closeNav() {
+  document.getElementById('navLinks').classList.remove('nav-links--open');
+  document.getElementById('navOverlay').classList.remove('nav-overlay--show');
+  document.getElementById('navHamburger').setAttribute('aria-expanded', false);
+}
+</script>
 </body>
 </html>
