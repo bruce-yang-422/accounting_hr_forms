@@ -575,3 +575,9 @@ select.fi {
 .cbox-item input[type="checkbox"] { accent-color: var(--c-accent); width: 13px; height: 13px; margin: 0; }
 .cbox-item.checked { border-color: var(--c-accent); background: var(--c-blue-light); color: var(--c-blue); font-weight: 600; }
 
+/* Radio pills — mobile grid (must come after .rg / .rpill base definitions) */
+@media (max-width: 480px) {
+  .rg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .rpill { justify-content: center; padding: 8px 6px; font-size: 12px; border-radius: 10px; }
+}
+

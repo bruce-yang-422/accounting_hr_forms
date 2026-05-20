@@ -6,13 +6,17 @@
 │   │   └── 🎨 styles.css
 │   ├── 📂 images
 │   │   └── 📂 branding
-│   │       └── 🖼️ form-center-hero-banner.png
+│   │       ├── 🖼️ form-center-hero-banner-desktop.png
+│   │       └── 🖼️ form-center-hero-banner-mobile.png
 │   └── 📂 js
 │       ├── 📂 data
 │       │   └── 🟨 leave_reason_library.js
-│       └── 📂 forms
-│           ├── 🟨 leave_request_form.js
-│           └── 🟨 payment_request_form.js
+│       ├── 📂 forms
+│       │   ├── 🟨 leave_request_form.js
+│       │   └── 🟨 payment_request_form.js
+│       ├── 🟨 profile-autofill.js
+│       ├── 🟨 profile-manager.js
+│       └── 🟨 profile-store.js
 ├── 📂 docs
 │   └── 📄 project_tree_structure.txt
 ├── 📂 forms
@@ -20,7 +24,7 @@
 │   └── 🌐 payment_request_form.html
 ├── 📂 scripts
 │   └── 🐍 project_tree_structure_generator.py
+├── 🌐 404.html
 ├── 📖 README.md
 ├── 🌐 index.html
-├── 📄 project_tree_structure.txt
 └── 📋 requirements.txt

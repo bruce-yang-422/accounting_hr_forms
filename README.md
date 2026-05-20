@@ -1,80 +1,119 @@
 # accounting_hr_forms
 
-內部表單專案，現階段以靜態 HTML 表單為主，提供首頁入口、請假單與請款單的填寫、預覽與列印流程。
+靜態前端表單專案，提供「首頁入口、個人資料記憶庫、請假單、請款單、列印預覽」完整流程，並已部署到 GitHub Pages。
 
-## 前端網站
+## 網站入口
 
 - GitHub Pages：<https://bruce-yang-422.github.io/accounting_hr_forms/>
+
+## 目前功能
+
+- 首頁入口：集中進入請假單與請款單。
+- 個人資料記憶庫：在首頁維護姓名、單位、職稱，資料儲存在瀏覽器 `localStorage`。
+- 表單自動帶入：請假單與請款單會自動帶入預設個人資料。
+- 請假單：支援假別切換、理由範本、時間計算、列印預覽。
+- 請款單：支援填寫、預覽與列印輸出。
+- 404 頁：GitHub Pages 找不到頁面時可回首頁或直接進表單。
 
 ## 專案結構
 
 ```text
-📁 accounting_hr_forms
-├── 📁 .venv
-├── 📂 assets
-│   ├── 📂 css
-│   │   ├── 🎨 index.css
-│   │   └── 🎨 styles.css
-│   ├── 📂 images
-│   │   └── 📂 branding
-│   │       └── 🖼️ form-center-hero-banner.png
-│   └── 📂 js
-│       ├── 📂 data
-│       │   └── 🟨 leave_reason_library.js
-│       └── 📂 forms
-│           ├── 🟨 leave_request_form.js
-│           └── 🟨 payment_request_form.js
-├── 📂 docs
-│   └── 📄 project_tree_structure.txt
-├── 📂 forms
-│   ├── 🌐 leave_request_form.html
-│   └── 🌐 payment_request_form.html
-├── 📂 scripts
-│   └── 🐍 project_tree_structure_generator.py
-├── 📖 README.md
-├── 🌐 index.html
-└── 📋 requirements.txt
+accounting_hr_forms/
+├─ 404.html
+├─ index.html
+├─ README.md
+├─ requirements.txt
+├─ assets/
+│  ├─ css/
+│  │  ├─ index.css
+│  │  └─ styles.css
+│  ├─ images/
+│  │  └─ branding/
+│  │     ├─ form-center-hero-banner-desktop.png
+│  │     └─ form-center-hero-banner-mobile.png
+│  └─ js/
+│     ├─ data/
+│     │  └─ leave_reason_library.js
+│     ├─ forms/
+│     │  ├─ leave_request_form.js
+│     │  └─ payment_request_form.js
+│     ├─ profile-autofill.js
+│     ├─ profile-manager.js
+│     └─ profile-store.js
+├─ docs/
+│  └─ project_tree_structure.txt
+├─ forms/
+│  ├─ leave_request_form.html
+│  └─ payment_request_form.html
+└─ scripts/
+   └─ project_tree_structure_generator.py
 ```
 
-## 為什麼這樣分
+## 檔案分工
 
-- `forms/`：放各張表單頁面，之後新增 `purchase_order.html`、`travel_request.html` 會很直覺。
-- `assets/css/`：集中共用樣式。
-- `assets/images/`：首頁橫幅、品牌圖與其他靜態圖片。
-- `assets/js/forms/`：每張表單自己的互動邏輯。
-- `assets/js/data/`：純資料檔，例如請假理由範本庫，避免主程式過大。
-- `assets/`：共用樣式、資料檔與靜態素材。
-- `docs/`：規格、專案樹等文件。
-- `scripts/`：輔助腳本與開發工具。
+- `index.html`
+  - 首頁與表單入口。
+  - 包含個人資料記憶庫介面。
 
-這種分法接近常見的小型前端或靜態網站專案結構，夠清楚，也不會過度複雜。
+- `forms/leave_request_form.html`
+  - 請假單頁面。
+  - 載入請假單邏輯、理由範本資料、自動帶入資料功能。
 
-## 使用方式
+- `forms/payment_request_form.html`
+  - 請款單頁面。
+  - 載入請款單邏輯與自動帶入資料功能。
 
-直接開啟首頁：
+- `assets/css/styles.css`
+  - 共用樣式，供首頁以外與列印版型使用。
+
+- `assets/css/index.css`
+  - 首頁專用樣式。
+
+- `assets/js/data/leave_reason_library.js`
+  - 請假理由範本資料庫，與主邏輯分離，方便維護。
+
+- `assets/js/forms/leave_request_form.js`
+  - 請假單互動邏輯。
+
+- `assets/js/forms/payment_request_form.js`
+  - 請款單互動邏輯。
+
+- `assets/js/profile-store.js`
+  - 個人資料的 `localStorage` 存取封裝。
+
+- `assets/js/profile-manager.js`
+  - 首頁「個人資料記憶庫」介面邏輯。
+
+- `assets/js/profile-autofill.js`
+  - 進入表單頁時，自動將預設個人資料帶入欄位。
+
+- `scripts/project_tree_structure_generator.py`
+  - 專案樹產生器。
+  - 預設輸出到 `docs/project_tree_structure.txt`。
+
+## 本機使用方式
+
+最簡單方式是直接開啟：
 
 ```text
 index.html
 ```
 
-或直接進入表單：
+也可以直接進入單一表單：
 
 ```text
 forms/leave_request_form.html
 forms/payment_request_form.html
 ```
 
-## 已有表單
+## 技術說明
 
-- `forms/leave_request_form.html`：請假單
-- `forms/payment_request_form.html`：請款單
+- 前端型態：純靜態 HTML / CSS / JavaScript
+- 部署方式：GitHub Pages
+- 字型：Google Fonts `Noto Sans TC`
+- 個人資料儲存：瀏覽器 `localStorage`
 
-## 資料檔維護
+## 補充
 
-請假單的範本庫已獨立到：
-
-```text
-assets/js/data/leave_reason_library.js
-```
-
-之後如果要新增或修改範本，直接改這個檔案即可，不需要碰表單主邏輯。
+- `requirements.txt` 目前保留於 repo 中，但本專案現階段主要交付物是靜態前端頁面，不是 Python Web 應用。
+- `docs/project_tree_structure.txt` 可由 `scripts/project_tree_structure_generator.py` 重新產生。

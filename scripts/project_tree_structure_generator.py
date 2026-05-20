@@ -4,14 +4,15 @@
 File: project_tree_structure_generator.py
 用途: 增強版目錄樹生成器
 說明: 簡單的專案目錄樹結構生成工具，建立專案資料夾結構的視覺化表示
-     將目錄樹結構儲存到 project_tree_structure.txt，適用於文件記錄和專案結構概覽
+     將目錄樹結構儲存到 docs/project_tree_structure.txt，適用於文件記錄和專案結構概覽
      自動掃描專案資料夾並生成層級式目錄結構
-重要提醒: 輸出檔案為根目錄的 project_tree_structure.txt
+重要提醒: 預設輸出檔案為 docs/project_tree_structure.txt
 Authors: 楊翔志 & AI Collective
 Studio: tranquility-base
 版本: 1.1 (2025-07-14)
 """
 import os
+import sys
 import argparse
 from pathlib import Path
 
@@ -28,6 +29,17 @@ EXCLUDE_FILES = {
     '.gitignore', '.DS_Store', 'Thumbs.db', '.env', '.env.local',
     '.coverage', '.pyc', '.pyo', '.pyd', '.log', '.tmp', '.cache'
 }
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = SCRIPT_DIR.parent
+DEFAULT_OUTPUT = PROJECT_ROOT / 'docs' / 'project_tree_structure.txt'
+
+def safe_print(message):
+    """在 Windows cp950 終端機下也能安全輸出 Unicode 文字。"""
+    try:
+        print(message)
+    except UnicodeEncodeError:
+        sys.stdout.buffer.write((message + '\n').encode('utf-8', errors='replace'))
 
 def get_file_emoji(filename):
     """根據檔案類型返回對應的 emoji"""
@@ -255,17 +267,18 @@ def count_items(root, max_depth=None, current_depth=0):
 
 def main():
     parser = argparse.ArgumentParser(description='生成目錄樹結構')
-    parser.add_argument('-o', '--output', default='project_tree_structure.txt', help='輸出檔案名稱')
+    parser.add_argument('-o', '--output', default=str(DEFAULT_OUTPUT), help='輸出檔案名稱')
     parser.add_argument('-s', '--size', action='store_true', help='顯示檔案大小')
     parser.add_argument('-d', '--depth', type=int, help='最大深度限制')
-    parser.add_argument('-p', '--path', default='.', help='指定掃描路徑')
+    parser.add_argument('-p', '--path', default=str(PROJECT_ROOT), help='指定掃描路徑')
     parser.add_argument('--stats', action='store_true', help='顯示統計資訊')
     
     args = parser.parse_args()
     
     root_path = os.path.abspath(args.path)
+    output_path = Path(args.output).resolve()
     if not os.path.exists(root_path):
-        print(f"錯誤：路徑 '{args.path}' 不存在")
+        safe_print(f"錯誤：路徑 '{args.path}' 不存在")
         return
     
     folder_name = os.path.basename(root_path)
@@ -273,7 +286,9 @@ def main():
         folder_name = root_path
     
     try:
-        with open(args.output, "w", encoding="utf-8") as f:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        with open(output_path, "w", encoding="utf-8") as f:
             # 寫入標題
             f.write(f"📁 {folder_name}\n")
             
@@ -288,14 +303,14 @@ def main():
                 f.write(f"📄 檔案數量: {files}\n")
                 f.write(f"📋 總計: {dirs + files} 個項目\n")
         
-        print(f"🌳 樹狀圖已輸出到 {args.output}（根目錄為：{folder_name}）")
+        safe_print(f"🌳 樹狀圖已輸出到 {output_path}（根目錄為：{folder_name}）")
         
         if args.stats:
             dirs, files = count_items(root_path, args.depth)
-            print(f"📊 統計：{dirs} 個目錄，{files} 個檔案")
+            safe_print(f"📊 統計：{dirs} 個目錄，{files} 個檔案")
             
     except Exception as e:
-        print(f"錯誤：無法寫入檔案 {args.output}: {str(e)}")
+        safe_print(f"錯誤：無法寫入檔案 {output_path}: {str(e)}")
 
 if __name__ == "__main__":
     main()
