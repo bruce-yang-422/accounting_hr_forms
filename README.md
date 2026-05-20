@@ -9,30 +9,31 @@
 ## 專案結構
 
 ```text
-accounting_hr_forms/
-├─ assets/
-│  ├─ css/
-│  │  ├─ index.css
-│  │  └─ styles.css
-│  ├─ images/
-│  │  └─ branding/
-│  │     └─ form-center-hero-banner.png
-│  └─ js/
-│     ├─ data/
-│     │  └─ leave_reason_library.js
-│     └─ forms/
-│        ├─ leave_request_form.js
-│        └─ payment_request_form.js
-├─ docs/
-│  └─ project_tree_structure.txt
-├─ forms/
-│  ├─ leave_request_form.html
-│  └─ payment_request_form.html
-├─ scripts/
-│  └─ project_tree_structure_generator.py
-├─ index.html
-├─ README.md
-└─ requirements.txt
+📁 accounting_hr_forms
+├── 📁 .venv
+├── 📂 assets
+│   ├── 📂 css
+│   │   ├── 🎨 index.css
+│   │   └── 🎨 styles.css
+│   ├── 📂 images
+│   │   └── 📂 branding
+│   │       └── 🖼️ form-center-hero-banner.png
+│   └── 📂 js
+│       ├── 📂 data
+│       │   └── 🟨 leave_reason_library.js
+│       └── 📂 forms
+│           ├── 🟨 leave_request_form.js
+│           └── 🟨 payment_request_form.js
+├── 📂 docs
+│   └── 📄 project_tree_structure.txt
+├── 📂 forms
+│   ├── 🌐 leave_request_form.html
+│   └── 🌐 payment_request_form.html
+├── 📂 scripts
+│   └── 🐍 project_tree_structure_generator.py
+├── 📖 README.md
+├── 🌐 index.html
+└── 📋 requirements.txt
 ```
 
 ## 為什麼這樣分
