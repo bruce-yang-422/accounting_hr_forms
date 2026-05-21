@@ -442,6 +442,7 @@ select.fi {
   #fillPage    { display: none !important; }
   #previewPage { display: block !important; min-height: auto !important; }
   .pv-toolbar  { display: none !important; }
+  .no-print    { display: none !important; }
   .pv-outer    { padding: 0 !important; background: #fff !important; min-height: auto !important; }
   .pv-sheet    { box-shadow: none !important; color: #000 !important; }
 

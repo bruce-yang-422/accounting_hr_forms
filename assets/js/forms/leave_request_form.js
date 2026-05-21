@@ -6,6 +6,14 @@ function onRadio(el) {
   if (el.name === 'leaveType') {
     const previousLeaveType = window.__lastLeaveType || '';
     const isLeaveTypeChanged = previousLeaveType !== el.value;
+    const remark = document.getElementById('remark');
+    if (isLeaveTypeChanged && (!remark || !remark.value.trim() || remark.value.trim() === (window.__autoPolicyRemarkText || ''))) {
+      window.__remarkUserEdited = false;
+    }
+    const note = document.getElementById('note');
+    if (isLeaveTypeChanged && (!note || !note.value.trim() || note.value.trim() === (window.__autoPolicyNoteText || ''))) {
+      window.__noteUserEdited = false;
+    }
     const showOther = el.value === 'other';
     const group = document.getElementById('leaveTypeOtherGroup');
     if (group) group.style.display = showOther ? '' : 'none';
@@ -230,10 +238,11 @@ function syncPolicyRemark() {
     return;
   }
 
-  if (!currentText || currentText === previousText || isSampleRemark(currentText)) {
+  if (!window.__remarkUserEdited || currentText === previousText) {
     remark.value = nextText;
-    window.__autoPolicyRemarkText = nextText;
+    window.__remarkUserEdited = false;
   }
+  window.__autoPolicyRemarkText = nextText;
 }
 
 function getPolicyNoteText() {
@@ -254,7 +263,7 @@ function getPolicyNoteText() {
       : '喪假天數請依與逝者關係判定；如分次申請，剩餘可請日數請依既有使用情形確認。';
   }
 
-  return DEFAULT_NOTE_TEXT;
+  return '';
 }
 
 function syncPolicyNote() {
@@ -262,13 +271,22 @@ function syncPolicyNote() {
   if (!note) return;
 
   const nextText = getPolicyNoteText();
-  const previousText = window.__autoPolicyNoteText || DEFAULT_NOTE_TEXT;
+  const previousText = window.__autoPolicyNoteText || '';
   const currentText = note.value.trim();
 
-  if (!currentText || currentText === previousText || currentText === DEFAULT_NOTE_TEXT) {
-    note.value = nextText;
-    window.__autoPolicyNoteText = nextText;
+  if (!nextText) {
+    if (currentText === previousText) {
+      note.value = '';
+    }
+    window.__autoPolicyNoteText = '';
+    return;
   }
+
+  if (!window.__noteUserEdited || currentText === previousText) {
+    note.value = nextText;
+    window.__noteUserEdited = false;
+  }
+  window.__autoPolicyNoteText = nextText;
 }
 
 function getRadioValue(name) {
@@ -405,9 +423,10 @@ function clearForm() {
   document.getElementById('leaveTypeOtherGroup').style.display = 'none';
   document.getElementById('proofNoteGroup').style.display = 'none';
   document.getElementById('reqDate').value = today();
-  document.getElementById('note').value = DEFAULT_NOTE_TEXT;
   window.__autoPolicyRemarkText = '';
-  window.__autoPolicyNoteText = DEFAULT_NOTE_TEXT;
+  window.__remarkUserEdited = false;
+  window.__autoPolicyNoteText = '';
+  window.__noteUserEdited = false;
   window.__reasonUserEdited = false;
   syncPrintHeader();
 }
@@ -537,9 +556,6 @@ function applyReasonPreset(value) {
 
   window.__reasonUserEdited = false;
   document.getElementById('reason').value = sample.reason;
-  if (!getText('remark')) {
-    document.getElementById('remark').value = sample.remark;
-  }
 }
 
 function handleReasonInput() {
@@ -701,11 +717,19 @@ document.getElementById('endDate').addEventListener('input', updateLeaveSummary)
   document.getElementById(id).addEventListener('change', updateLeaveSummary);
 });
 document.getElementById('reason').addEventListener('input', handleReasonInput);
+document.getElementById('remark').addEventListener('input', () => {
+  window.__remarkUserEdited = true;
+});
+document.getElementById('note').addEventListener('input', () => {
+  window.__noteUserEdited = true;
+});
 
 const DEFAULT_NOTE_TEXT = '請假須經獲批准後始生效，假滿後請準時上班';
 document.getElementById('reqDate').value = today();
-document.getElementById('note').value = DEFAULT_NOTE_TEXT;
-window.__autoPolicyNoteText = DEFAULT_NOTE_TEXT;
+window.__autoPolicyRemarkText = '';
+window.__remarkUserEdited = false;
+window.__autoPolicyNoteText = '';
+window.__noteUserEdited = false;
 refreshReasonPresets();
 updateReasonRequirement();
 updateLeaveTypeTip();
