@@ -100,10 +100,21 @@ function getDefaultReasonForLeaveType(leaveType) {
 
 function resetReasonForLeaveType(leaveType) {
   const reasonField = document.getElementById('reason');
-  setReasonMode('manual', { clearPresetSelection: true });
+  const newDefault = getDefaultReasonForLeaveType(leaveType);
 
+  if (window.__reasonUserEdited && reasonField && reasonField.value.trim()) {
+    if (confirm('您已手動編輯請假事由，是否保留原本內容？')) {
+      // 保留事由，只切換假別模式
+      window.__reasonUserEdited = false;
+      setReasonMode('manual', { clearPresetSelection: true });
+      return;
+    }
+  }
+
+  window.__reasonUserEdited = false;
+  setReasonMode('manual', { clearPresetSelection: true });
   if (reasonField) {
-    reasonField.value = getDefaultReasonForLeaveType(leaveType);
+    reasonField.value = newDefault;
   }
 }
 
@@ -314,8 +325,38 @@ function calculateLeaveUnits() {
   start.setHours(startHour, startMinute, 0, 0);
   end.setHours(endHour, endMinute, 0, 0);
 
-  const diffMinutes = Math.round((end - start) / (1000 * 60));
-  if (diffMinutes <= 0 || diffMinutes % 30 !== 0) {
+  const rawDiffMinutes = Math.round((end - start) / (1000 * 60));
+  if (rawDiffMinutes <= 0 || rawDiffMinutes % 30 !== 0) {
+    return { days: '', hours: '', minutes: '', units: null, invalid: true };
+  }
+
+  // 逐日計算與午休（13:00–14:00）重疊的分鐘數並扣除
+  const LUNCH_START = 13 * 60; // 780 分
+  const LUNCH_END   = 14 * 60; // 840 分
+  let lunchDeduction = 0;
+  const cursor = new Date(start);
+  cursor.setHours(0, 0, 0, 0);
+  const endDay = new Date(end);
+  endDay.setHours(0, 0, 0, 0);
+
+  while (cursor <= endDay) {
+    const isSameAsStart = cursor.toDateString() === start.toDateString();
+    const isSameAsEnd   = cursor.toDateString() === end.toDateString();
+    const daySliceStart = isSameAsStart ? (startHour * 60 + startMinute) : 0;
+    const daySliceEnd   = isSameAsEnd   ? (endHour   * 60 + endMinute)   : 24 * 60;
+
+    // 與午休重疊的分鐘
+    const overlapStart = Math.max(daySliceStart, LUNCH_START);
+    const overlapEnd   = Math.min(daySliceEnd,   LUNCH_END);
+    if (overlapEnd > overlapStart) {
+      lunchDeduction += overlapEnd - overlapStart;
+    }
+
+    cursor.setDate(cursor.getDate() + 1);
+  }
+
+  const diffMinutes = rawDiffMinutes - lunchDeduction;
+  if (diffMinutes <= 0) {
     return { days: '', hours: '', minutes: '', units: null, invalid: true };
   }
 
@@ -367,6 +408,7 @@ function clearForm() {
   document.getElementById('note').value = DEFAULT_NOTE_TEXT;
   window.__autoPolicyRemarkText = '';
   window.__autoPolicyNoteText = DEFAULT_NOTE_TEXT;
+  window.__reasonUserEdited = false;
   syncPrintHeader();
 }
 
@@ -493,6 +535,7 @@ function applyReasonPreset(value) {
   const sample = sampleLibrary.find((item) => item.label === value);
   if (!sample) return;
 
+  window.__reasonUserEdited = false;
   document.getElementById('reason').value = sample.reason;
   if (!getText('remark')) {
     document.getElementById('remark').value = sample.remark;
@@ -500,6 +543,8 @@ function applyReasonPreset(value) {
 }
 
 function handleReasonInput() {
+  window.__reasonUserEdited = true;
+
   const leaveType = getRadioValue('leaveType');
   const currentMode = getRadioValue('reasonMode');
   const preset = document.getElementById('reasonPreset');

@@ -2,7 +2,7 @@
  * profile-store.js
  * Shared localStorage helper for personal profile data.
  * Schema: { profiles: Profile[], defaultId: string|null }
- * Profile: { id, name, department, jobTitle, isDefault }
+ * Profile: { id, name, department, jobTitle, agent, contactPhone, isDefault }
  */
 
 const ProfileStore = (() => {
