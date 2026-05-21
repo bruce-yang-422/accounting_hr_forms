@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>找不到頁面</title>
-<meta http-equiv="refresh" content="5; url=./index.html">
-<link rel="icon" href="./assets/images/branding/form-center.ico" type="image/x-icon">
+<title>找不到頁面｜表單填寫中心</title>
+<meta http-equiv="refresh" content="5; url=/">
+<link rel="icon" href="/assets/images/branding/form-center.ico" type="image/x-icon">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -14,12 +14,10 @@
     --c-navy: #7a3b10;
     --c-accent: #d4702a;
     --c-bg: #fdf5ef;
-    --c-card: #ffffff;
     --c-text: #4a2800;
     --c-muted: #9a6a4a;
     --c-border: #ead9cc;
     --c-head-grad: linear-gradient(135deg, #8b3e10 0%, #e07830 100%);
-    --shadow: 0 8px 28px rgba(139,62,16,.14);
   }
 
   * { box-sizing: border-box; }
@@ -27,124 +25,131 @@
   body {
     margin: 0;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
     font-family: "Noto Sans TC", -apple-system, "Segoe UI", "Microsoft JhengHei", sans-serif;
     color: var(--c-text);
     background:
-      radial-gradient(circle at top right, rgba(212,112,42,.12), transparent 32%),
+      radial-gradient(circle at 50% 32%, rgba(255,255,255,.92) 0%, rgba(255,255,255,.72) 34%, rgba(255,255,255,0) 62%),
       linear-gradient(180deg, #fffaf6 0%, var(--c-bg) 100%);
   }
 
-  .card {
-    width: min(680px, 100%);
-    background: var(--c-card);
-    border: 1.5px solid var(--c-border);
-    border-radius: 18px;
-    box-shadow: var(--shadow);
-    overflow: hidden;
+  .page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 20px 34px;
   }
 
-  .card-head {
-    padding: 18px 24px;
-    background: var(--c-head-grad);
-    color: #fff;
+  .scene {
+    width: min(980px, 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .card-head h1 {
-    margin: 0;
-    font-size: 28px;
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    color: var(--c-navy);
+    font-size: 14px;
     font-weight: 800;
     letter-spacing: .04em;
   }
 
-  .card-head p {
-    margin: 6px 0 0;
-    font-size: 13px;
-    opacity: .82;
+  .brand img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
   }
 
-  .card-body {
-    padding: 28px 24px 24px;
-  }
-
-  .code {
-    font-size: 56px;
-    line-height: 1;
-    font-weight: 800;
-    color: var(--c-accent);
-    margin-bottom: 16px;
+  .not-found-art {
+    width: clamp(320px, 72vw, 760px);
+    max-width: 100%;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 18px 24px rgba(122,59,16,.12));
   }
 
   .message {
-    font-size: 16px;
-    line-height: 1.8;
-    margin-bottom: 18px;
+    width: min(620px, 100%);
+    margin-top: -4px;
+    padding: 16px 18px 18px;
+    text-align: center;
   }
 
-  .hint {
-    font-size: 13px;
+  .message h1 {
+    margin: 0;
+    color: var(--c-navy);
+    font-size: 24px;
+    font-weight: 800;
+  }
+
+  .message p {
+    margin: 6px 0 0;
     color: var(--c-muted);
-    margin-bottom: 22px;
-  }
-
-  .actions {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+    font-size: 13.5px;
+    line-height: 1.7;
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 146px;
-    padding: 11px 18px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 700;
-    transition: .18s ease;
-  }
-
-  .btn-primary {
+    min-width: 132px;
+    margin-top: 14px;
+    padding: 10px 18px;
+    border-radius: 8px;
     background: var(--c-head-grad);
     color: #fff;
-  }
-
-  .btn-secondary {
-    background: #fff7f2;
-    color: var(--c-navy);
-    border: 1.5px solid var(--c-border);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 800;
+    box-shadow: 0 8px 18px rgba(139,62,16,.18);
+    transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
   }
 
   .btn:hover {
     transform: translateY(-1px);
+    filter: brightness(1.04);
+    box-shadow: 0 10px 22px rgba(139,62,16,.22);
+  }
+
+  .redirect-note {
+    margin-top: 10px;
+    color: var(--c-muted);
+    font-size: 12px;
+  }
+
+  @media (max-width: 700px) {
+    .page { padding: 22px 14px 28px; }
+    .brand { margin-bottom: 4px; }
+    .not-found-art { width: min(100%, 520px); }
+    .message {
+      margin-top: 0;
+      padding: 12px 8px 14px;
+    }
+    .message h1 { font-size: 21px; }
   }
 </style>
 </head>
 <body>
-  <main class="card">
-    <div class="card-head">
-      <h1>表單填寫中心</h1>
-      <p>表單填寫中心</p>
-    </div>
-    <div class="card-body">
-      <div class="code">404</div>
-      <div class="message">
-        找不到您要前往的頁面。<br>
-        可能是網址有誤、頁面已移動，或您直接開啟了不存在的連結。
+  <main class="page">
+    <div class="scene">
+      <div class="brand">
+        <img src="/assets/images/branding/form-center.ico" alt="">
+        <span>表單填寫中心</span>
       </div>
-      <div class="hint">
-        系統將於 5 秒後自動返回首頁，您也可以直接使用下方按鈕。
-      </div>
-      <div class="actions">
-        <a class="btn btn-primary" href="./index.html">回到首頁</a>
-        <a class="btn btn-secondary" href="./forms/leave_request_form.html">前往請假單</a>
-        <a class="btn btn-secondary" href="./forms/payment_request_form.html">前往請款單</a>
-      </div>
+
+      <img class="not-found-art" src="/assets/images/branding/not-found-cats-dogs.png" alt="找不到頁面的貓狗插圖">
+
+      <section class="message" aria-labelledby="notFoundTitle">
+        <h1 id="notFoundTitle">找不到這個頁面</h1>
+        <p>網址可能輸入錯誤，或頁面已經移動。系統會自動帶你回到首頁。</p>
+        <a class="btn" href="/">回到首頁</a>
+        <div class="redirect-note">5 秒後自動返回首頁</div>
+      </section>
     </div>
   </main>
 </body>

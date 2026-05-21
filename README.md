@@ -4,7 +4,8 @@
 
 ## 網站入口
 
-- GitHub Pages：<https://bruce-yang-422.github.io/accounting_hr_forms/>
+- 正式網址：<https://office-forms.stack-base.com/>
+- GitHub Pages 原始網址：<https://bruce-yang-422.github.io/accounting_hr_forms/>
 
 ## 目前功能
 
@@ -53,7 +54,8 @@ accounting_hr_forms/
 │  │  └─ branding/
 │  │     ├─ form-center.ico
 │  │     ├─ form-center-hero-banner-desktop.png
-│  │     └─ form-center-hero-banner-mobile.png
+│  │     ├─ form-center-hero-banner-mobile.png
+│  │     └─ not-found-cats-dogs.png
 │  └─ js/
 │     ├─ data/
 │     │  └─ leave_reason_library.js
