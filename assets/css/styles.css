@@ -71,6 +71,12 @@ body {
   font-size: 19px; flex-shrink: 0;
   text-decoration: none;
 }
+.toolbar-logo img {
+  width: 26px;
+  height: 26px;
+  display: block;
+  object-fit: contain;
+}
 a.toolbar-logo { cursor: pointer; }
 a.toolbar-logo:hover { background: rgba(255,255,255,.28); }
 
@@ -180,6 +186,7 @@ a.toolbar-logo:hover { background: rgba(255,255,255,.28); }
   .toolbar-inner { padding: 0 14px; }
   .toolbar-brand p { display: none; }
   .toolbar-logo { width: 32px; height: 32px; font-size: 16px; }
+  .toolbar-logo img { width: 22px; height: 22px; }
   .toolbar-right { gap: 6px; }
   /* Hide "填入範例" and "清除" (2nd & 3rd children), keep Home link + Next button */
   .toolbar-right > :nth-child(2),

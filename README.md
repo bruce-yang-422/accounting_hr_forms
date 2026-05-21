@@ -51,6 +51,7 @@ accounting_hr_forms/
 │  │  └─ styles.css
 │  ├─ images/
 │  │  └─ branding/
+│  │     ├─ form-center.ico
 │  │     ├─ form-center-hero-banner-desktop.png
 │  │     └─ form-center-hero-banner-mobile.png
 │  └─ js/
