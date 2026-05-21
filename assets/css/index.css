@@ -278,6 +278,23 @@ a.nav-logo:hover { background: rgba(255,255,255,.28); }
 }
 .footer-brand-name { font-size: 13px; font-weight: 700; color: var(--c-navy); }
 .footer-brand-copy { font-size: 11.5px; color: var(--c-muted); }
+.footer-links { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.footer-guide-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border: 1px solid var(--c-border);
+  border-radius: 999px;
+  color: var(--c-blue-mid);
+  background: var(--c-blue-light);
+  font-size: 11.5px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.footer-guide-link:hover {
+  border-color: var(--c-accent);
+  background: #fff;
+}
 
 /* PROFILE MANAGER */
 .pm-wrap {

@@ -18,11 +18,30 @@
 - 請款單：支援填寫、預覽與列印輸出。
 - 404 頁：GitHub Pages 找不到頁面時可回首頁或直接進表單。
 
+## 資料保存設計
+
+- 常用資料
+  - 用途：保存常用填表人資料，減少重複輸入。
+  - 保存內容：姓名、單位、職稱、請假時代理人、個人連絡電話。
+  - 使用方式：首頁可新增、編輯、刪除，並可設定預設資料；表單姓名欄旁可從「常用資料」選單手動帶入。
+  - 保存位置：瀏覽器 `localStorage`，資料只存在同一台裝置與同一個瀏覽器。
+
+- 最近紀錄
+  - 用途：保存已準備列印 / 另存 PDF 的表單，方便後續拉回修改。
+  - 保存時機：按下「列印 / 另存 PDF」前自動保存。
+  - 保存上限：每張表單最多 20 筆，超過上限自動移除最舊紀錄。
+
+- 草稿
+  - 用途：保存尚未完成或暫時不列印的表單內容。
+  - 保存方式：使用者手動按「儲存草稿」。
+  - 保存上限：每張表單最多 5 筆，超過上限需先刪除舊草稿。
+
 ## 專案結構
 
 ```text
 accounting_hr_forms/
 ├─ 404.html
+├─ guide.html
 ├─ index.html
 ├─ README.md
 ├─ requirements.txt
@@ -40,6 +59,7 @@ accounting_hr_forms/
 │     ├─ forms/
 │     │  ├─ leave_request_form.js
 │     │  └─ payment_request_form.js
+│     ├─ form-recent-records.js
 │     ├─ profile-autofill.js
 │     ├─ profile-manager.js
 │     └─ profile-store.js
@@ -57,6 +77,10 @@ accounting_hr_forms/
 - `index.html`
   - 首頁與表單入口。
   - 包含常用資料介面。
+
+- `guide.html`
+  - 網站操作說明頁。
+  - 說明常用資料、草稿、最近紀錄、列印流程與資料保存限制。
 
 - `forms/leave_request_form.html`
   - 請假單頁面。
@@ -80,6 +104,11 @@ accounting_hr_forms/
 
 - `assets/js/forms/payment_request_form.js`
   - 請款單互動邏輯。
+
+- `assets/js/form-recent-records.js`
+  - 請假單與請款單共用的最近紀錄與草稿儲存邏輯。
+  - 最近紀錄：列印 / 另存 PDF 前自動保存，每張表單最多 20 筆，超過自動移除最舊資料。
+  - 草稿：使用者手動保存，每張表單最多 5 筆，超過上限需先刪除舊草稿。
 
 - `assets/js/profile-store.js`
   - 個人資料的 `localStorage` 存取封裝。
@@ -115,6 +144,7 @@ forms/payment_request_form.html
 - 部署方式：GitHub Pages
 - 字型：Google Fonts `Noto Sans TC`
 - 個人資料儲存：瀏覽器 `localStorage`
+- 最近紀錄與草稿儲存：瀏覽器 `localStorage`
 
 ## 補充
 

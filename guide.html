@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>操作說明｜表單填寫中心</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/styles.css">
+<link rel="stylesheet" href="./assets/css/index.css">
+<style>
+.guide-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 34px 24px 72px;
+}
+.guide-title {
+  margin-bottom: 22px;
+}
+.guide-title h1 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--c-navy);
+}
+.guide-title p {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--c-muted);
+}
+.guide-section {
+  background: var(--c-card);
+  border: 1.5px solid var(--c-border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 20px 22px;
+  margin-bottom: 16px;
+}
+.guide-section h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--c-navy);
+  margin-bottom: 12px;
+}
+.guide-section h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-blue);
+  margin: 16px 0 8px;
+}
+.guide-section p,
+.guide-section li {
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: var(--c-text);
+}
+.guide-section ul,
+.guide-section ol {
+  padding-left: 22px;
+}
+.guide-section li + li {
+  margin-top: 4px;
+}
+.guide-note {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--c-blue-pale);
+  border-radius: 8px;
+  background: var(--c-blue-light);
+  color: var(--c-navy);
+  font-size: 13px;
+}
+.guide-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.guide-actions .btn-white {
+  background: var(--c-head-grad);
+  color: #fff;
+  border-color: transparent;
+}
+.guide-actions .btn-outline-white {
+  background: #fff;
+  color: var(--c-blue-mid);
+  border-color: var(--c-border-md);
+}
+.guide-actions .btn-outline-white:hover {
+  background: var(--c-blue-light);
+  border-color: var(--c-accent);
+}
+@media (max-width: 480px) {
+  .guide-main { padding: 24px 16px 48px; }
+  .guide-title h1 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<header class="nav">
+  <div class="page-inner">
+    <div class="nav-brand">
+      <a href="index.html" class="nav-logo" aria-label="回到首頁">i</a>
+      <div>
+        <div class="nav-title">操作說明</div>
+        <div class="nav-sub">USER GUIDE</div>
+      </div>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html" class="nav-link">首頁</a>
+      <a href="./forms/leave_request_form.html" class="nav-link">請假單</a>
+      <a href="./forms/payment_request_form.html" class="nav-link">請款單</a>
+    </nav>
+    <button class="nav-hamburger" id="navHamburger" aria-label="選單" aria-expanded="false" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+
+<main class="guide-main">
+  <div class="guide-title">
+    <h1>網站操作說明</h1>
+    <p>本頁說明常用資料、草稿、最近紀錄，以及表單列印流程。</p>
+  </div>
+
+  <section class="guide-section">
+    <h2>基本流程</h2>
+    <ol>
+      <li>在首頁選擇要填寫的表單：請假單或請款單。</li>
+      <li>填寫表單內容，必要欄位會以紅色星號標示。</li>
+      <li>按「下一步」進入預覽畫面。</li>
+      <li>確認內容無誤後，按「列印 / 另存 PDF」。</li>
+      <li>列印前系統會自動保存一筆最近紀錄，方便之後載入修改。</li>
+    </ol>
+  </section>
+
+  <section class="guide-section">
+    <h2>常用資料</h2>
+    <p>常用資料用來保存常用填表人資訊，避免每次重複輸入。</p>
+    <ul>
+      <li>可保存姓名、單位、職稱、請假時代理人、個人連絡電話。</li>
+      <li>首頁可新增、編輯、刪除常用資料，並設定預設資料。</li>
+      <li>進入表單時，預設常用資料會自動帶入可對應欄位。</li>
+      <li>表單姓名欄旁的「常用資料」按鈕，可手動選擇其他常用資料帶入。</li>
+    </ul>
+  </section>
+
+  <section class="guide-section">
+    <h2>草稿</h2>
+    <p>草稿適合保存尚未完成、暫時不列印的表單。</p>
+    <ul>
+      <li>請假單與請款單各自最多保存 5 筆草稿。</li>
+      <li>按「儲存草稿」會保存目前填寫內容。</li>
+      <li>按「草稿」可用編號選擇要載入的草稿。</li>
+      <li>草稿達上限時，系統會要求先刪除舊草稿，才能再新增。</li>
+    </ul>
+  </section>
+
+  <section class="guide-section">
+    <h2>最近紀錄</h2>
+    <p>最近紀錄用來保存已準備列印或另存 PDF 的表單。</p>
+    <ul>
+      <li>按「列印 / 另存 PDF」前會自動保存。</li>
+      <li>請假單與請款單各自最多保存 20 筆最近紀錄。</li>
+      <li>超過 20 筆時，系統會自動移除最舊紀錄。</li>
+      <li>按「最近紀錄」可用編號載入舊資料，再修改、預覽、列印。</li>
+    </ul>
+  </section>
+
+  <section class="guide-section">
+    <h2>資料保存限制</h2>
+    <p>本網站是純靜態前端工具，資料保存在瀏覽器的 localStorage。</p>
+    <div class="guide-note">
+      資料只存在同一台裝置與同一個瀏覽器。清除瀏覽器資料、使用無痕模式、換電腦或換瀏覽器，都可能導致資料無法讀取。
+    </div>
+  </section>
+
+  <div class="guide-actions">
+    <a class="btn btn-white" href="./index.html">回到首頁</a>
+    <a class="btn btn-outline-white" href="./forms/leave_request_form.html">前往請假單</a>
+    <a class="btn btn-outline-white" href="./forms/payment_request_form.html">前往請款單</a>
+  </div>
+</main>
+
+<footer class="idx-footer">
+  <div class="page-inner">
+    <span class="footer-brand-name">表單填寫中心</span>
+    <span class="footer-brand-copy">© 2026 Bruce Yang. All rights reserved.</span>
+  </div>
+</footer>
+</div>
+
+<script>
+function toggleNav() {
+  const open = document.getElementById('navLinks').classList.toggle('nav-links--open');
+  document.getElementById('navOverlay').classList.toggle('nav-overlay--show', open);
+  document.getElementById('navHamburger').setAttribute('aria-expanded', open);
+}
+function closeNav() {
+  document.getElementById('navLinks').classList.remove('nav-links--open');
+  document.getElementById('navOverlay').classList.remove('nav-overlay--show');
+  document.getElementById('navHamburger').setAttribute('aria-expanded', false);
+}
+</script>
+</body>
+</html>
