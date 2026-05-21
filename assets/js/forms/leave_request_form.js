@@ -591,7 +591,6 @@ function validateForm() {
     ['endMinute', '結束分'],
     ['agent', '代理人'],
     ['contactPhone', '聯絡電話'],
-    ['handover', '工作交接說明'],
   ].forEach(([id, label]) => {
     if (!getText(id)) missing.push(label);
   });
