@@ -236,6 +236,8 @@ function onCbox(el) {
 
 function clearForm() {
   if (!confirm('確定要清除所有填寫內容？')) return;
+  window.__currentRecentPaymentRecordId = '';
+  window.__currentPaymentDraftId = '';
 
   document.querySelectorAll('input:not([type="radio"]):not([type="checkbox"]), textarea').forEach((el) => {
     if (el.id === 'attachCount') {
@@ -486,4 +488,69 @@ function buildPreview() {
   }
 }
 
+function getPaymentRecordTitle() {
+  const applicant = gv('applicant') || '未填申請人';
+  const category = gv('acctCategory') || '未填科目';
+  const amount = gv('amtGross') ? 'NT$ ' + fmtNum(gv('amtGross')) : '未填金額';
+  const date = gv('reqDate') || '未填日期';
+  return `${applicant}｜${category}｜${amount}｜${date}`;
+}
+
+function saveRecentPaymentRecord() {
+  const record = FormRecentRecords.save(
+    'payment',
+    getPaymentRecordTitle(),
+    FormRecentRecords.collect(document.getElementById('fillPage')),
+    window.__currentRecentPaymentRecordId || ''
+  );
+  window.__currentRecentPaymentRecordId = record.id;
+}
+
+function printAndSaveRecentPaymentRecord() {
+  saveRecentPaymentRecord();
+  window.print();
+}
+
+function loadRecentPaymentRecord() {
+  const record = FormRecentRecords.pick('payment');
+  if (!record) return;
+
+  restorePaymentFormData(record.data);
+  window.__currentRecentPaymentRecordId = record.id;
+  window.__currentPaymentDraftId = '';
+}
+
+function savePaymentDraft() {
+  const draft = FormRecentRecords.saveDraft(
+    'payment',
+    getPaymentRecordTitle(),
+    FormRecentRecords.collect(document.getElementById('fillPage')),
+    window.__currentPaymentDraftId || ''
+  );
+  if (!draft) return;
+
+  window.__currentPaymentDraftId = draft.id;
+  alert('草稿已儲存。');
+}
+
+function loadPaymentDraft() {
+  const draft = FormRecentRecords.pickDraft('payment');
+  if (!draft) return;
+
+  restorePaymentFormData(draft.data);
+  window.__currentPaymentDraftId = draft.id;
+  window.__currentRecentPaymentRecordId = '';
+}
+
+function restorePaymentFormData(data) {
+  FormRecentRecords.restore(data, document.getElementById('fillPage'));
+  onAmtInput();
+  syncPrintHeader();
+  document.getElementById('previewPage').style.display = 'none';
+  document.getElementById('fillPage').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
 window.addEventListener('beforeprint', syncPrintHeader);
+window.__currentRecentPaymentRecordId = '';
+window.__currentPaymentDraftId = '';

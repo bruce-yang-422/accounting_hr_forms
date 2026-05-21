@@ -409,6 +409,8 @@ function updateLeaveSummary() {
 
 function clearForm() {
   if (!confirm('確定要清除所有填寫內容？')) return;
+  window.__currentRecentLeaveRecordId = '';
+  window.__currentLeaveDraftId = '';
 
   document.querySelectorAll('input:not([type="radio"]), textarea').forEach((el) => {
     el.value = '';
@@ -687,6 +689,95 @@ function buildPreview() {
   setText('pv-note', getText('note'));
 }
 
+function getLeaveRecordTitle() {
+  const leaveTypeMap = {
+    annual: '特休',
+    personal: '事假',
+    sick: '病假',
+    official: '公假',
+    marriage: '婚假',
+    maternity: '產假',
+    menstrual: '生理假',
+    bereavement: '喪假',
+    other: getText('leaveTypeOther') || '其他',
+  };
+  const applicant = getText('applicant') || '未填姓名';
+  const leaveType = leaveTypeMap[getRadioValue('leaveType')] || '未選假別';
+  const date = formatDate(getText('startDate') || getText('reqDate')) || '未填日期';
+  return `${applicant}｜${leaveType}｜${date}`;
+}
+
+function saveRecentLeaveRecord() {
+  const record = FormRecentRecords.save(
+    'leave',
+    getLeaveRecordTitle(),
+    FormRecentRecords.collect(document.getElementById('fillPage')),
+    window.__currentRecentLeaveRecordId || ''
+  );
+  window.__currentRecentLeaveRecordId = record.id;
+}
+
+function printAndSaveRecentLeaveRecord() {
+  saveRecentLeaveRecord();
+  window.print();
+}
+
+function loadRecentLeaveRecord() {
+  const record = FormRecentRecords.pick('leave');
+  if (!record) return;
+
+  restoreLeaveFormData(record.data);
+  window.__currentRecentLeaveRecordId = record.id;
+  window.__currentLeaveDraftId = '';
+}
+
+function saveLeaveDraft() {
+  const draft = FormRecentRecords.saveDraft(
+    'leave',
+    getLeaveRecordTitle(),
+    FormRecentRecords.collect(document.getElementById('fillPage')),
+    window.__currentLeaveDraftId || ''
+  );
+  if (!draft) return;
+
+  window.__currentLeaveDraftId = draft.id;
+  alert('草稿已儲存。');
+}
+
+function loadLeaveDraft() {
+  const draft = FormRecentRecords.pickDraft('leave');
+  if (!draft) return;
+
+  restoreLeaveFormData(draft.data);
+  window.__currentLeaveDraftId = draft.id;
+  window.__currentRecentLeaveRecordId = '';
+}
+
+function restoreLeaveFormData(data) {
+  FormRecentRecords.restore(data, document.getElementById('fillPage'));
+  const savedReasonPreset = data.reasonPreset || '';
+  const savedBereavementRelation = data.bereavementRelation || '';
+  window.__lastLeaveType = getRadioValue('leaveType');
+  window.__reasonUserEdited = false;
+  window.__remarkUserEdited = Boolean(getText('remark'));
+  window.__noteUserEdited = Boolean(getText('note'));
+  refreshReasonPresets();
+  const reasonPreset = document.getElementById('reasonPreset');
+  if (reasonPreset && savedReasonPreset) reasonPreset.value = savedReasonPreset;
+  updateReasonRequirement();
+  updateLeaveTypeTip();
+  const bereavementRelation = document.getElementById('bereavementRelation');
+  if (bereavementRelation && savedBereavementRelation) {
+    bereavementRelation.value = savedBereavementRelation;
+    updateBereavementDays();
+  }
+  updateLeaveSummary();
+  syncPrintHeader();
+  document.getElementById('previewPage').style.display = 'none';
+  document.getElementById('fillPage').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
 function goToPreview() {
   const missing = validateForm();
   if (missing.length) {
@@ -729,6 +820,8 @@ window.__autoPolicyRemarkText = '';
 window.__remarkUserEdited = false;
 window.__autoPolicyNoteText = '';
 window.__noteUserEdited = false;
+window.__currentRecentLeaveRecordId = '';
+window.__currentLeaveDraftId = '';
 refreshReasonPresets();
 updateReasonRequirement();
 updateLeaveTypeTip();

@@ -31,6 +31,15 @@
     <button class="btn btn-outline-white" onclick="clearForm()" title="清除所有欄位">
       🗑 清除
     </button>
+    <button class="btn btn-outline-white" onclick="saveLeaveDraft()" title="儲存目前填寫內容">
+      儲存草稿
+    </button>
+    <button class="btn btn-outline-white" onclick="loadLeaveDraft()" title="載入草稿">
+      草稿
+    </button>
+    <button class="btn btn-outline-white" onclick="loadRecentLeaveRecord()" title="載入最近列印紀錄">
+      最近紀錄
+    </button>
     <button class="btn btn-white" onclick="goToPreview()">
       下一步 →
     </button>
@@ -388,7 +397,7 @@
     </div>
     <div class="pv-toolbar-right">
       <span class="pv-hint">A5 橫向 210 × 148 mm</span>
-      <button class="btn btn-white" onclick="window.print()">🖨 列印 / 另存 PDF</button>
+      <button class="btn btn-white" onclick="printAndSaveRecentLeaveRecord()">🖨 列印 / 另存 PDF</button>
     </div>
   </div>
 
@@ -516,6 +525,7 @@
 </main>
 
 <script src="../assets/js/data/leave_reason_library.js"></script>
+<script src="../assets/js/form-recent-records.js"></script>
 <script src="../assets/js/forms/leave_request_form.js"></script>
 <script src="../assets/js/profile-store.js"></script>
 <script src="../assets/js/profile-autofill.js"></script>

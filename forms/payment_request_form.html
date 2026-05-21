@@ -31,6 +31,15 @@
     <button class="btn btn-outline-white" onclick="clearForm()" title="清除所有欄位">
       🗑 清除
     </button>
+    <button class="btn btn-outline-white" onclick="savePaymentDraft()" title="儲存目前填寫內容">
+      儲存草稿
+    </button>
+    <button class="btn btn-outline-white" onclick="loadPaymentDraft()" title="載入草稿">
+      草稿
+    </button>
+    <button class="btn btn-outline-white" onclick="loadRecentPaymentRecord()" title="載入最近列印紀錄">
+      最近紀錄
+    </button>
     <button class="btn btn-white" onclick="goToPreview()">
       下一步 →
     </button>
@@ -255,12 +264,12 @@
         <div class="fg">
           <label class="flabel">附件類型（可複選）</label>
           <div class="attach-types" id="attachTypes">
-            <label class="cbox-item"><input type="checkbox" value="invoice" onchange="onCbox(this)"> 統一發票</label>
-            <label class="cbox-item"><input type="checkbox" value="receipt" onchange="onCbox(this)"> 收據</label>
-            <label class="cbox-item"><input type="checkbox" value="reqform" onchange="onCbox(this)"> 請款單</label>
-            <label class="cbox-item"><input type="checkbox" value="transfer" onchange="onCbox(this)"> 匯款證明</label>
-            <label class="cbox-item"><input type="checkbox" value="contract" onchange="onCbox(this)"> 合約 / 訂單</label>
-            <label class="cbox-item"><input type="checkbox" value="other" onchange="onCbox(this)"> 其他</label>
+            <label class="cbox-item"><input type="checkbox" name="attachTypes" value="invoice" onchange="onCbox(this)"> 統一發票</label>
+            <label class="cbox-item"><input type="checkbox" name="attachTypes" value="receipt" onchange="onCbox(this)"> 收據</label>
+            <label class="cbox-item"><input type="checkbox" name="attachTypes" value="reqform" onchange="onCbox(this)"> 請款單</label>
+            <label class="cbox-item"><input type="checkbox" name="attachTypes" value="transfer" onchange="onCbox(this)"> 匯款證明</label>
+            <label class="cbox-item"><input type="checkbox" name="attachTypes" value="contract" onchange="onCbox(this)"> 合約 / 訂單</label>
+            <label class="cbox-item"><input type="checkbox" name="attachTypes" value="other" onchange="onCbox(this)"> 其他</label>
           </div>
           <div id="attachOtherRow" style="display:none; margin-top:8px">
             <input type="text" class="fi" id="attachOtherText" placeholder="請補充其他附件說明" style="max-width:320px">
@@ -307,7 +316,7 @@
     </div>
     <div class="pv-toolbar-right">
       <span class="pv-hint">A5 橫向 210 × 148 mm</span>
-      <button class="btn btn-white" onclick="window.print()">🖨 列印 / 另存 PDF</button>
+      <button class="btn btn-white" onclick="printAndSaveRecentPaymentRecord()">🖨 列印 / 另存 PDF</button>
     </div>
   </div>
 
@@ -436,6 +445,7 @@
   </div>
 </div>
 
+<script src="../assets/js/form-recent-records.js"></script>
 <script src="../assets/js/forms/payment_request_form.js"></script>
 <script src="../assets/js/profile-store.js"></script>
 <script src="../assets/js/profile-autofill.js"></script>
