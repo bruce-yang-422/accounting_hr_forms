@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="stylesheet" href="../assets/css/draft-library.css">
 </head>
 <body>
 
@@ -37,8 +38,8 @@
     <button class="btn btn-outline-white" onclick="savePaymentDraft()" title="儲存目前填寫內容">
       儲存草稿
     </button>
-    <button class="btn btn-outline-white" onclick="loadPaymentDraft()" title="載入草稿">
-      草稿
+    <button class="btn btn-outline-white" data-draft-library onclick="loadPaymentDraft()" title="開啟草稿庫，可搜尋、載入、命名及刪除">
+      草稿庫
     </button>
     <button class="btn btn-outline-white" onclick="loadRecentPaymentRecord()" title="載入最近列印紀錄">
       最近紀錄
@@ -170,6 +171,18 @@
         <h2>付款對象與付款方式</h2>
       </div>
       <div class="card-body">
+        <div class="payee-favorites">
+          <label class="flabel" for="payeeFavorite">常用名單</label>
+          <div class="payee-favorites-actions">
+            <select class="fi" id="payeeFavorite" aria-describedby="payeeFavoriteStatus">
+              <option value="">尚無常用名單，填寫後可儲存</option>
+            </select>
+            <button type="button" class="profile-pick-btn" id="savePayeeFavorite">儲存為常用</button>
+            <button type="button" class="profile-pick-btn" id="deletePayeeFavorite" disabled>刪除</button>
+          </div>
+          <p class="payee-favorites-status" id="payeeFavoriteStatus" role="status">選取後帶入戶名、身分、付款方式與匯款資料；名單僅保存在此瀏覽器。</p>
+          <a class="favorites-backup-link" href="../favorites.html#favorites-backup">常用資料 JSON 匯出／匯入</a>
+        </div>
         <div class="frow">
           <div class="fg">
             <label class="flabel">付款對象（戶名）<span class="req">*</span></label>
@@ -450,6 +463,8 @@
 
 <script src="../assets/js/form-recent-records.js"></script>
 <script src="../assets/js/forms/payment_request_form.js"></script>
+<script src="../assets/js/draft-library.js"></script>
+<script src="../assets/js/payee-favorites.js"></script>
 <script src="../assets/js/profile-store.js"></script>
 <script src="../assets/js/profile-autofill.js"></script>
 </body>

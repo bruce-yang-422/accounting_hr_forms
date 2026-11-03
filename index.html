@@ -30,6 +30,7 @@
       <a href="index.html" class="nav-link active">🏠 首頁 <span class="nav-dot"></span></a>
       <a href="./forms/leave_request_form.html" class="nav-link">📅 請假單</a>
       <a href="./forms/payment_request_form.html" class="nav-link">📋 請款單</a>
+      <a href="favorites.html" class="nav-link">常用資料管理</a>
     </nav>
     <button class="nav-hamburger" id="navHamburger" aria-label="選單" aria-expanded="false" onclick="toggleNav()">
       <span></span><span></span><span></span>
@@ -49,49 +50,6 @@
 
 <!-- MAIN -->
 <main class="idx-main">
-
-  <!-- PROFILE MANAGER -->
-  <div class="sec-head">
-    <div class="sec-head-icon">👤</div>
-    <div>
-      <h2>常用資料</h2>
-      <p>儲存於瀏覽器，填寫表單時自動帶入</p>
-    </div>
-  </div>
-
-  <div class="pm-wrap">
-    <div id="pm-empty" class="pm-empty" style="display:none">尚無記錄，請新增第一筆資料。</div>
-    <div id="pm-list" class="pm-list"></div>
-
-    <div id="pm-form" class="pm-form">
-      <div class="pm-form-fields">
-        <div class="fg">
-          <label class="flabel">姓名 <span class="req">*</span></label>
-          <input id="pm-name" type="text" class="fi" placeholder="員工姓名">
-        </div>
-        <div class="fg">
-          <label class="flabel">單位 <span class="req">*</span></label>
-          <input id="pm-dept" type="text" class="fi" placeholder="所屬部門">
-        </div>
-        <div class="fg">
-          <label class="flabel">職稱</label>
-          <input id="pm-title" type="text" class="fi" placeholder="例：行銷專員">
-        </div>
-        <div class="fg">
-          <label class="flabel">請假時代理人</label>
-          <input id="pm-agent" type="text" class="fi" placeholder="代理人姓名">
-        </div>
-        <div class="fg">
-          <label class="flabel">個人連絡電話</label>
-          <input id="pm-phone" type="text" class="fi" placeholder="手機或緊急聯絡電話">
-        </div>
-      </div>
-      <div class="pm-form-actions">
-        <button id="pm-add-btn" class="btn pm-save-btn">新增</button>
-        <button id="pm-cancel-btn" class="btn pm-cancel-btn" style="display:none">取消</button>
-      </div>
-    </div>
-  </div>
 
   <!-- FORM LIST -->
   <div class="sec-head">
@@ -243,8 +201,6 @@
 </footer>
 
 </div><!-- /.page-wrap -->
-<script src="./assets/js/profile-store.js"></script>
-<script src="./assets/js/profile-manager.js"></script>
 <script>
 function toggleNav() {
   const open = document.getElementById('navLinks').classList.toggle('nav-links--open');

@@ -1,6 +1,6 @@
 /**
  * profile-manager.js
- * Drives the profile management UI on index.html.
+ * Drives the profile management UI on favorites.html.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -119,5 +119,9 @@ document.addEventListener('DOMContentLoaded', () => {
     return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
+  window.addEventListener('favorites-imported', () => {
+    resetForm();
+    render();
+  });
   render();
 });

@@ -1,0 +1,56 @@
+.toolbar { height: auto; min-height: 60px; }
+.toolbar-inner { min-height: 60px; flex-wrap: wrap; gap: 10px; padding-top: 10px; padding-bottom: 10px; }
+.toolbar-right { flex-wrap: wrap; max-width: 100%; }
+.draft-session { margin-bottom: 14px; padding: 10px 14px; border-left: 3px solid var(--c-accent); background: var(--c-blue-light); color: var(--c-navy); font-size: 13px; overflow-wrap: anywhere; }
+.draft-dialog { width: min(720px, calc(100% - 28px)); max-height: 88dvh; margin: auto; padding: 0; border: 1px solid var(--c-border); border-radius: 16px; color: var(--c-text); background: var(--c-card); box-shadow: 0 20px 80px #0004; }
+.draft-dialog::backdrop { background: #21130899; }
+html.draft-modal-open { overflow: hidden; }
+.draft-dialog-header { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 22px; background: var(--c-head-grad); color: white; }
+.draft-dialog-header h2 { font-size: 18px; }
+.draft-dialog-content { padding: 0 22px 22px; }
+.draft-dialog-content h3 { font-size: 20px; margin-bottom: 8px; }
+.draft-message { margin: 12px 22px; font-size: 13px; color: var(--c-navy); overflow-wrap: anywhere; }
+.draft-message:empty { margin-top: 0; padding-top: 14px; }
+.draft-hint { font-size: 12px; line-height: 1.6; color: var(--c-muted); margin: 6px 0 12px; }
+.draft-library-summary { display: flex; flex-wrap: wrap; gap: 8px 14px; padding: 12px 0; font-size: 13px; font-weight: 700; }
+.draft-full { color: #a33c12; }
+.draft-library-tools { display: flex; gap: 8px; margin-bottom: 14px; }
+.draft-library-tools input { flex: 1; min-width: 0; min-height: 38px; }
+.draft-library-tools select { width: 150px; }
+.draft-library-list { display: grid; gap: 12px; margin-bottom: 16px; }
+.draft-card { padding: 16px; border: 1px solid var(--c-border); border-radius: 10px; background: #fff; overflow-wrap: anywhere; }
+.draft-card h4 { font-size: 15px; line-height: 1.5; }
+.draft-current { display: inline-block; margin-top: 6px; padding: 2px 7px; background: var(--c-blue-light); color: var(--c-navy); border-radius: 4px; font-size: 11px; }
+.draft-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.draft-button { border: 1px solid var(--c-border-md); border-radius: 7px; min-height: 38px; padding: 7px 13px; background: #fff; color: var(--c-navy); font: inherit; font-size: 13px; cursor: pointer; }
+.draft-button:hover { background: var(--c-blue-light); }
+.draft-button:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; }
+.draft-button-primary { background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
+.draft-button-primary:hover { background: var(--c-navy); color: #fff; }
+.draft-button-danger { color: #a32920; border-color: #e7bcb8; }
+.draft-button:disabled { opacity: .5; cursor: not-allowed; }
+.draft-empty { padding: 32px 18px; border: 1px dashed var(--c-border-md); border-radius: 10px; text-align: center; color: var(--c-muted); font-size: 14px; line-height: 1.8; }
+.draft-details { font-size: 12px; }
+.draft-details summary { cursor: pointer; color: var(--c-navy); }
+.draft-details dl { display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 7px; margin-top: 12px; }
+.draft-details dt { color: var(--c-muted); }
+.draft-details dd { margin: 0; white-space: pre-wrap; }
+.draft-inline:not(:empty) { margin-top: 12px; padding: 12px; border-radius: 8px; background: var(--c-blue-light); }
+.draft-inline p { font-size: 13px; line-height: 1.7; margin-bottom: 8px; }
+.draft-inline .draft-button { margin: 4px 6px 0 0; }
+.draft-rename { display: flex; flex-wrap: wrap; gap: 6px; }
+.draft-rename input { flex-basis: 100%; }
+.draft-save-form .flabel { margin-top: 16px; }
+.draft-save-form > .draft-button { margin-right: 8px; margin-top: 8px; }
+@media (max-width: 480px) {
+  .toolbar { height: auto; }
+  .draft-dialog-header { padding: 14px; }
+  .draft-dialog-content { padding: 0 14px 16px; }
+  .draft-message { margin-right: 14px; margin-left: 14px; }
+  .draft-library-tools { flex-direction: column; }
+  .draft-library-tools select { width: 100%; }
+  .draft-card { padding: 12px; }
+  .toolbar-inner { flex-wrap: wrap; height: auto; padding-top: 10px; padding-bottom: 10px; gap: 8px; }
+  .toolbar-right { flex-wrap: wrap; max-width: 100%; }
+}
+@media print { .draft-dialog, .draft-session { display: none !important; } }

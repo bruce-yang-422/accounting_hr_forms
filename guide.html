@@ -114,6 +114,7 @@
       <a href="index.html" class="nav-link">首頁</a>
       <a href="./forms/leave_request_form.html" class="nav-link">請假單</a>
       <a href="./forms/payment_request_form.html" class="nav-link">請款單</a>
+      <a href="favorites.html" class="nav-link">常用資料管理</a>
     </nav>
     <button class="nav-hamburger" id="navHamburger" aria-label="選單" aria-expanded="false" onclick="toggleNav()">
       <span></span><span></span><span></span>
@@ -144,9 +145,21 @@
     <p>常用資料用來保存常用填表人資訊，避免每次重複輸入。</p>
     <ul>
       <li>可保存姓名、單位、職稱、請假時代理人、個人連絡電話。</li>
-      <li>首頁可新增、編輯、刪除常用資料，並設定預設資料。</li>
+      <li>「常用資料管理」分頁可新增、編輯、刪除常用資料，並設定預設資料。</li>
       <li>進入表單時，預設常用資料會自動帶入可對應欄位。</li>
       <li>表單姓名欄旁的「常用資料」按鈕，可手動選擇其他常用資料帶入。</li>
+    </ul>
+  </section>
+
+  <section class="guide-section">
+    <h2>常用資料 JSON 匯出／匯入</h2>
+    <p>到<a href="favorites.html#favorites-backup">常用資料管理的匯出／匯入區塊</a>，可將個人常用資料（請假／請款共用）與請款對象名單一起備份。</p>
+    <ul>
+      <li>按「匯出全部常用資料」下載 JSON，包含預設人員、代理人、電話及付款對象的銀行資料。</li>
+      <li>匯入前選擇備份檔，系統會檢查格式並顯示各類別筆數；確認後才儲存。</li>
+      <li>合併模式：個人以姓名＋單位、付款對象以戶名判斷重複，同名保留現有內容及目前預設人員。</li>
+      <li>取代模式：覆寫檔案包含的類別，空名單也會清空該類別；未包含的類別保留。</li>
+      <li>備份不包含草稿、最近紀錄及內建請假理由範本。移轉到其他瀏覽器後可匯入使用；已開啟的表單需重新整理。</li>
     </ul>
   </section>
 
@@ -155,9 +168,9 @@
     <p>草稿適合保存尚未完成、暫時不列印的表單。</p>
     <ul>
       <li>請假單與請款單各自最多保存 5 筆草稿。</li>
-      <li>按「儲存草稿」會保存目前填寫內容。</li>
-      <li>按「草稿」可用編號選擇要載入的草稿。</li>
-      <li>草稿達上限時，系統會要求先刪除舊草稿，才能再新增。</li>
+      <li>按「儲存草稿」可命名，選擇更新目前草稿或另存新草稿；表單會顯示目前草稿與未儲存變更狀態。</li>
+      <li>按「草稿庫」可搜尋、排序、查看內容、載入、重新命名及刪除；載入前會要求確認，避免取代尚未儲存內容。</li>
+      <li>草稿達上限時，可進入草稿庫刪除舊草稿，再返回儲存流程；仍可更新目前草稿。刪除草稿會保留目前表單內容。</li>
     </ul>
   </section>
 

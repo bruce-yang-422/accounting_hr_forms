@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="stylesheet" href="../assets/css/draft-library.css">
 </head>
 <body>
 
@@ -37,8 +38,8 @@
     <button class="btn btn-outline-white" onclick="saveLeaveDraft()" title="儲存目前填寫內容">
       儲存草稿
     </button>
-    <button class="btn btn-outline-white" onclick="loadLeaveDraft()" title="載入草稿">
-      草稿
+    <button class="btn btn-outline-white" data-draft-library onclick="loadLeaveDraft()" title="開啟草稿庫，可搜尋、載入、命名及刪除">
+      草稿庫
     </button>
     <button class="btn btn-outline-white" onclick="loadRecentLeaveRecord()" title="載入最近列印紀錄">
       最近紀錄
@@ -530,6 +531,7 @@
 <script src="../assets/js/data/leave_reason_library.js"></script>
 <script src="../assets/js/form-recent-records.js"></script>
 <script src="../assets/js/forms/leave_request_form.js"></script>
+<script src="../assets/js/draft-library.js"></script>
 <script src="../assets/js/profile-store.js"></script>
 <script src="../assets/js/profile-autofill.js"></script>
 </body>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>常用資料管理 — 表單填寫中心</title>
+<link rel="icon" href="./assets/images/branding/form-center.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/styles.css">
+<link rel="stylesheet" href="./assets/css/index.css">
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- NAV -->
+<header class="nav">
+  <div class="page-inner">
+    <div class="nav-brand">
+      <a href="index.html" class="nav-logo" aria-label="回到首頁">
+        <img src="./assets/images/branding/form-center.ico" alt="">
+      </a>
+      <div>
+        <div class="nav-title">表單填寫中心</div>
+        <div class="nav-sub">FORM CENTER</div>
+      </div>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html" class="nav-link">🏠 首頁</a>
+      <a href="./forms/leave_request_form.html" class="nav-link">📅 請假單</a>
+      <a href="./forms/payment_request_form.html" class="nav-link">📋 請款單</a>
+      <a href="favorites.html" class="nav-link active" aria-current="page">常用資料管理</a>
+    </nav>
+    <button class="nav-hamburger" id="navHamburger" aria-label="選單" aria-expanded="false" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+
+<main class="idx-main">
+  <!-- PROFILE MANAGER -->
+  <div class="sec-head"><div><h1>常用資料管理</h1><p>維護填表人資料，或透過 JSON 備份與移轉常用名單。</p></div></div>
+  <div class="sec-head">
+    <div class="sec-head-icon">👤</div>
+    <div>
+      <h2>常用資料</h2>
+      <p>儲存於瀏覽器，填寫表單時自動帶入</p>
+    </div>
+  </div>
+
+  <div class="pm-wrap">
+    <div id="pm-empty" class="pm-empty" style="display:none">尚無記錄，請新增第一筆資料。</div>
+    <div id="pm-list" class="pm-list"></div>
+
+    <div id="pm-form" class="pm-form">
+      <div class="pm-form-fields">
+        <div class="fg">
+          <label class="flabel">姓名 <span class="req">*</span></label>
+          <input id="pm-name" type="text" class="fi" placeholder="員工姓名">
+        </div>
+        <div class="fg">
+          <label class="flabel">單位 <span class="req">*</span></label>
+          <input id="pm-dept" type="text" class="fi" placeholder="所屬部門">
+        </div>
+        <div class="fg">
+          <label class="flabel">職稱</label>
+          <input id="pm-title" type="text" class="fi" placeholder="例：行銷專員">
+        </div>
+        <div class="fg">
+          <label class="flabel">請假時代理人</label>
+          <input id="pm-agent" type="text" class="fi" placeholder="代理人姓名">
+        </div>
+        <div class="fg">
+          <label class="flabel">個人連絡電話</label>
+          <input id="pm-phone" type="text" class="fi" placeholder="手機或緊急聯絡電話">
+        </div>
+      </div>
+      <div class="pm-form-actions">
+        <button id="pm-add-btn" class="btn pm-save-btn">新增</button>
+        <button id="pm-cancel-btn" class="btn pm-cancel-btn" style="display:none">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="pm-wrap favorites-backup" id="favorites-backup" aria-labelledby="favorites-backup-title">
+    <h2 id="favorites-backup-title">常用資料 JSON 匯出／匯入</h2>
+    <p>一次備份個人常用資料（請假／請款）及請款對象名單，方便移轉到其他裝置或瀏覽器。</p>
+    <div class="favorites-backup-actions">
+      <button type="button" id="favorites-export" class="btn pm-save-btn">匯出全部常用資料</button>
+    </div>
+    <div class="favorites-backup-fields">
+      <div class="fg favorites-file-field">
+        <span class="flabel" id="favorites-file-label">匯入 JSON 備份檔</span>
+        <div class="backup-upload" id="favorites-dropzone" role="group" aria-labelledby="favorites-file-label" aria-describedby="favorites-file-help">
+          <div class="backup-upload-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M12 17v-6m-3 3 3-3 3 3"/></svg>
+          </div>
+          <div class="backup-upload-copy">
+            <strong>拖曳備份檔到這裡</strong>
+            <span id="favorites-file-help">或選擇檔案，每次 1 個 JSON，最大 5 MB</span>
+          </div>
+          <button type="button" id="favorites-choose-file" class="backup-file-button">選擇 JSON 檔案</button>
+          <input type="file" id="favorites-file" accept=".json,application/json" aria-label="選擇 JSON 備份檔" hidden>
+        </div>
+        <div class="backup-file-summary" id="favorites-file-summary" hidden>
+          <div class="backup-file-info">
+            <strong id="favorites-file-name"></strong>
+            <span id="favorites-file-detail"></span>
+          </div>
+          <span class="backup-file-state" id="favorites-file-state" role="status"></span>
+          <button type="button" id="favorites-remove-file" class="backup-file-remove" aria-label="移除已選檔案">移除</button>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="flabel" for="favorites-import-mode">匯入方式</label>
+        <select id="favorites-import-mode" class="fi">
+          <option value="merge">合併：同名保留現有資料</option>
+          <option value="replace">取代：覆寫檔案內的資料類別</option>
+        </select>
+      </div>
+    </div>
+    <p>個人資料以「姓名＋單位」、付款對象以「戶名」判斷同名。備份包含聯絡與銀行資料，請妥善保管；不包含草稿及最近紀錄。</p>
+    <div class="favorites-backup-actions">
+      <button type="button" id="favorites-import" class="btn pm-save-btn" disabled>確認匯入</button>
+    </div>
+    <p id="favorites-backup-status" role="status">選擇檔案後會先檢查格式與顯示筆數，確認匯入才會變更資料。</p>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="idx-footer">
+  <div class="page-inner">
+    <span class="footer-brand-name">表單填寫中心</span>
+    <div class="footer-links">
+      <a href="./guide.html" class="footer-guide-link">操作說明</a>
+      <span class="footer-brand-copy">© 2026 Bruce Yang. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /.page-wrap -->
+<script src="./assets/js/profile-store.js"></script>
+<script src="./assets/js/profile-manager.js"></script>
+<script src="./assets/js/favorites-backup.js"></script>
+<script src="./assets/js/favorites-backup-ui.js"></script>
+<script>
+function toggleNav() {
+  const open = document.getElementById('navLinks').classList.toggle('nav-links--open');
+  document.getElementById('navOverlay').classList.toggle('nav-overlay--show', open);
+  document.getElementById('navHamburger').setAttribute('aria-expanded', open);
+}
+function closeNav() {
+  document.getElementById('navLinks').classList.remove('nav-links--open');
+  document.getElementById('navOverlay').classList.remove('nav-overlay--show');
+  document.getElementById('navHamburger').setAttribute('aria-expanded', false);
+}
+</script>
+</body>
+</html>

@@ -236,8 +236,10 @@ function onCbox(el) {
 
 function clearForm() {
   if (!confirm('確定要清除所有填寫內容？')) return;
+  window.PayeeFavorites?.resetSelection();
   window.__currentRecentPaymentRecordId = '';
   window.__currentPaymentDraftId = '';
+  window.DraftLibrary?.resetCurrent();
 
   document.querySelectorAll('input:not([type="radio"]):not([type="checkbox"]), textarea').forEach((el) => {
     if (el.id === 'attachCount') {
@@ -274,6 +276,8 @@ function clearForm() {
 }
 
 function fillSample() {
+  window.DraftLibrary?.resetCurrent();
+  window.PayeeFavorites?.resetSelection();
   document.getElementById('reqDate').value = today();
   document.getElementById('applicant').value = '陳小華';
   document.getElementById('department').value = '行銷部';
@@ -518,32 +522,20 @@ function loadRecentPaymentRecord() {
   restorePaymentFormData(record.data);
   window.__currentRecentPaymentRecordId = record.id;
   window.__currentPaymentDraftId = '';
+  window.DraftLibrary?.resetCurrent();
 }
 
 function savePaymentDraft() {
-  const draft = FormRecentRecords.saveDraft(
-    'payment',
-    getPaymentRecordTitle(),
-    FormRecentRecords.collect(document.getElementById('fillPage')),
-    window.__currentPaymentDraftId || ''
-  );
-  if (!draft) return;
-
-  window.__currentPaymentDraftId = draft.id;
-  alert('草稿已儲存。');
+  DraftLibrary.openSave();
 }
 
 function loadPaymentDraft() {
-  const draft = FormRecentRecords.pickDraft('payment');
-  if (!draft) return;
-
-  restorePaymentFormData(draft.data);
-  window.__currentPaymentDraftId = draft.id;
-  window.__currentRecentPaymentRecordId = '';
+  DraftLibrary.open();
 }
 
 function restorePaymentFormData(data) {
   FormRecentRecords.restore(data, document.getElementById('fillPage'));
+  window.PayeeFavorites?.resetSelection();
   onAmtInput();
   syncPrintHeader();
   document.getElementById('previewPage').style.display = 'none';

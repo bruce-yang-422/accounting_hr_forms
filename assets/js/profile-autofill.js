@@ -66,6 +66,12 @@ function createProfilePicker(profiles, applyProfile) {
   btn.disabled = !profiles.length;
   wrap.appendChild(btn);
 
+  const backupLink = document.createElement('a');
+  backupLink.className = 'favorites-backup-link';
+  backupLink.href = '../favorites.html#favorites-backup';
+  backupLink.textContent = '常用資料 JSON 匯出／匯入';
+  wrap.after(backupLink);
+
   if (!profiles.length) return;
 
   const menu = document.createElement('div');

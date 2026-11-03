@@ -411,6 +411,7 @@ function clearForm() {
   if (!confirm('確定要清除所有填寫內容？')) return;
   window.__currentRecentLeaveRecordId = '';
   window.__currentLeaveDraftId = '';
+  window.DraftLibrary?.resetCurrent();
 
   document.querySelectorAll('input:not([type="radio"]), textarea').forEach((el) => {
     el.value = '';
@@ -434,6 +435,7 @@ function clearForm() {
 }
 
 function fillSample() {
+  window.DraftLibrary?.resetCurrent();
   document.getElementById('reqDate').value = today();
   document.getElementById('applicant').value = '陳小華';
   document.getElementById('department').value = '行銷部';
@@ -729,28 +731,15 @@ function loadRecentLeaveRecord() {
   restoreLeaveFormData(record.data);
   window.__currentRecentLeaveRecordId = record.id;
   window.__currentLeaveDraftId = '';
+  window.DraftLibrary?.resetCurrent();
 }
 
 function saveLeaveDraft() {
-  const draft = FormRecentRecords.saveDraft(
-    'leave',
-    getLeaveRecordTitle(),
-    FormRecentRecords.collect(document.getElementById('fillPage')),
-    window.__currentLeaveDraftId || ''
-  );
-  if (!draft) return;
-
-  window.__currentLeaveDraftId = draft.id;
-  alert('草稿已儲存。');
+  DraftLibrary.openSave();
 }
 
 function loadLeaveDraft() {
-  const draft = FormRecentRecords.pickDraft('leave');
-  if (!draft) return;
-
-  restoreLeaveFormData(draft.data);
-  window.__currentLeaveDraftId = draft.id;
-  window.__currentRecentLeaveRecordId = '';
+  DraftLibrary.open();
 }
 
 function restoreLeaveFormData(data) {

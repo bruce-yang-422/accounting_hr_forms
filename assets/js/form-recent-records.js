@@ -35,7 +35,16 @@ const FormRecentRecords = (() => {
   }
 
   function loadDrafts(formType) {
-    return loadByKey(draftKey(formType));
+    const raw = localStorage.getItem(draftKey(formType));
+    let drafts;
+    try { drafts = raw === null ? [] : JSON.parse(raw); }
+    catch { throw new Error('草稿資料無法讀取，請先保留瀏覽器資料並檢查，避免覆寫。'); }
+    if (!Array.isArray(drafts) || drafts.some(draft => !draft || typeof draft.id !== 'string' ||
+      typeof draft.title !== 'string' || !draft.data || typeof draft.data !== 'object' || Array.isArray(draft.data)) ||
+      new Set(drafts.map(draft => draft.id)).size !== drafts.length) {
+      throw new Error('草稿資料格式異常，請先保留瀏覽器資料並檢查，避免覆寫。');
+    }
+    return drafts;
   }
 
   function saveAll(formType, records) {
@@ -154,48 +163,38 @@ const FormRecentRecords = (() => {
     );
   }
 
-  function pickDraft(formType) {
-    return pickFromRecords(
-      loadDrafts(formType),
-      '目前沒有草稿。',
-      '請輸入要載入的草稿編號：'
-    );
-  }
-
-  function deleteDraftByPrompt(formType) {
-    const drafts = loadDrafts(formType);
-    const target = pickFromRecords(
-      drafts,
-      '目前沒有可刪除的草稿。',
-      '草稿已達上限，請輸入要刪除的草稿編號：'
-    );
-    if (!target) return false;
-    saveAllDrafts(formType, drafts.filter((draft) => draft.id !== target.id));
-    return true;
-  }
-
   function saveDraft(formType, title, data, existingId = '') {
     const drafts = loadDrafts(formType);
-    let id = existingId;
-
-    if (!id && drafts.length >= DRAFT_LIMIT) {
-      alert(`草稿最多只能保存 ${DRAFT_LIMIT} 筆，請先刪除一筆草稿。`);
-      if (!deleteDraftByPrompt(formType)) return null;
-    }
-
+    if (existingId && !drafts.some(draft => draft.id === existingId)) throw new Error('原草稿已被刪除，請選擇另存新草稿。');
+    if (!existingId && drafts.length >= DRAFT_LIMIT) throw new Error(`草稿庫已滿（${DRAFT_LIMIT} 筆），請先管理草稿或更新目前草稿。`);
     const now = new Date().toISOString();
-    const latestDrafts = loadDrafts(formType);
-    id = id || 'd_' + Date.now();
+    const id = existingId || 'd_' + crypto.randomUUID();
     const nextDraft = {
       id,
       title: title || '未命名草稿',
-      createdAt: latestDrafts.find((draft) => draft.id === id)?.createdAt || now,
+      createdAt: drafts.find((draft) => draft.id === id)?.createdAt || now,
       updatedAt: now,
       data,
     };
-    saveAllDrafts(formType, [nextDraft, ...latestDrafts.filter((draft) => draft.id !== id)]);
+    saveAllDrafts(formType, [nextDraft, ...drafts.filter((draft) => draft.id !== id)]);
     return nextDraft;
   }
 
-  return { collect, restore, save, pick, load, saveDraft, pickDraft, loadDrafts };
+  function renameDraft(formType, id, title) {
+    if (!title.trim()) throw new Error('請輸入草稿名稱。');
+    const drafts = loadDrafts(formType);
+    const draft = drafts.find(item => item.id === id);
+    if (!draft) throw new Error('找不到這筆草稿，請重新整理草稿庫。');
+    draft.title = title.trim();
+    draft.updatedAt = new Date().toISOString();
+    saveAllDrafts(formType, drafts);
+    return draft;
+  }
+
+  function deleteDraft(formType, id) {
+    const drafts = loadDrafts(formType);
+    saveAllDrafts(formType, drafts.filter(draft => draft.id !== id));
+  }
+
+  return { collect, restore, save, pick, load, saveDraft, loadDrafts, renameDraft, deleteDraft, DRAFT_LIMIT };
 })();
