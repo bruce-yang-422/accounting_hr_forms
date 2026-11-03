@@ -73,6 +73,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="stylesheet" href="../assets/css/favorites-ui.css">
 <link rel="stylesheet" href="../assets/css/draft-library.css">
 </head>
 <body>
@@ -236,17 +237,14 @@
       </div>
       <div class="card-body">
         <div class="payee-favorites">
-          <label class="flabel" for="payeeFavorite">常用名單</label>
+          <span class="flabel">常用名單</span>
           <div class="payee-favorites-actions">
-            <select class="fi" id="payeeFavorite" aria-describedby="payeeFavoriteStatus">
-              <option value="">尚無常用名單，填寫後可儲存</option>
-            </select>
+            <button type="button" class="fm-button" id="payeeFavorite" aria-haspopup="dialog">選擇常用付款對象</button>
             <button type="button" class="profile-pick-btn" id="savePayeeFavorite">儲存為常用</button>
-            <button type="button" class="profile-pick-btn" id="deletePayeeFavorite" disabled>刪除</button>
           </div>
           <p class="payee-favorites-status" id="payeeFavoriteStatus" role="status">選取後帶入戶名、身分、付款方式與匯款資料；名單僅保存在此瀏覽器。</p>
-          <a class="favorites-backup-link" href="../favorites.html#favorites-backup">常用資料 JSON 匯出／匯入</a>
-          <a class="favorites-backup-link" href="../favorites.html#payee-manager">管理付款對象與付款方式</a>
+          <a class="favorites-backup-link" href="../favorites.html#favorites-backup" target="_blank" rel="noopener" title="另開分頁，保留目前表單內容">常用資料 JSON 匯出／匯入</a>
+          <a class="favorites-backup-link" href="../favorites.html#payee-manager" target="_blank" rel="noopener" title="另開分頁，保留目前表單內容">管理付款對象與付款方式</a>
         </div>
         <div class="frow">
           <div class="fg">
@@ -536,6 +534,7 @@
   </div>
 </div>
 
+<script src="../assets/js/favorites-ui.js"></script>
 <script src="../assets/js/form-recent-records.js"></script>
 <script src="../assets/js/forms/payment_request_form.js"></script>
 <script src="../assets/js/draft-library.js"></script>

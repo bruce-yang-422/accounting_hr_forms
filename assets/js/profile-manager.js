@@ -1,127 +1,68 @@
-/**
- * profile-manager.js
- * Drives the profile management UI on favorites.html.
- */
-
 document.addEventListener('DOMContentLoaded', () => {
-  const listEl   = document.getElementById('pm-list');
-  const formEl   = document.getElementById('pm-form');
-  const nameEl   = document.getElementById('pm-name');
-  const deptEl   = document.getElementById('pm-dept');
-  const titleEl  = document.getElementById('pm-title');
-  const agentEl  = document.getElementById('pm-agent');
-  const phoneEl  = document.getElementById('pm-phone');
-  const addBtn   = document.getElementById('pm-add-btn');
-  const cancelBtn = document.getElementById('pm-cancel-btn');
-  const emptyEl  = document.getElementById('pm-empty');
-
-  let editingId = null;
-
-  function render() {
-    const profiles = ProfileStore.getAll();
-    const def = ProfileStore.getDefault();
-    listEl.innerHTML = '';
-
-    if (!profiles.length) {
-      emptyEl.style.display = 'block';
-      return;
-    }
-    emptyEl.style.display = 'none';
-
-    profiles.forEach(p => {
-      const isDefault = def && def.id === p.id;
-      const meta = [p.department, p.jobTitle, p.agent ? `代理：${p.agent}` : '', p.contactPhone]
-        .filter(Boolean)
-        .map(esc)
-        .join('・');
-      const card = document.createElement('div');
-      card.className = 'pm-card' + (isDefault ? ' pm-card--default' : '');
-      card.innerHTML = `
-        <div class="pm-card-info">
-          <span class="pm-card-name">${esc(p.name)}</span>
-          <span class="pm-card-meta">${meta}</span>
-        </div>
-        <div class="pm-card-actions">
-          ${!isDefault ? `<button class="pm-btn pm-btn--default" data-id="${p.id}" title="設為預設">設為預設</button>` : '<span class="pm-default-badge">預設</span>'}
-          <button class="pm-btn pm-btn--edit" data-id="${p.id}" title="編輯">編輯</button>
-          <button class="pm-btn pm-btn--del" data-id="${p.id}" title="刪除">刪除</button>
-        </div>
-      `;
-      listEl.appendChild(card);
-    });
-
-    listEl.querySelectorAll('.pm-btn--default').forEach(btn =>
-      btn.addEventListener('click', () => { ProfileStore.setDefault(btn.dataset.id); render(); })
-    );
-    listEl.querySelectorAll('.pm-btn--del').forEach(btn =>
-      btn.addEventListener('click', () => {
-        if (confirm('確定刪除這筆資料？')) { ProfileStore.remove(btn.dataset.id); render(); }
-      })
-    );
-    listEl.querySelectorAll('.pm-btn--edit').forEach(btn =>
-      btn.addEventListener('click', () => startEdit(btn.dataset.id))
-    );
+  const { node, button } = FavoritesUI;
+  const form = document.getElementById('pm-form');
+  const status = document.getElementById('pm-status');
+  const formStatus = document.getElementById('pm-form-status');
+  const fields = Object.fromEntries(Object.entries({ name: 'pm-name', department: 'pm-dept', jobTitle: 'pm-title', agent: 'pm-agent', contactPhone: 'pm-phone' })
+    .map(([key, id]) => [key, document.getElementById(id)]));
+  const editor = FavoritesUI.editor(form, '新增個人資料'); form.hidden = false;
+  let editingId = '', defaultId = '';
+  function openEditor(record) {
+    form.reset(); formStatus.textContent = ''; editingId = record?.id || '';
+    Object.entries(fields).forEach(([key, field]) => { field.value = record?.[key] || ''; });
+    editor.open(record ? `編輯個人資料：${record.name}` : '新增個人資料');
   }
-
-  function startEdit(id) {
-    const p = ProfileStore.getAll().find(p => p.id === id);
-    if (!p) return;
-    editingId = id;
-    nameEl.value  = p.name;
-    deptEl.value  = p.department;
-    titleEl.value = p.jobTitle || '';
-    agentEl.value = p.agent || '';
-    phoneEl.value = p.contactPhone || '';
-    addBtn.textContent = '儲存';
-    cancelBtn.style.display = 'inline-flex';
-    nameEl.focus();
-    formEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-
-  function resetForm() {
-    editingId = null;
-    nameEl.value = deptEl.value = titleEl.value = agentEl.value = phoneEl.value = '';
-    addBtn.textContent = '新增';
-    cancelBtn.style.display = 'none';
-  }
-
-  addBtn.addEventListener('click', () => {
-    const name  = nameEl.value.trim();
-    const dept  = deptEl.value.trim();
-    const title = titleEl.value.trim();
-    const agent = agentEl.value.trim();
-    const contactPhone = phoneEl.value.trim();
-    if (!name || !dept) {
-      if (!name) nameEl.classList.add('fi--error');
-      if (!dept) deptEl.classList.add('fi--error');
-      return;
-    }
-    nameEl.classList.remove('fi--error');
-    deptEl.classList.remove('fi--error');
-
-    const profile = { name, department: dept, jobTitle: title, agent, contactPhone };
-    if (editingId) {
-      ProfileStore.update(editingId, profile);
-    } else {
-      ProfileStore.add(profile);
-    }
-    resetForm();
-    render();
+  const browser = FavoritesUI.createBrowser(document.getElementById('profile-browser'), {
+    placeholder: '輸入姓名、單位、職稱或電話，搜尋全部個人資料',
+    name: record => record.name, searchText: record => Object.values(record).join(' '),
+    filters: [{ label: '單位', value: record => record.department }],
+    priority: record => Number(record.id === defaultId), defaultSortLabel: '預設人員優先，再依姓名',
+    emptyTitle: '還沒有個人常用資料', emptyText: '新增後，請假單與請款單都可以帶入使用。',
+    createLabel: '新增個人資料', onCreate: () => openEditor(),
+    renderItem(record) {
+      const card = node('article', `fm-record${record.id === defaultId ? ' is-default' : ''}`);
+      const info = node('div', 'fm-record-info');
+      info.append(node('h3', '', record.name), node('p', '', [record.department, record.jobTitle].filter(Boolean).join('・')));
+      const detail = node('details'); detail.append(node('summary', '', '查看聯絡與代理資料'),
+        node('p', '', `代理人：${record.agent || '未填寫'}　電話：${record.contactPhone || '未填寫'}`)); info.append(detail);
+      const actions = node('div', 'fm-record-actions');
+      actions.append(record.id === defaultId ? node('span', 'pm-default-badge', '預設') : button('設為預設', () => {
+        try { ProfileStore.setDefault(record.id); refresh(); status.textContent = `已將「${record.name}」設為預設人員。`; } catch (error) { status.textContent = error.message; }
+      }));
+      const confirm = node('div', 'fm-confirm');
+      actions.append(button('編輯', () => {
+        try {
+          const latest = ProfileStore.getAll().find(item => item.id === record.id);
+          if (!latest) throw new Error('這筆資料已不存在，請重新選取。');
+          openEditor(latest);
+        } catch (error) { status.textContent = error.message; }
+      }), button('刪除', () => {
+        confirm.replaceChildren(node('p', '', `確定刪除「${record.name}」？${record.id === defaultId ? '刪除後會改用其他人員為預設。' : ''}`),
+          button('確定刪除', () => {
+            try { ProfileStore.remove(record.id); refresh(); status.textContent = `已刪除「${record.name}」。`; } catch (error) { status.textContent = error.message; }
+          }, 'fm-button fm-danger'), button('取消', () => confirm.replaceChildren()));
+      }, 'fm-button fm-danger'));
+      card.append(info, actions, confirm); return card;
+    },
   });
-
-  cancelBtn.addEventListener('click', () => resetForm());
-
-  [nameEl, deptEl].forEach(el =>
-    el.addEventListener('input', () => el.classList.remove('fi--error'))
-  );
-
-  function esc(str) {
-    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  function refresh() {
+    try { defaultId = ProfileStore.getDefault()?.id || ''; browser.setRecords(ProfileStore.getAll()); }
+    catch (error) { status.textContent = `無法讀取資料：${error.message}`; }
   }
-
-  window.addEventListener('favorites-imported', () => {
-    resetForm();
-    render();
+  document.getElementById('pm-new').addEventListener('click', () => openEditor());
+  document.getElementById('pm-cancel-btn').addEventListener('click', editor.requestClose);
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    try {
+      const profile = Object.fromEntries(Object.entries(fields).map(([key, field]) => [key, field.value.trim()]));
+      if (!profile.name || !profile.department) throw new Error('請填寫姓名與單位。');
+      const id = editingId || ProfileStore.add(profile);
+      if (editingId) ProfileStore.update(id, profile);
+      editor.close(); refresh(); browser.reveal(profile);
+      status.textContent = `已${editingId ? '更新' : '新增'}「${profile.name}」。`;
+    } catch (error) { formStatus.textContent = `無法儲存：${error.message}`; }
   });
-  render();
+  window.addEventListener('favorites-imported', refresh);
+  window.addEventListener('storage', event => { if (event.key === null || event.key === 'yijia_profiles') refresh(); });
+  refresh();
 });

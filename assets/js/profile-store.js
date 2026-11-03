@@ -35,7 +35,7 @@ const ProfileStore = (() => {
 
   function add(profile) {
     const data = load();
-    const id = 'p_' + Date.now();
+    const id = 'p_' + crypto.randomUUID();
     const newProfile = { id, ...profile };
     data.profiles.push(newProfile);
     if (data.profiles.length === 1) data.defaultId = id;
@@ -54,6 +54,7 @@ const ProfileStore = (() => {
 
   function setDefault(id) {
     const data = load();
+    if (!data.profiles.some(profile => profile.id === id)) throw new Error('這筆資料已被刪除，請重新選取。');
     data.defaultId = id;
     save(data);
   }
@@ -61,7 +62,8 @@ const ProfileStore = (() => {
   function update(id, fields) {
     const data = load();
     const p = data.profiles.find(p => p.id === id);
-    if (p) Object.assign(p, fields);
+    if (!p) throw new Error('原個人資料已被刪除，請取消編輯後重新新增。');
+    Object.assign(p, fields);
     save(data);
   }
 

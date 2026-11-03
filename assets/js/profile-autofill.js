@@ -1,124 +1,42 @@
-/**
- * profile-autofill.js
- * Auto-fills form fields from the default profile on page load.
- * Include after profile-store.js on each form page.
- *
- * Field mapping (by element id):
- *   applicant  → profile.name
- *   department → profile.department
- *   jobTitle   → profile.jobTitle  (leave form only; safe to skip if absent)
- *   agent      → profile.agent      (leave form only; safe to skip if absent)
- *   contactPhone → profile.contactPhone (leave form only; safe to skip if absent)
- */
-
+/* Default applicant autofill and a searchable, paginated profile picker. */
 document.addEventListener('DOMContentLoaded', () => {
-  const profile = ProfileStore.getDefault();
-  const profiles = ProfileStore.getAll();
-
-  const fill = (id, value) => {
-    const el = document.getElementById(id);
-    if (el && !el.value && value) el.value = value;
-  };
-
-  const applyProfile = (selectedProfile, overwrite = false) => {
-    const apply = (id, value) => {
-      const el = document.getElementById(id);
-      if (!el || !value) return;
-      if (overwrite || !el.value) {
-        el.value = value;
-        el.dispatchEvent(new Event('input', { bubbles: true }));
-        el.dispatchEvent(new Event('change', { bubbles: true }));
+  const applicant = document.getElementById('applicant');
+  if (!applicant) return;
+  const mapping = { applicant: 'name', department: 'department', jobTitle: 'jobTitle', agent: 'agent', contactPhone: 'contactPhone' };
+  function apply(profile, overwrite) {
+    Object.entries(mapping).forEach(([id, key]) => {
+      const field = document.getElementById(id);
+      if (field && (overwrite || !field.value)) {
+        field.value = profile[key] || '';
+        field.dispatchEvent(new Event('input', { bubbles: true }));
+        field.dispatchEvent(new Event('change', { bubbles: true }));
       }
-    };
-
-    apply('applicant', selectedProfile.name);
-    apply('department', selectedProfile.department);
-    apply('jobTitle', selectedProfile.jobTitle);
-    apply('agent', selectedProfile.agent);
-    apply('contactPhone', selectedProfile.contactPhone);
-  };
-
-  if (profile) {
-    fill('applicant', profile.name);
-    fill('department', profile.department);
-    fill('jobTitle', profile.jobTitle);
-    fill('agent', profile.agent);
-    fill('contactPhone', profile.contactPhone);
-  }
-
-  createProfilePicker(profiles, applyProfile);
-});
-
-function createProfilePicker(profiles, applyProfile) {
-  const applicantEl = document.getElementById('applicant');
-  if (!applicantEl || applicantEl.closest('.profile-pick-wrap')) return;
-
-  const wrap = document.createElement('div');
-  wrap.className = 'profile-pick-wrap';
-  applicantEl.parentNode.insertBefore(wrap, applicantEl);
-  wrap.appendChild(applicantEl);
-
-  const btn = document.createElement('button');
-  btn.type = 'button';
-  btn.className = 'profile-pick-btn';
-  btn.textContent = '常用資料';
-  btn.title = profiles.length ? '從常用資料帶入' : '尚無常用資料';
-  btn.disabled = !profiles.length;
-  wrap.appendChild(btn);
-
-  const backupLink = document.createElement('a');
-  backupLink.className = 'favorites-backup-link';
-  backupLink.href = '../favorites.html#favorites-backup';
-  backupLink.textContent = '常用資料 JSON 匯出／匯入';
-  wrap.after(backupLink);
-
-  if (!profiles.length) return;
-
-  const menu = document.createElement('div');
-  menu.className = 'profile-pick-menu';
-  menu.hidden = true;
-  wrap.appendChild(menu);
-
-  profiles.forEach((profile) => {
-    const item = document.createElement('button');
-    item.type = 'button';
-    item.className = 'profile-pick-item';
-    item.innerHTML = `
-      <span class="profile-pick-name">${esc(profile.name)}</span>
-      <span class="profile-pick-meta">${esc([profile.department, profile.jobTitle].filter(Boolean).join('・'))}</span>
-    `;
-    item.addEventListener('click', () => {
-      applyProfile(profile, true);
-      menu.hidden = true;
-      btn.setAttribute('aria-expanded', 'false');
-      applicantEl.focus();
     });
-    menu.appendChild(item);
+  }
+  const defaultProfile = ProfileStore.getDefault();
+  let defaultId = defaultProfile?.id || '';
+  if (defaultProfile) apply(defaultProfile, false);
+  const wrap = document.createElement('div'); wrap.className = 'profile-pick-wrap';
+  applicant.before(wrap); wrap.append(applicant);
+  const picker = FavoritesUI.picker({
+    title: '選擇個人常用資料', manageUrl: '../favorites.html#profile-manager',
+    placeholder: '搜尋姓名、單位、職稱或電話', name: record => record.name,
+    searchText: record => Object.values(record).join(' '),
+    description: record => [record.department, record.jobTitle].filter(Boolean).join('・'),
+    filters: [{ label: '單位', value: record => record.department }],
+    load: () => { defaultId = ProfileStore.getDefault()?.id || ''; return ProfileStore.getAll(); },
+    priority: record => Number(record.id === defaultId),
+    defaultSortLabel: '預設人員優先，再依姓名',
+    onSelect(record) {
+      const latest = ProfileStore.getAll().find(item => item.id === record.id);
+      if (!latest) throw new Error('這筆資料已被刪除，請重新搜尋。');
+      apply(latest, true);
+    },
   });
-
-  btn.setAttribute('aria-haspopup', 'menu');
-  btn.setAttribute('aria-expanded', 'false');
-  btn.addEventListener('click', () => {
-    const open = menu.hidden;
-    menu.hidden = !open;
-    btn.setAttribute('aria-expanded', String(open));
-  });
-
-  document.addEventListener('click', (event) => {
-    if (!wrap.contains(event.target)) {
-      menu.hidden = true;
-      btn.setAttribute('aria-expanded', 'false');
-    }
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      menu.hidden = true;
-      btn.setAttribute('aria-expanded', 'false');
-    }
-  });
-}
-
-function esc(str) {
-  return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
+  const button = FavoritesUI.button('常用資料', picker.open, 'profile-pick-btn');
+  button.setAttribute('aria-haspopup', 'dialog'); wrap.append(button);
+  const link = document.createElement('a'); link.className = 'favorites-backup-link';
+  link.href = '../favorites.html#profile-manager'; link.textContent = '管理個人資料／JSON 備份'; wrap.after(link);
+  link.target = '_blank'; link.rel = 'noopener'; link.title = '另開分頁管理，保留目前表單內容';
+  window.addEventListener('storage', event => { if (event.key === null || event.key === 'yijia_profiles') picker.refresh(); });
+});

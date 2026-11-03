@@ -20,6 +20,7 @@
 - 請款單：支援填寫、預覽與列印輸出。
 - 付款對象常用名單：在請款單直接儲存、選取、更新同名對象與刪除，帶入戶名、受款方身分、付款方式、統編／身分證字號及銀行資料；名單保存在目前瀏覽器的 `localStorage`。
 - 付款對象管理：常用資料管理分頁可搜尋、新增、編輯及確認刪除付款對象；依身分及付款方式切換欄位，與請款單及 JSON 備份共用資料。已開啟的請款單會同步更新選單，保留目前填寫內容。
+- 大量資料操作：個人資料、付款對象、備份移轉分成三個頁籤；管理清單及表單選擇視窗每頁 20／50 筆，全資料搜尋、條件篩選及名稱排序後才建立當頁 DOM。新增與編輯使用獨立視窗，含未儲存變更提醒。已用 500 筆個人資料與 1,000 筆付款對象驗證，這是測試資料量，並非新增筆數上限。
 - 404 頁：GitHub Pages 找不到頁面時可回首頁或直接進表單。
 
 ## 資料保存設計
@@ -69,6 +70,7 @@ accounting_hr_forms/
 ├─ assets/
 │  ├─ css/
 │  │  ├─ draft-library.css
+│  │  ├─ favorites-ui.css
 │  │  ├─ index.css
 │  │  └─ styles.css
 │  ├─ images/
@@ -87,6 +89,8 @@ accounting_hr_forms/
 │     ├─ form-recent-records.js
 │     ├─ favorites-backup.js
 │     ├─ favorites-backup-ui.js
+│     ├─ favorites-page.js
+│     ├─ favorites-ui.js
 │     ├─ payee-favorites.js
 │     ├─ payee-manager.js
 │     ├─ payee-store.js

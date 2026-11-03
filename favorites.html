@@ -74,6 +74,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./assets/css/styles.css">
 <link rel="stylesheet" href="./assets/css/index.css">
+<link rel="stylesheet" href="./assets/css/favorites-ui.css">
 </head>
 <body>
 <div class="page-wrap">
@@ -106,49 +107,29 @@
 <main class="idx-main">
   <!-- PROFILE MANAGER -->
   <div class="sec-head"><div><h1>常用資料管理</h1><p>維護填表人、付款對象與付款方式，或透過 JSON 備份與移轉常用名單。</p></div></div>
-  <div class="sec-head">
-    <div class="sec-head-icon">👤</div>
-    <div>
-      <h2>常用資料</h2>
-      <p>儲存於瀏覽器，填寫表單時自動帶入</p>
-    </div>
-  </div>
-
-  <div class="pm-wrap">
-    <div id="pm-empty" class="pm-empty" style="display:none">尚無記錄，請新增第一筆資料。</div>
-    <div id="pm-list" class="pm-list"></div>
-
-    <div id="pm-form" class="pm-form">
+  <nav class="favorites-tabs" aria-label="常用資料分類">
+    <a href="#profile-manager">個人資料</a>
+    <a href="#payee-manager">付款對象</a>
+    <a href="#favorites-backup">備份移轉</a>
+  </nav>
+  <section class="pm-wrap" id="profile-manager" data-favorites-panel aria-labelledby="profile-manager-title">
+    <div class="fm-heading"><div><h2 id="profile-manager-title">個人常用資料</h2><p>搜尋姓名、單位或電話，找到資料後直接編輯。預設人員會優先顯示。</p></div><button type="button" class="btn pm-save-btn" id="pm-new">新增個人資料</button></div>
+    <div id="profile-browser"></div>
+    <p class="fm-status" id="pm-status" role="status"></p>
+    <form id="pm-form" class="pm-form" hidden>
+      <p id="pm-form-status" class="fm-status" role="status"></p>
       <div class="pm-form-fields">
-        <div class="fg">
-          <label class="flabel">姓名 <span class="req">*</span></label>
-          <input id="pm-name" type="text" class="fi" placeholder="員工姓名">
-        </div>
-        <div class="fg">
-          <label class="flabel">單位 <span class="req">*</span></label>
-          <input id="pm-dept" type="text" class="fi" placeholder="所屬部門">
-        </div>
-        <div class="fg">
-          <label class="flabel">職稱</label>
-          <input id="pm-title" type="text" class="fi" placeholder="例：行銷專員">
-        </div>
-        <div class="fg">
-          <label class="flabel">請假時代理人</label>
-          <input id="pm-agent" type="text" class="fi" placeholder="代理人姓名">
-        </div>
-        <div class="fg">
-          <label class="flabel">個人連絡電話</label>
-          <input id="pm-phone" type="text" class="fi" placeholder="手機或緊急聯絡電話">
-        </div>
+        <div class="fg"><label class="flabel" for="pm-name">姓名 <span class="req">*</span></label><input id="pm-name" type="text" class="fi" placeholder="員工姓名" required></div>
+        <div class="fg"><label class="flabel" for="pm-dept">單位 <span class="req">*</span></label><input id="pm-dept" type="text" class="fi" placeholder="所屬部門" required></div>
+        <div class="fg"><label class="flabel" for="pm-title">職稱</label><input id="pm-title" type="text" class="fi" placeholder="例：行銷專員"></div>
+        <div class="fg"><label class="flabel" for="pm-agent">請假時代理人</label><input id="pm-agent" type="text" class="fi" placeholder="代理人姓名"></div>
+        <div class="fg"><label class="flabel" for="pm-phone">個人連絡電話</label><input id="pm-phone" type="text" class="fi" placeholder="手機或緊急聯絡電話"></div>
       </div>
-      <div class="pm-form-actions">
-        <button id="pm-add-btn" class="btn pm-save-btn">新增</button>
-        <button id="pm-cancel-btn" class="btn pm-cancel-btn" style="display:none">取消</button>
-      </div>
-    </div>
-  </div>
+      <div class="pm-form-actions"><button type="submit" id="pm-add-btn" class="btn pm-save-btn">儲存資料</button><button type="button" id="pm-cancel-btn" class="btn pm-cancel-btn">取消</button></div>
+    </form>
+  </section>
 
-  <section class="pm-wrap payee-manager" id="payee-manager" aria-labelledby="payee-manager-title">
+  <section class="pm-wrap payee-manager" id="payee-manager" data-favorites-panel aria-labelledby="payee-manager-title">
     <div class="payee-manager-heading">
       <div>
         <h2 id="payee-manager-title">付款對象與付款方式</h2>
@@ -156,14 +137,10 @@
       </div>
       <button type="button" class="btn pm-cancel-btn" id="payee-new">新增付款對象</button>
     </div>
-    <div class="payee-manager-tools">
-      <label class="flabel" for="payee-search">搜尋常用付款對象</label>
-      <input class="fi" id="payee-search" type="search" placeholder="搜尋戶名、身分、銀行或帳號">
-      <p id="payee-count" class="payee-manager-hint" role="status"></p>
-    </div>
-    <div class="pm-list" id="payee-manager-list"></div>
+    <div id="payee-browser"></div>
     <p class="payee-manager-status" id="payee-manager-status" role="status"></p>
-    <form class="pm-form" id="payee-manager-form">
+    <form class="pm-form" id="payee-manager-form" hidden>
+      <p class="fm-status" id="payee-form-status" role="status"></p>
       <h3 id="payee-form-title">新增付款對象</h3>
       <div class="pm-form-fields">
         <div class="fg">
@@ -211,7 +188,7 @@
     </form>
   </section>
 
-  <section class="pm-wrap favorites-backup" id="favorites-backup" aria-labelledby="favorites-backup-title">
+  <section class="pm-wrap favorites-backup" id="favorites-backup" data-favorites-panel aria-labelledby="favorites-backup-title">
     <h2 id="favorites-backup-title">常用資料 JSON 匯出／匯入</h2>
     <p>一次備份個人常用資料（請假／請款）及請款對象名單，方便移轉到其他裝置或瀏覽器。</p>
     <div class="favorites-backup-actions">
@@ -269,6 +246,8 @@
 </footer>
 
 </div><!-- /.page-wrap -->
+<script src="./assets/js/favorites-ui.js"></script>
+<script src="./assets/js/favorites-page.js"></script>
 <script src="./assets/js/profile-store.js"></script>
 <script src="./assets/js/profile-manager.js"></script>
 <script src="./assets/js/payee-store.js"></script>
