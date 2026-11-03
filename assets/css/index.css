@@ -151,6 +151,26 @@ a.nav-logo:hover { background: rgba(255,255,255,.28); }
 .favorites-backup button:disabled { opacity: .5; cursor: not-allowed; }
 
 /* SECTION HEADER */
+.payee-manager { scroll-margin-top: 84px; }
+.payee-manager [hidden] { display: none !important; }
+.payee-manager-heading { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+.payee-manager-heading h2 { font-size: 17px; color: var(--c-navy); }
+.payee-manager-heading p, .payee-manager-hint { font-size: 12px; line-height: 1.7; color: var(--c-muted); margin-top: 5px; }
+.payee-manager-tools { margin-bottom: 14px; }
+.payee-manager-status { margin: 12px 0; font-size: 13px; color: var(--c-navy); overflow-wrap: anywhere; }
+.payee-manager-empty { padding: 22px 14px; border: 1px dashed var(--c-border-md); border-radius: 8px; color: var(--c-muted); font-size: 13px; }
+.payee-manager-card { align-items: flex-start; }
+.payee-manager-card .pm-card-info { flex: 1 1 200px; overflow-wrap: anywhere; }
+.payee-manager-details { margin-top: 8px; font-size: 12px; line-height: 1.8; }
+.payee-manager-details summary { cursor: pointer; color: var(--c-blue); }
+.payee-delete-confirm:empty { display: none; }
+.payee-delete-confirm { flex-basis: 100%; padding: 12px; border-radius: 8px; background: #fff; font-size: 12px; }
+.payee-delete-confirm p { margin-bottom: 8px; }
+.payee-delete-confirm button { margin-right: 8px; }
+.payee-manager .pm-form-fields .fg { flex: 1 1 180px; min-width: 0; }
+.payee-manager .pm-form h3 { font-size: 15px; overflow-wrap: anywhere; }
+@media (max-width: 480px) { .payee-manager .pm-form-fields .fg { flex-basis: 100%; } }
+
 .sec-head {
   display: flex; align-items: center; gap: 10px;
   margin-bottom: 20px;

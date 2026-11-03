@@ -19,6 +19,7 @@
 - 請假單：支援假別切換、理由範本、時間計算、列印預覽。
 - 請款單：支援填寫、預覽與列印輸出。
 - 付款對象常用名單：在請款單直接儲存、選取、更新同名對象與刪除，帶入戶名、受款方身分、付款方式、統編／身分證字號及銀行資料；名單保存在目前瀏覽器的 `localStorage`。
+- 付款對象管理：常用資料管理分頁可搜尋、新增、編輯及確認刪除付款對象；依身分及付款方式切換欄位，與請款單及 JSON 備份共用資料。已開啟的請款單會同步更新選單，保留目前填寫內容。
 - 404 頁：GitHub Pages 找不到頁面時可回首頁或直接進表單。
 
 ## 資料保存設計
@@ -87,6 +88,8 @@ accounting_hr_forms/
 │     ├─ favorites-backup.js
 │     ├─ favorites-backup-ui.js
 │     ├─ payee-favorites.js
+│     ├─ payee-manager.js
+│     ├─ payee-store.js
 │     ├─ profile-autofill.js
 │     ├─ profile-manager.js
 │     └─ profile-store.js
@@ -99,7 +102,8 @@ accounting_hr_forms/
 │  └─ project_tree_structure_generator.py
 └─ tests/
    ├─ favorites-backup.test.cjs
-   └─ form-drafts.test.cjs
+   ├─ form-drafts.test.cjs
+   └─ payee-store.test.cjs
 ```
 
 ## 檔案分工

@@ -1,20 +1,15 @@
 /* Saved recipients are separate from applicant profiles and form drafts. */
 (() => {
-  const KEY = 'yijia_payee_favorites';
   const picker = document.getElementById('payeeFavorite');
   const saveButton = document.getElementById('savePayeeFavorite');
   const deleteButton = document.getElementById('deletePayeeFavorite');
   const status = document.getElementById('payeeFavoriteStatus');
   const textFields = ['payee', 'taxId', 'bankName', 'bankBranch', 'bankAccount'];
-  const types = { company: '公司', person: '自然人', employee: '員工' };
-  const methods = { transfer: '匯款轉帳', cash: '現金', check: '支票' };
+  const types = PayeeStore.typeLabels;
+  const methods = PayeeStore.methodLabels;
 
   function load() {
-    const data = JSON.parse(localStorage.getItem(KEY) || '[]');
-    if (!Array.isArray(data)) throw new Error('Invalid saved recipients');
-    return data.filter(item => item && typeof item.id === 'string' &&
-      typeof item.payee === 'string' && Object.hasOwn(types, item.payeeType) &&
-      Object.hasOwn(methods, item.payMethod));
+    return PayeeStore.getAll();
   }
 
   function render(records, selected = '') {
@@ -84,11 +79,8 @@
       const records = load();
       const index = records.findIndex(item => item.payee === record.payee);
       if (index !== -1 && !confirm(`「${record.payee}」已在常用名單中，確定更新付款資料？`)) return;
-      record.id = index === -1 ? crypto.randomUUID() : records[index].id;
-      if (index === -1) records.push(record);
-      else records[index] = record;
-      localStorage.setItem(KEY, JSON.stringify(records));
-      render(records, record.id);
+      const saved = PayeeStore.save(record, index === -1 ? '' : records[index].id);
+      render(load(), saved.id);
       status.textContent = `已${index === -1 ? '儲存' : '更新'}「${record.payee}」的常用付款資料。`;
     } catch {
       reportError();
@@ -100,9 +92,8 @@
       const records = load();
       const record = records.find(item => item.id === picker.value);
       if (!record || !confirm(`確定從常用名單刪除「${record.payee}」？`)) return;
-      const remaining = records.filter(item => item.id !== record.id);
-      localStorage.setItem(KEY, JSON.stringify(remaining));
-      render(remaining);
+      PayeeStore.remove(record.id);
+      render(load());
       status.textContent = `已刪除「${record.payee}」，目前表單內容保留。`;
     } catch {
       reportError();
@@ -119,6 +110,15 @@
     input.addEventListener('change', resetSelection);
   });
   window.PayeeFavorites = { resetSelection };
+
+  window.addEventListener('storage', event => {
+    if (event.key === null || event.key === PayeeStore.KEY) {
+      try {
+        render(load());
+        status.textContent = '常用名單已更新，目前填寫內容保留；可重新選取付款對象。';
+      } catch { reportError(); }
+    }
+  });
 
   try {
     render(load());
