@@ -3,6 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#b65c22">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="表單中心">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/images/pwa/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/css/pwa.css">
+
 <title>線上請款單｜金額試算、草稿與 PDF 列印｜表單填寫中心</title>
 <meta name="description" content="線上填寫內部請款單，支援金額與稅額計算、中文大寫金額、常用付款對象、匯款資料、附件與備註，以及草稿管理、A5 橫向預覽、列印和另存 PDF。">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -75,6 +84,7 @@
 <link rel="stylesheet" href="../assets/css/styles.css">
 <link rel="stylesheet" href="../assets/css/favorites-ui.css">
 <link rel="stylesheet" href="../assets/css/draft-library.css">
+<link rel="stylesheet" href="../assets/css/form-toolbar.css">
 </head>
 <body>
 
@@ -91,25 +101,28 @@
     </div>
   </div>
   <div class="toolbar-right">
-    <a class="btn btn-outline-white" href="../index.html" title="返回首頁">
-      ← 回到首頁
-    </a>
-    <button class="btn btn-outline-white" onclick="fillSample()" title="填入範例資料">
-      ✏️ 填入範例
-    </button>
-    <button class="btn btn-outline-white" onclick="clearForm()" title="清除所有欄位">
-      🗑 清除
-    </button>
-    <button class="btn btn-outline-white" onclick="savePaymentDraft()" title="儲存目前填寫內容">
+    <div class="toolbar-secondary" id="toolbarSecondary">
+      <button class="btn btn-outline-white" onclick="savePaymentDraft()" title="儲存目前填寫內容">
       儲存草稿
     </button>
-    <button class="btn btn-outline-white" data-draft-library onclick="loadPaymentDraft()" title="開啟草稿庫，可搜尋、載入、命名及刪除">
+      <button class="btn btn-outline-white" data-draft-library onclick="loadPaymentDraft()" title="開啟草稿庫，可搜尋、載入、命名及刪除">
       草稿庫
     </button>
-    <button class="btn btn-outline-white" onclick="loadRecentPaymentRecord()" title="載入最近列印紀錄">
+      <button class="btn btn-outline-white" onclick="loadRecentPaymentRecord()" title="載入最近列印紀錄">
       最近紀錄
     </button>
-    <button class="btn btn-white" onclick="goToPreview()">
+      <a class="btn btn-outline-white" href="../index.html" title="返回首頁">
+      ← 回到首頁
+    </a>
+      <button class="btn btn-outline-white" onclick="fillSample()" title="填入範例資料">
+      ✏️ 填入範例
+    </button>
+      <button class="btn btn-outline-white" onclick="clearForm()" title="清除所有欄位">
+      🗑 清除
+    </button>
+    </div>
+    <button type="button" class="btn btn-outline-white toolbar-more-toggle" id="toolbarMore" aria-expanded="false" aria-controls="toolbarSecondary">更多 <span aria-hidden="true">⋯</span></button>
+    <button class="btn btn-white toolbar-primary" onclick="goToPreview()">
       下一步 →
     </button>
   </div>
@@ -117,6 +130,8 @@
 </header>
 
 <main class="main">
+  <details class="form-help" data-mobile-collapse open>
+    <summary>填寫與列印說明</summary>
   <div class="banner">
     <span class="banner-icon">ℹ️</span>
     <span>
@@ -124,6 +139,7 @@
       縮放設為 <strong>100%（實際大小）</strong>，頁面邊距設為 <strong>無</strong>，即可輸出 300 DPI 高品質 PDF。
     </span>
   </div>
+  </details>
 
   <div class="print-header" id="printHeader">
     <div class="print-header-title">請 款 單</div>
@@ -133,12 +149,15 @@
     </div>
   </div>
 
+  <details class="form-doc-number" data-mobile-collapse open>
+    <summary>單據編號（出納填）</summary>
   <div class="doc-no-row">
     <div class="doc-no-badge">
       <span>單據編號（出納填）</span>
       <input type="text" class="fi" id="docNo" placeholder="PRF-2026-0001">
     </div>
   </div>
+  </details>
 
   <div class="card">
     <div class="card-head">
@@ -534,6 +553,7 @@
   </div>
 </div>
 
+<script src="../assets/js/form-toolbar.js"></script>
 <script src="../assets/js/favorites-ui.js"></script>
 <script src="../assets/js/form-recent-records.js"></script>
 <script src="../assets/js/forms/payment_request_form.js"></script>
@@ -542,5 +562,6 @@
 <script src="../assets/js/payee-favorites.js"></script>
 <script src="../assets/js/profile-store.js"></script>
 <script src="../assets/js/profile-autofill.js"></script>
+<script src="../assets/js/pwa.js"></script>
 </body>
 </html>

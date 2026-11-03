@@ -10,6 +10,7 @@
 ## 目前功能
 
 - 首頁入口：集中進入請假單與請款單。
+- PWA：可安裝至主畫面，以獨立視窗開啟；首次連網完成準備後支援主要頁面離線操作。新版在所有網站分頁／App 視窗關閉後啟用，不會強制重載正在填寫的表單。
 - 常用資料：在「常用資料管理」分頁維護姓名、單位、職稱、請假時代理人、個人連絡電話，資料儲存在瀏覽器 `localStorage`。
 - 表單自動帶入：請假單與請款單會自動帶入預設個人資料。
 - 常用資料選單：表單姓名欄旁可手動選擇常用資料並帶入。
@@ -18,6 +19,7 @@
 - 草稿庫：請假單與請款單各有最多 5 筆草稿，可命名、搜尋、排序、查看內容、載入、重新命名及刪除，並顯示目前草稿的儲存狀態。
 - 請假單：支援假別切換、理由範本、時間計算、列印預覽。
 - 請款單：支援填寫、預覽與列印輸出。
+- 手機表單：660px 以下使用單列工具列，保留表單名稱、下一步與更多選單；草稿／紀錄等操作收納於選單，說明及單據編號預設收合，桌機維持展開。
 - 付款對象常用名單：在請款單直接儲存、選取、更新同名對象與刪除，帶入戶名、受款方身分、付款方式、統編／身分證字號及銀行資料；名單保存在目前瀏覽器的 `localStorage`。
 - 付款對象管理：常用資料管理分頁可搜尋、新增、編輯及確認刪除付款對象；依身分及付款方式切換欄位，與請款單及 JSON 備份共用資料。已開啟的請款單會同步更新選單，保留目前填寫內容。
 - 大量資料操作：個人資料、付款對象、備份移轉分成三個頁籤；管理清單及表單選擇視窗每頁 20／50 筆，全資料搜尋、條件篩選及名稱排序後才建立當頁 DOM。新增與編輯使用獨立視窗，含未儲存變更提醒。已用 500 筆個人資料與 1,000 筆付款對象驗證，這是測試資料量，並非新增筆數上限。
@@ -65,20 +67,29 @@ accounting_hr_forms/
 ├─ favorites.html
 ├─ guide.html
 ├─ index.html
+├─ manifest.webmanifest
+├─ offline.html
+├─ service-worker.js
 ├─ README.md
 ├─ requirements.txt
 ├─ assets/
 │  ├─ css/
 │  │  ├─ draft-library.css
+│  │  ├─ form-toolbar.css
 │  │  ├─ favorites-ui.css
 │  │  ├─ index.css
+│  │  ├─ pwa.css
 │  │  └─ styles.css
 │  ├─ images/
-│  │  └─ branding/
-│  │     ├─ form-center.ico
-│  │     ├─ form-center-hero-banner-desktop.png
-│  │     ├─ form-center-hero-banner-mobile.png
-│  │     └─ not-found-cats-dogs.png
+│  │  ├─ branding/
+│  │  │  ├─ form-center.ico
+│  │  │  ├─ form-center-hero-banner-desktop.png
+│  │  │  ├─ form-center-hero-banner-mobile.png
+│  │  │  └─ not-found-cats-dogs.png
+│  │  └─ pwa/
+│  │     ├─ icon-192.png
+│  │     ├─ icon-512.png
+│  │     └─ apple-touch-icon.png
 │  └─ js/
 │     ├─ data/
 │     │  └─ leave_reason_library.js
@@ -87,6 +98,7 @@ accounting_hr_forms/
 │     │  └─ payment_request_form.js
 │     ├─ draft-library.js
 │     ├─ form-recent-records.js
+│     ├─ form-toolbar.js
 │     ├─ favorites-backup.js
 │     ├─ favorites-backup-ui.js
 │     ├─ favorites-page.js
@@ -96,6 +108,7 @@ accounting_hr_forms/
 │     ├─ payee-store.js
 │     ├─ profile-autofill.js
 │     ├─ profile-manager.js
+│     ├─ pwa.js
 │     └─ profile-store.js
 ├─ docs/
 │  └─ project_tree_structure.txt
@@ -103,11 +116,14 @@ accounting_hr_forms/
 │  ├─ leave_request_form.html
 │  └─ payment_request_form.html
 ├─ scripts/
+│  ├─ build_pwa.py
+│  ├─ service-worker.template.js
 │  └─ project_tree_structure_generator.py
 └─ tests/
    ├─ favorites-backup.test.cjs
    ├─ form-drafts.test.cjs
-   └─ payee-store.test.cjs
+   ├─ payee-store.test.cjs
+   └─ pwa.test.cjs
 ```
 
 ## 檔案分工
@@ -198,3 +214,26 @@ forms/payment_request_form.html
 ## 草稿測試
 
 執行 `node --test tests/form-drafts.test.cjs tests/favorites-backup.test.cjs`，驗證容量限制、更新、命名刪除、資料相容與儲存錯誤，以及常用資料備份流程。
+
+## PWA 安裝、離線與更新
+
+- 正式站使用 HTTPS；本機以 `python -m http.server 8000` 啟動後，透過 `http://localhost:8000` 測試。直接開 HTML 檔案可使用既有表單，但不會註冊 Service Worker。
+- 首頁頁尾提供低調的安裝入口及離線準備狀態，支援瀏覽器的原生安裝提示；其他平台提供操作指引。iPhone／iPad 使用 Safari 的分享選單加入主畫面。
+- 主要五個頁面、離線備援頁及必要的站內 CSS／JavaScript／圖片會預先快取；只有完整下載後才顯示可離線使用。外部 Google Fonts 不納入快取，離線使用系統字型。
+- 離線可操作表單、草稿及常用資料、產生預覽與 JSON 下載。資料仍保存在同來源的 localStorage，不會上傳或跨裝置同步；不同環境的資料可用常用資料 JSON 備份移轉。
+- `service-worker.js` 由快取檔案內容雜湊產生版本，每個版本的頁面與資源一起使用。新版本在背景下載後等待所有舊分頁／App 視窗關閉，不呼叫 skipWaiting，也不強制重新載入。
+- 啟用新版本時，只清除此 App 與此部署路徑的舊資源快取，不清除 localStorage 或其他 App 的快取。
+- Manifest、安裝程式及離線資源使用相對路徑，可部署於正式網域根目錄或 GitHub Pages 子目錄。
+
+每次修改頁面、CSS、JavaScript、圖示或 Manifest 後，提交前必須重新產生 Service Worker：
+
+```powershell
+python scripts/build_pwa.py
+node --test tests/pwa.test.cjs tests/favorites-backup.test.cjs tests/form-drafts.test.cjs tests/payee-store.test.cjs
+```
+
+編輯 `scripts/service-worker.template.js` 修改快取策略，不直接手改產生的 `service-worker.js`。`tests/pwa.test.cjs` 會檢查版本與檔案內容是否一致，避免忘記重建造成舊版快取持續使用。
+
+測試涵蓋 Manifest／圖示尺寸、全資源快取、下載中斷復原、部署子路徑、離線備援及快取清理；另已以瀏覽器驗證離線填表、草稿儲存、JSON 匯出及新版本等待／啟用流程。
+
+參考安裝條件與更新生命週期：[MDN PWA 安裝說明](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Making_PWAs_installable)、[Service Worker lifecycle](https://web.dev/articles/service-worker-lifecycle)。

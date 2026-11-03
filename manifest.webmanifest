@@ -1,0 +1,22 @@
+{
+  "id": "./",
+  "name": "表單填寫中心",
+  "short_name": "表單中心",
+  "description": "請假單、請款單與常用資料管理，支援離線填寫、草稿與 PDF 列印。",
+  "lang": "zh-TW",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fdf5ef",
+  "theme_color": "#b65c22",
+  "categories": ["business", "productivity"],
+  "icons": [
+    { "src": "assets/images/pwa/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/images/pwa/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "填寫請款單", "url": "forms/payment_request_form.html", "icons": [{ "src": "assets/images/pwa/icon-192.png", "sizes": "192x192" }] },
+    { "name": "填寫請假單", "url": "forms/leave_request_form.html", "icons": [{ "src": "assets/images/pwa/icon-192.png", "sizes": "192x192" }] },
+    { "name": "管理常用資料", "url": "favorites.html", "icons": [{ "src": "assets/images/pwa/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
