@@ -1,0 +1,22 @@
+/* Original SVG icon system; inherit text color and keep decorative shapes out of labels. */
+.ui-icon { display: inline-block; width: 18px; height: 18px; flex: 0 0 auto; vertical-align: -3px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.nav-link .ui-icon { width: 16px; height: 16px; }
+.btn .ui-icon, .fc-btn .ui-icon { width: 16px; height: 16px; vertical-align: -3px; }
+.banner-icon .ui-icon { width: 17px; height: 17px; }
+.sec-head-icon .ui-icon, .fc-coming-icon .ui-icon { width: 22px; height: 22px; }
+.flow-icon .ui-icon { width: 24px; height: 24px; color: var(--c-blue); }
+.nav-hamburger .ui-icon { width: 20px; height: 20px; color: #fff; }
+.nav-hamburger .icon-close { display: none; }
+.nav-hamburger[aria-expanded="true"] .icon-menu { display: none; }
+.nav-hamburger[aria-expanded="true"] .icon-close { display: inline-block; }
+.toolbar-more-toggle .ui-icon { width: 14px; height: 14px; }
+.print-checkbox { width: 2.7mm; height: 2.7mm; stroke-width: 1.3; vertical-align: -0.5mm; }
+.fc-btn .ui-icon { margin-left: 5px; }
+.fc-coming-btn .ui-icon { margin-left: 4px; }
+.profile-pick-btn::after { content: none; }
+summary { list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::marker { content: ''; }
+summary::before { content: ''; display: inline-block; width: 13px; height: 13px; margin-right: 5px; vertical-align: -2px; background-color: currentColor; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m9 5 7 7-7 7' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
+details[open] > summary::before { transform: rotate(90deg); }
+.flow-step::after { content: ''; width: 18px; height: 18px; background-color: var(--c-border-md); mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 12h16m-6-6 6 6-6 6' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
