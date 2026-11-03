@@ -465,6 +465,7 @@ function buildPreview() {
   pset('pv-vtype', vtMap[gr('voucherType')] || '');
   pset('pv-vno', gv('voucherNo'));
   pset('pv-vdate', gv('voucherDate'));
+  pset('pv-payment-note', gv('paymentNote'));
 
   const hasAtt = gr('hasAttach') === 'yes';
   pset('pv-attach', hasAtt ? '有' : (gr('hasAttach') ? '無' : ''));
@@ -535,6 +536,7 @@ function loadPaymentDraft() {
 
 function restorePaymentFormData(data) {
   FormRecentRecords.restore(data, document.getElementById('fillPage'));
+  document.getElementById('paymentNote').value = typeof data.paymentNote === 'string' ? data.paymentNote : '';
   window.PayeeFavorites?.resetSelection();
   onAmtInput();
   syncPrintHeader();

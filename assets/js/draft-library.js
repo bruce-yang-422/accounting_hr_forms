@@ -95,7 +95,7 @@ window.DraftLibrary = (() => {
     article.append(node('p', 'draft-hint', `最後更新 ${date(draft.updatedAt)}`));
     const details = node('details', 'draft-details');
     details.append(node('summary', '', '查看草稿內容'));
-    const fields = config.type === 'payment' ? [['applicant', '申請人'], ['department', '部門'], ['reqDate', '請款日期'], ['acctCategory', '科目'], ['reason', '事由'], ['amtGross', '金額'], ['payee', '付款對象']] :
+    const fields = config.type === 'payment' ? [['applicant', '申請人'], ['department', '部門'], ['reqDate', '請款日期'], ['acctCategory', '科目'], ['reason', '事由'], ['amtGross', '金額'], ['payee', '付款對象'], ['paymentNote', '備註']] :
       [['applicant', '申請人'], ['department', '部門'], ['startDate', '開始日期'], ['endDate', '結束日期'], ['reason', '請假理由'], ['agent', '代理人'], ['remark', '備註']];
     const values = node('dl');
     fields.forEach(([key, label]) => { values.append(node('dt', '', label), node('dd', '', String(draft.data[key] || '未填寫'))); });
