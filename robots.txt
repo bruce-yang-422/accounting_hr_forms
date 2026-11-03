@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://office-forms.stack-base.com/sitemap.xml
