@@ -5,7 +5,7 @@
 
 const FormRecentRecords = (() => {
   const RECENT_LIMIT = 20;
-  const DRAFT_LIMIT = 5;
+  const DRAFT_LIMIT = 20;
   const RECENT_PREFIX = 'hr_form_recent_';
   const DRAFT_PREFIX = 'hr_form_draft_';
 
@@ -17,32 +17,27 @@ const FormRecentRecords = (() => {
     return DRAFT_PREFIX + formType;
   }
 
-  function loadByKey(storageKey) {
-    try {
-      const records = JSON.parse(localStorage.getItem(storageKey)) || [];
-      return Array.isArray(records) ? records : [];
-    } catch {
-      return [];
-    }
-  }
-
   function saveByKey(storageKey, records, limit) {
     localStorage.setItem(storageKey, JSON.stringify(records.slice(0, limit)));
   }
 
   function load(formType) {
-    return loadByKey(recentKey(formType));
+    return loadRecords(recentKey(formType), '完成紀錄');
   }
 
   function loadDrafts(formType) {
-    const raw = localStorage.getItem(draftKey(formType));
+    return loadRecords(draftKey(formType), '草稿');
+  }
+
+  function loadRecords(key, label) {
+    const raw = localStorage.getItem(key);
     let drafts;
     try { drafts = raw === null ? [] : JSON.parse(raw); }
-    catch { throw new Error('草稿資料無法讀取，請先保留瀏覽器資料並檢查，避免覆寫。'); }
+    catch { throw new Error(`${label}資料無法讀取，請先保留瀏覽器資料並檢查，避免覆寫。`); }
     if (!Array.isArray(drafts) || drafts.some(draft => !draft || typeof draft.id !== 'string' ||
       typeof draft.title !== 'string' || !draft.data || typeof draft.data !== 'object' || Array.isArray(draft.data)) ||
       new Set(drafts.map(draft => draft.id)).size !== drafts.length) {
-      throw new Error('草稿資料格式異常，請先保留瀏覽器資料並檢查，避免覆寫。');
+      throw new Error(`${label}資料格式異常，請先保留瀏覽器資料並檢查，避免覆寫。`);
     }
     return drafts;
   }
@@ -100,6 +95,7 @@ const FormRecentRecords = (() => {
       fields.forEach((field) => {
         if (field.type === 'radio') {
           field.checked = field.value === value;
+          field.closest('.rpill')?.classList.toggle('active', field.checked);
           if (field.checked) field.dispatchEvent(new Event('change', { bubbles: true }));
         } else if (field.type === 'checkbox') {
           field.checked = Array.isArray(value) && value.includes(field.value);
@@ -112,7 +108,7 @@ const FormRecentRecords = (() => {
   function save(formType, title, data, existingId = '') {
     const now = new Date().toISOString();
     const records = load(formType);
-    const id = existingId || 'r_' + Date.now();
+    const id = existingId || 'r_' + crypto.randomUUID();
     const nextRecord = {
       id,
       title: title || '未命名紀錄',
@@ -123,44 +119,6 @@ const FormRecentRecords = (() => {
     const nextRecords = [nextRecord, ...records.filter((record) => record.id !== id)];
     saveAll(formType, nextRecords);
     return nextRecord;
-  }
-
-  function formatRecordList(records) {
-    return records.map((record, index) => {
-      const date = new Date(record.updatedAt).toLocaleString('zh-TW', {
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-      return `${index + 1}. ${record.title}（${date}）`;
-    }).join('\n');
-  }
-
-  function pickFromRecords(records, emptyMessage, promptTitle) {
-    if (!records.length) {
-      alert(emptyMessage);
-      return null;
-    }
-
-    const input = prompt(`${promptTitle}\n\n${formatRecordList(records)}`);
-    if (!input) return null;
-
-    const index = Number(input) - 1;
-    if (!Number.isInteger(index) || index < 0 || index >= records.length) {
-      alert('找不到這個編號的資料。');
-      return null;
-    }
-
-    return records[index];
-  }
-
-  function pick(formType) {
-    return pickFromRecords(
-      load(formType),
-      '目前沒有最近紀錄。',
-      '請輸入要載入的最近紀錄編號：'
-    );
   }
 
   function saveDraft(formType, title, data, existingId = '') {
@@ -196,5 +154,9 @@ const FormRecentRecords = (() => {
     saveAllDrafts(formType, drafts.filter(draft => draft.id !== id));
   }
 
-  return { collect, restore, save, pick, load, saveDraft, loadDrafts, renameDraft, deleteDraft, DRAFT_LIMIT };
+  function deleteRecent(formType, id) {
+    saveAll(formType, load(formType).filter(record => record.id !== id));
+  }
+
+  return { collect, restore, save, load, saveDraft, loadDrafts, renameDraft, deleteDraft, deleteRecent, DRAFT_LIMIT, RECENT_LIMIT };
 })();

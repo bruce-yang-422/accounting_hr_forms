@@ -509,6 +509,7 @@ function saveRecentPaymentRecord() {
     window.__currentRecentPaymentRecordId || ''
   );
   window.__currentRecentPaymentRecordId = record.id;
+  window.DraftLibrary?.refreshCounts();
 }
 
 function printAndSaveRecentPaymentRecord() {
@@ -517,13 +518,7 @@ function printAndSaveRecentPaymentRecord() {
 }
 
 function loadRecentPaymentRecord() {
-  const record = FormRecentRecords.pick('payment');
-  if (!record) return;
-
-  restorePaymentFormData(record.data);
-  window.__currentRecentPaymentRecordId = record.id;
-  window.__currentPaymentDraftId = '';
-  window.DraftLibrary?.resetCurrent();
+  DraftLibrary.openRecent();
 }
 
 function savePaymentDraft() {
@@ -536,6 +531,13 @@ function loadPaymentDraft() {
 
 function restorePaymentFormData(data) {
   FormRecentRecords.restore(data, document.getElementById('fillPage'));
+  if (!gr('payMethod')) ['bankInfoRow', 'bankAccountRow'].forEach(id => { document.getElementById(id).style.display = 'none'; });
+  if (!gr('payeeType')) {
+    const group = document.getElementById('taxIdGroup'); group.style.display = '';
+    group.querySelector('.flabel').textContent = '統一編號／身分證字號';
+    document.getElementById('taxId').placeholder = '請先選擇受款方身分';
+  }
+  if (!gr('hasAttach')) ['attachCountGroup', 'attachTypesRow', 'attachOtherRow'].forEach(id => { document.getElementById(id).style.display = 'none'; });
   document.getElementById('paymentNote').value = typeof data.paymentNote === 'string' ? data.paymentNote : '';
   window.PayeeFavorites?.resetSelection();
   onAmtInput();

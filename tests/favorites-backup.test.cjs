@@ -4,7 +4,7 @@ const { readFileSync } = require('node:fs');
 const { resolve } = require('node:path');
 const vm = require('node:vm');
 const { randomUUID } = require('node:crypto');
-const source = readFileSync(resolve(__dirname, '../assets/js/favorites-backup.js'), 'utf8');
+const source = readFileSync(resolve(__dirname, '../assets/js/form-templates.js'), 'utf8') + '\n' + readFileSync(resolve(__dirname, '../assets/js/favorites-backup.js'), 'utf8');
 
 function setup(initial = {}, failKey = '') {
   const storage = new Map(Object.entries(initial).map(([key, value]) => [key, JSON.stringify(value)]));
@@ -34,7 +34,7 @@ test('export and replace round trip preserves all fields and default, and exclud
     yijia_payee_favorites: [payee('r_a', '常用公司')], hr_form_drafts_leave: [{ id: 'draft' }] };
   const { api } = setup(initial);
   const exported = api.createExport();
-  assert.deepEqual(Object.keys(exported.datasets), ['profiles', 'payees']);
+  assert.deepEqual(Object.keys(exported.datasets), ['profiles', 'payees', 'templates']);
   const target = setup();
   target.api.importData(target.api.parse(JSON.stringify(exported)), 'replace');
   assert.deepEqual(JSON.parse(target.storage.get('yijia_profiles')), initial.yijia_profiles);
@@ -105,4 +105,17 @@ test('future registered categories participate in export, preview and import', (
   assert.equal(api.describe(incoming), '新表單：1 筆');
   api.importData(incoming, 'merge');
   assert.equal(storage.get('future_favorites'), '["範本"]');
+});
+
+test('template backup round trip retains fixed content, excludes transaction fields and preserves omitted datasets', () => {
+  const record = { id: 't_a', title: '每月雲端費', createdAt: '', updatedAt: '', data: { reason: '雲端服務', amtGross: '1000', docNo: 'OLD', reqDate: '2020-01-01' } };
+  const origin = setup({ hr_form_templates: { payment: [record], leave: [] } });
+  const exported = origin.api.createExport();
+  assert.equal(exported.datasets.templates.payment[0].data.reason, '雲端服務');
+  assert.equal(Object.hasOwn(exported.datasets.templates.payment[0].data, 'docNo'), false);
+  const target = setup(); target.api.importData(target.api.parse(JSON.stringify(exported)), 'replace');
+  assert.equal(JSON.parse(target.storage.get('hr_form_templates')).payment[0].title, '每月雲端費');
+  const before = target.storage.get('hr_form_templates');
+  target.api.importData(target.api.parse(envelope({ payees: [] })), 'replace');
+  assert.equal(target.storage.get('hr_form_templates'), before);
 });

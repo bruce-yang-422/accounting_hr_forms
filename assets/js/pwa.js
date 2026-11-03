@@ -41,6 +41,7 @@
     const recentKey = payment ? '__currentRecentPaymentRecordId' : '__currentRecentLeaveRecordId';
     const snapshot = { path: location.pathname, savedAt: Date.now(), data: FormRecentRecords.collect(fillPage),
       draftId: window[draftKey] || '', recentId: window[recentKey] || '', baseline: window.DraftLibrary?.getSessionSnapshot() || '',
+      libraryState: window.DraftLibrary?.getLibraryState(),
       preview: document.getElementById('previewPage')?.style.display === 'block', scrollY: window.scrollY };
     sessionStorage.setItem(pendingKey, JSON.stringify(snapshot));
   }
@@ -59,6 +60,7 @@
       window[payment ? '__currentPaymentDraftId' : '__currentLeaveDraftId'] = snapshot.draftId || '';
       window[payment ? '__currentRecentPaymentRecordId' : '__currentRecentLeaveRecordId'] = snapshot.recentId || '';
       window.DraftLibrary?.restoreSessionSnapshot(snapshot.baseline);
+      window.DraftLibrary?.restoreLibraryState(snapshot.libraryState);
       if (snapshot.preview) {
         window.buildPreview();
         document.getElementById('fillPage').style.display = 'none';

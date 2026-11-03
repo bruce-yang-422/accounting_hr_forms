@@ -42,6 +42,17 @@ html.draft-modal-open { overflow: hidden; }
 .draft-rename input { flex-basis: 100%; }
 .draft-save-form .flabel { margin-top: 16px; }
 .draft-save-form > .draft-button { margin-right: 8px; margin-top: 8px; }
+.form-library-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 5px; margin-bottom: 14px; border: 1px solid var(--c-border); border-radius: 10px; background: var(--c-bg); }
+.form-library-tabs .draft-button { display: flex; flex-direction: column; gap: 4px; background: transparent; border-color: transparent; padding: 9px 4px; }
+.form-library-tabs [aria-selected="true"] { background: #fff; border-color: var(--c-border-md); font-weight: 700; }
+.form-library-tabs small { color: var(--c-muted); font-weight: 400; font-size: 11px; }
+.form-library-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; font-size: 13px; margin: 12px 0 16px; }
+.form-library-manage { margin-top: 12px; font-size: 12px; color: var(--c-muted); }
+.form-library-manage > button { margin: 8px 6px 0 0; }
+.form-library-pages { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 16px 0; font-size: 12px; }
+.form-library-pages[hidden] { display: none; }
+.draft-session.is-template-editing { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; -webkit-line-clamp: unset; overflow: visible; }
+.draft-session .draft-button { min-height: 32px; font-size: 12px; padding: 5px 10px; }
 @media (max-width: 480px) {
   .toolbar { height: auto; }
   .draft-dialog-header { padding: 14px; }

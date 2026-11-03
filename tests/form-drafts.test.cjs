@@ -18,14 +18,14 @@ function setup() {
 
 test('draft capacity never evicts existing drafts; updating a full library preserves creation time', () => {
   const { api, storage } = setup();
-  const drafts = Array.from({ length: 5 }, (_, i) => api.saveDraft('payment', `草稿 ${i}`, { applicant: '甲', reason: String(i) }));
+  const drafts = Array.from({ length: 20 }, (_, i) => api.saveDraft('payment', `草稿 ${i}`, { applicant: '甲', reason: String(i) }));
   const before = storage.get('hr_form_draft_payment');
-  assert.throws(() => api.saveDraft('payment', '第六筆', {}), /已滿/);
+  assert.throws(() => api.saveDraft('payment', '第二十一筆', {}), /已滿/);
   assert.equal(storage.get('hr_form_draft_payment'), before);
   const updated = api.saveDraft('payment', '更新名稱', { applicant: '乙' }, drafts[0].id);
   assert.equal(updated.createdAt, drafts[0].createdAt);
   assert.equal(updated.id, drafts[0].id);
-  assert.equal(api.loadDrafts('payment').length, 5);
+  assert.equal(api.loadDrafts('payment').length, 20);
 });
 
 test('rename keeps content; delete frees a slot and types remain isolated', () => {
@@ -61,4 +61,16 @@ test('storage failures propagate without returning a saved draft', () => {
   vm.createContext(context); vm.runInContext(source + '\nthis.api = FormRecentRecords;', context);
   assert.throws(() => context.api.saveDraft('leave', '未寫入', {}), /quota/);
   assert.equal(api.loadDrafts('leave').length, 0);
+});
+
+test('recent completion history keeps 20 records and updating or deleting preserves other records', () => {
+  const { api } = setup();
+  const records = Array.from({ length: 21 }, (_, i) => api.save('payment', `已完成 ${i}`, { reason: String(i) }));
+  assert.equal(api.load('payment').length, 20);
+  assert.equal(api.load('payment').some(record => record.id === records[0].id), false);
+  const updated = api.save('payment', '更新', { reason: '更新' }, records[5].id);
+  assert.equal(updated.createdAt, records[5].createdAt);
+  assert.equal(api.load('payment').length, 20);
+  api.deleteRecent('payment', updated.id); assert.equal(api.load('payment').length, 19);
+  assert.equal(api.load('leave').length, 0);
 });

@@ -23,11 +23,11 @@ test('every page embeds the same original SVG library and resolves all icon refe
   });
 });
 
-test('home form icons use vector assets and SVG assets are available offline', () => {
+test('home form identity uses the supplied PNG artwork and operation SVG assets work offline', () => {
   const home = read('index.html');
-  for (const path of ['assets/icons/leave-calendar-approval.svg', 'assets/icons/payment-money-bag-invoice.svg']) {
+  for (const path of ['assets/images/forms/leave-calendar-approval.png', 'assets/images/forms/payment-money-bag-invoice.png']) {
     assert.ok(home.includes(path));
-    assert.match(read(path), /<svg[^>]+viewBox="0 0 64 64"/);
+    assert.ok(readFileSync(resolve(root, path)).length > 0);
   }
   const worker = read('service-worker.js');
   for (const path of ['assets/icons/brand.svg', 'assets/icons/ui.svg', 'assets/css/icons.css', 'assets/icons/leave-calendar-approval.svg', 'assets/icons/payment-money-bag-invoice.svg']) assert.ok(worker.includes(`"${path}"`), path);

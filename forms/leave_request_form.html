@@ -119,7 +119,7 @@
   <div class="toolbar-inner">
   <div class="toolbar-left">
     <a class="toolbar-logo" href="../index.html" aria-label="回到首頁">
-      <img src="../assets/icons/brand.svg" alt="">
+      <img src="../assets/images/forms/leave-calendar-approval.png" alt="">
     </a>
     <div class="toolbar-brand">
       <h1>請假單</h1>
@@ -134,8 +134,9 @@
       <button class="btn btn-outline-white" data-draft-library onclick="loadLeaveDraft()" title="開啟草稿庫，可搜尋、載入、命名及刪除">
       草稿庫
     </button>
-      <button class="btn btn-outline-white" onclick="loadRecentLeaveRecord()" title="載入最近列印紀錄">
-      最近紀錄
+      <button type="button" class="btn btn-outline-white" data-template-library onclick="DraftLibrary.openTemplates()" title="套用及管理固定常用內容">範本庫</button>
+    <button class="btn btn-outline-white" data-recent-library onclick="loadRecentLeaveRecord()" title="載入最近列印紀錄">
+      最近完成
     </button>
       <a class="btn btn-outline-white" href="../index.html" title="返回首頁">
       <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-left"></use></svg> 回到首頁
@@ -642,6 +643,7 @@
 <script src="../assets/js/form-toolbar.js"></script>
 <script src="../assets/js/favorites-ui.js"></script>
 <script src="../assets/js/form-recent-records.js"></script>
+<script src="../assets/js/form-templates.js"></script>
 <script src="../assets/js/forms/leave_request_form.js"></script>
 <script src="../assets/js/draft-library.js"></script>
 <script src="../assets/js/profile-store.js"></script>

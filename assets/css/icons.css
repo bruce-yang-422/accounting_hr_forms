@@ -1,6 +1,7 @@
 /* Original SVG icon system; inherit text color and keep decorative shapes out of labels. */
 .ui-icon { display: inline-block; width: 18px; height: 18px; flex: 0 0 auto; vertical-align: -3px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .nav-link .ui-icon { width: 16px; height: 16px; }
+.nav-form-icon { display: inline-block; width: 20px; height: 20px; object-fit: contain; flex: 0 0 auto; padding: 1px; }
 .btn .ui-icon, .fc-btn .ui-icon { width: 16px; height: 16px; vertical-align: -3px; }
 .banner-icon .ui-icon { width: 17px; height: 17px; }
 .sec-head-icon .ui-icon, .fc-coming-icon .ui-icon { width: 22px; height: 22px; }

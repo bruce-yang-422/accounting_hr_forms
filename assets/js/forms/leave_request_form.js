@@ -717,6 +717,7 @@ function saveRecentLeaveRecord() {
     window.__currentRecentLeaveRecordId || ''
   );
   window.__currentRecentLeaveRecordId = record.id;
+  window.DraftLibrary?.refreshCounts();
 }
 
 function printAndSaveRecentLeaveRecord() {
@@ -725,13 +726,7 @@ function printAndSaveRecentLeaveRecord() {
 }
 
 function loadRecentLeaveRecord() {
-  const record = FormRecentRecords.pick('leave');
-  if (!record) return;
-
-  restoreLeaveFormData(record.data);
-  window.__currentRecentLeaveRecordId = record.id;
-  window.__currentLeaveDraftId = '';
-  window.DraftLibrary?.resetCurrent();
+  DraftLibrary.openRecent();
 }
 
 function saveLeaveDraft() {
@@ -744,6 +739,8 @@ function loadLeaveDraft() {
 
 function restoreLeaveFormData(data) {
   FormRecentRecords.restore(data, document.getElementById('fillPage'));
+  if (!getRadioValue('hasProof')) document.getElementById('proofNoteGroup').style.display = 'none';
+  if (!getRadioValue('leaveType')) document.getElementById('leaveTypeOtherGroup').style.display = 'none';
   const savedReasonPreset = data.reasonPreset || '';
   const savedBereavementRelation = data.bereavementRelation || '';
   window.__lastLeaveType = getRadioValue('leaveType');

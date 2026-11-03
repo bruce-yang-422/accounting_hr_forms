@@ -128,8 +128,8 @@
     </div>
     <nav class="nav-links" id="navLinks">
       <a href="index.html" class="nav-link"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-home"></use></svg> 首頁</a>
-      <a href="./forms/leave_request_form.html" class="nav-link"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-calendar"></use></svg> 請假單</a>
-      <a href="./forms/payment_request_form.html" class="nav-link"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-payment"></use></svg> 請款單</a>
+      <a href="./forms/leave_request_form.html" class="nav-link"><img class="nav-form-icon" src="./assets/images/forms/leave-calendar-approval.png" width="20" height="20" alt="" aria-hidden="true"> 請假單</a>
+      <a href="./forms/payment_request_form.html" class="nav-link"><img class="nav-form-icon" src="./assets/images/forms/payment-money-bag-invoice.png" width="20" height="20" alt="" aria-hidden="true"> 請款單</a>
       <a href="favorites.html" class="nav-link active" aria-current="page"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-forms"></use></svg> 常用資料管理</a>
     </nav>
     <button class="nav-hamburger" id="navHamburger" aria-label="選單" aria-expanded="false" onclick="toggleNav()">
@@ -225,7 +225,7 @@
 
   <section class="pm-wrap favorites-backup" id="favorites-backup" data-favorites-panel aria-labelledby="favorites-backup-title">
     <h2 id="favorites-backup-title">常用資料 JSON 匯出／匯入</h2>
-    <p>一次備份個人常用資料（請假／請款）及請款對象名單，方便移轉到其他裝置或瀏覽器。</p>
+    <p>一次備份個人常用資料、請款對象名單與表單範本，方便移轉到其他裝置或瀏覽器。</p>
     <div class="favorites-backup-actions">
       <button type="button" id="favorites-export" class="btn pm-save-btn">匯出全部常用資料</button>
     </div>
@@ -260,7 +260,7 @@
         </select>
       </div>
     </div>
-    <p>個人資料以「姓名＋單位」、付款對象以「戶名」判斷同名。備份包含聯絡與銀行資料，請妥善保管；不包含草稿及最近紀錄。</p>
+    <p>個人資料以「姓名＋單位」、付款對象以「戶名」、範本以同類表單的「範本名稱」判斷重複。備份包含聯絡與銀行資料，請妥善保管；不包含草稿及最近完成紀錄。</p>
     <div class="favorites-backup-actions">
       <button type="button" id="favorites-import" class="btn pm-save-btn" disabled>確認匯入</button>
     </div>
@@ -287,6 +287,7 @@
 <script src="./assets/js/profile-manager.js"></script>
 <script src="./assets/js/payee-store.js"></script>
 <script src="./assets/js/payee-manager.js"></script>
+<script src="./assets/js/form-templates.js"></script>
 <script src="./assets/js/favorites-backup.js"></script>
 <script src="./assets/js/favorites-backup-ui.js"></script>
 <script>

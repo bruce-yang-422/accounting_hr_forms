@@ -20,10 +20,11 @@
   #fillPage .toolbar-secondary [onclick="clearForm()"] { color: #a32920; }
   #fillPage .toolbar-secondary [onclick^="save"][onclick$="Draft()"] { order: 1; }
   #fillPage .toolbar-secondary [data-draft-library] { order: 2; }
-  #fillPage .toolbar-secondary [onclick^="loadRecent"] { order: 3; }
-  #fillPage .toolbar-secondary a { order: 4; }
-  #fillPage .toolbar-secondary [onclick="fillSample()"] { order: 5; }
-  #fillPage .toolbar-secondary [onclick="clearForm()"] { order: 6; }
+  #fillPage .toolbar-secondary [data-template-library] { order: 3; }
+  #fillPage .toolbar-secondary [onclick^="loadRecent"] { order: 4; }
+  #fillPage .toolbar-secondary a { order: 5; }
+  #fillPage .toolbar-secondary [onclick="fillSample()"] { order: 6; }
+  #fillPage .toolbar-secondary [onclick="clearForm()"] { order: 7; }
   #fillPage .main { padding-top: 12px; }
   .draft-session { padding: 0; margin-bottom: 8px; border: 0; background: none; font-size: 12px; line-height: 1.6; color: var(--c-muted); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
   .form-help, .form-doc-number { margin-bottom: 8px; }

@@ -94,6 +94,12 @@ window.FavoritesBackup = (() => {
     count: value => value.length,
   });
 
+  registerDataset('templates', {
+    key: FormTemplates.KEY, label: '表單範本（請假／請款）', empty: { payment: [], leave: [] },
+    validate: FormTemplates.validateAll, merge: FormTemplates.merge,
+    count: value => value.payment.length + value.leave.length,
+  });
+
   function read(adapter) {
     const raw = localStorage.getItem(adapter.key);
     return adapter.validate(raw === null ? structuredClone(adapter.empty) : JSON.parse(raw));
