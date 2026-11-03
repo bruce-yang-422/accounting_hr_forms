@@ -20,7 +20,14 @@ window.DraftLibrary = (() => {
   function updateSession() {
     if (!config) return;
     for (const [selector, kind] of [['[data-draft-library]', 'drafts'], ['[data-template-library]', 'templates'], ['[data-recent-library]', 'recent']]) {
-      try { const element = document.querySelector(selector); if (element) element.textContent = `${kind === 'drafts' ? '草稿庫' : kind === 'templates' ? '範本庫' : '最近完成'} (${list(kind).length}/${limit(kind)})`; } catch {}
+      try {
+        const element = document.querySelector(selector);
+        if (element) {
+          const label = element.querySelector('.sidebar-label') || element;
+          const text = `${kind === 'drafts' ? '草稿庫' : kind === 'templates' ? '範本庫' : '最近完成'} (${list(kind).length}/${limit(kind)})`;
+          if (label.textContent !== text) label.textContent = text;
+        }
+      } catch {}
     }
     session.classList.toggle('is-template-editing', Boolean(templateId));
     sessionAction.hidden = !templateId;

@@ -1,0 +1,64 @@
+.form-sidebar, .desktop-step-summary, .desktop-form-actions { display: none; }
+.desktop-form-context { display: contents; }
+.toolbar-secondary .sidebar-label > .ui-icon, .desktop-action-secondary .sidebar-label > .ui-icon { display: none; }
+@media screen and (min-width: 1024px) {
+  #fillPage { --sidebar-width: 220px; --workspace-width: var(--page-width); --form-content-width: calc(var(--workspace-width) - var(--sidebar-width)); --workspace-offset: max(0px, calc((100% - var(--workspace-width)) / 2)); }
+  #fillPage.sidebar-compact { --sidebar-width: 68px; }
+  #fillPage .toolbar { height: 64px; max-width: var(--workspace-width); margin: 0 auto; border-inline: 1px solid #c49b7c; }
+  #fillPage .toolbar-inner { max-width: calc(var(--sidebar-width) + var(--form-content-width)); margin-left: auto; margin-right: auto; padding: 0 24px; gap: 24px; }
+  #fillPage .toolbar-right { margin-left: auto; }
+  #fillPage .toolbar-primary { display: none; }
+  .desktop-step-summary { display: block; font-size: 13px; opacity: .9; }
+  .form-sidebar { display: flex; flex-direction: column; position: fixed; top: 64px; bottom: 0; left: var(--workspace-offset); width: var(--sidebar-width); padding: 16px 12px; background: #f2e1d3; border-inline: 1px solid #c49b7c; z-index: 100; overflow-y: auto; }
+  .sidebar-collapse, .section-link, .sidebar-resource { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 42px; padding: 9px 10px; border: 0; border-radius: 7px; font: inherit; font-size: 13px; color: var(--c-navy); background: none; text-decoration: none; cursor: pointer; text-align: left; }
+  .sidebar-collapse { margin-bottom: 12px; color: #704525; }
+  .form-sidebar :is(button,a):focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+  .sidebar-collapse:hover, .sidebar-resource:hover { background: #e7cbb5; }
+  .sidebar-progress { padding: 6px 10px 16px; color: #704525; font-size: 11px; }
+  .sidebar-progress p { margin: 0 0 8px; font-size: 12px; }
+  .workspace-progress { display: block; width: 100%; height: 6px; margin: 0 0 8px; accent-color: #bf601f; border: 0; border-radius: 9px; }
+  .workspace-progress::-webkit-progress-bar { background: #d5b79f; border-radius: 9px; }
+  .workspace-progress::-webkit-progress-value { background: #bf601f; border-radius: 9px; }
+  .section-nav { display: grid; gap: 4px; }
+  .section-link { font-size: 12px; }
+  .section-link:hover { background: #e7cbb5; }
+  .section-link[aria-current] { background: #934416; color: #fff; font-weight: 700; }
+  .section-link[aria-current] .section-number { border-color: #ffffff80; background: #ffffff18; }
+  .section-link[aria-current] .section-state { color: #fff; }
+  .section-number { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; flex: 0 0 24px; border: 1px solid #d8baa3; border-radius: 50%; font-size: 11px; }
+  .section-state { margin-left: auto; color: #8b4b19; }
+  .section-state[hidden] { display: none; }
+  .sidebar-heading { padding: 18px 10px 8px; margin: 10px 0 0; border-top: 1px solid #c49b7c; font-size: 11px; color: #704525; }
+  #fillPage .sidebar-tools .toolbar-secondary { display: grid; gap: 6px; }
+  #fillPage .sidebar-tools .btn { width: 100%; justify-content: flex-start; min-height: 42px; padding: 9px 10px; font-size: 12px; background: #fffaf6; color: var(--c-navy); border: 1px solid #cfac91; white-space: normal; text-align: left; }
+  #fillPage .sidebar-tools .btn:hover { background: #fff; border-color: #9b5c30; }
+  .sidebar-tools .sidebar-label > .ui-icon { display: none; }
+  .sidebar-resource { font-size: 12px; margin-top: 6px; background: #fffaf6; border: 1px solid #cfac91; }
+  .form-sidebar .ui-icon { flex: 0 0 18px; }
+  #fillPage > .main { width: calc(100% - var(--sidebar-width)); max-width: var(--form-content-width); min-height: calc(100vh - 64px); margin-left: calc(var(--workspace-offset) + var(--sidebar-width)); margin-right: auto; padding: 20px 24px 28px; border-right: 1px solid #c49b7c; }
+  #fillPage .card { scroll-margin-top: 82px; border: 1px solid #eaded5; box-shadow: 0 3px 12px #5327070a; }
+  #fillPage .card:focus-visible { outline: 2px solid #c97436; outline-offset: 3px; }
+  #fillPage .card-head { background: #fff0e3; color: #8b3e10; padding: 10px 16px; }
+  #fillPage .card-head-num { background: #f7cc9d; color: #8b3e10; }
+  #fillPage .card-body { padding: 16px 18px; }
+  #fillPage #form-section-1 .frow:first-child > .fg { flex: 1; }
+  .desktop-form-context { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 18px; align-items: start; margin-bottom: 16px; }
+  .desktop-form-context .draft-session { grid-column: 1; }
+  .desktop-form-context .form-help { grid-column: 1; }
+  .desktop-form-context .form-doc-number { grid-column: 2; grid-row: 1 / 3; align-self: start; }
+  #fillPage .draft-session { margin-bottom: 12px; padding: 9px 12px; border-left-width: 3px; font-size: 12px; }
+  #fillPage .form-help > summary { display: list-item; font-size: 12px; color: var(--c-muted); cursor: pointer; padding-bottom: 6px; width: fit-content; }
+  #fillPage .form-help .banner { font-size: 11.5px; margin-bottom: 12px; }
+  #fillPage .doc-no-row { margin-bottom: 0; }
+  .desktop-form-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 0 0; }
+  .desktop-action-secondary { display: flex; gap: 8px; }
+  #fillPage .desktop-action-secondary .btn { color: var(--c-navy); border-color: var(--c-border); background: #fff; }
+  .desktop-preview { color: #fff; background: #b85719; }
+  .desktop-preview:hover { background: #93400f; }
+  .sidebar-compact .form-sidebar .sidebar-label, .sidebar-compact .section-state { display: none; }
+  .sidebar-compact .sidebar-collapse, .sidebar-compact .section-link, .sidebar-compact .sidebar-resource, #fillPage.sidebar-compact .sidebar-tools .btn { justify-content: center; padding: 9px 0; }
+  .sidebar-compact .sidebar-progress { padding: 6px 0 16px; }
+  .sidebar-compact .sidebar-tools { margin-top: 18px; padding-top: 12px; border-top: 1px solid #c49b7c; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media print { .form-sidebar, .desktop-step-summary, .desktop-form-actions { display: none !important; } }

@@ -1,5 +1,6 @@
 /* VARIABLES */
 :root {
+  --page-width: 1200px;
   --c-navy:      #7a3b10;
   --c-blue:      #c05e1a;
   --c-blue-mid:  #d4702a;
