@@ -7,9 +7,9 @@ window.DraftLibrary = (() => {
   const button = (label, action, style = '') => uiButton(label, action, `draft-button ${style}`);
   const labels = { drafts: '草稿', templates: '範本', recent: '最近完成' };
   const descriptions = {
-    drafts: '繼續上次未完成的表單。載入前會確認，目前填寫內容不會被直接取代。',
-    templates: '保存固定常用內容，套用時保留目前申請人，清除日期、單號及憑證號碼，作為新單填寫。',
-    recent: '列印／另存 PDF 前保存的表單，保留最近 20 筆；可載入修改或另開新單。',
+    drafts: '保留填寫進度，選擇草稿即可繼續。',
+    templates: '帶入固定內容，保留申請人並清除舊日期與單號。',
+    recent: '最近 20 筆列印紀錄，可修改原單或另開新單。',
   };
   const data = () => FormRecentRecords.collect(document.getElementById('fillPage'));
   const currentId = () => window[config.idKey] || '';
@@ -48,7 +48,7 @@ window.DraftLibrary = (() => {
     for (const kind of Object.keys(labels)) {
       let count = '?'; try { count = list(kind).length; } catch {}
       const item = button('', () => { tab = kind; query = ''; page = 1; renderLibrary(); content.querySelector(`[data-library-tab="${kind}"]`).focus(); });
-      item.append(node('span', '', labels[kind]), node('small', '', `${count} / ${limit(kind)}`));
+      item.append(node('span', '', labels[kind]), node('small', '', `${count}/${limit(kind)}`));
       item.dataset.libraryTab = kind; item.id = `form-library-tab-${kind}`;
       item.setAttribute('role', 'tab'); item.setAttribute('aria-selected', String(tab === kind)); item.setAttribute('aria-controls', 'form-library-panel'); item.tabIndex = tab === kind ? 0 : -1;
       item.addEventListener('keydown', event => {
@@ -59,22 +59,19 @@ window.DraftLibrary = (() => {
     }
     content.append(tabs);
     const panel = node('div'); panel.id = 'form-library-panel'; panel.setAttribute('role', 'tabpanel'); panel.setAttribute('aria-labelledby', `form-library-tab-${tab}`);
-    const description = tab === 'templates' && config.type === 'leave' ? '保存固定假別、理由與時段。套用時保留目前申請人，清除舊日期與單號，作為新單填寫。' : descriptions[tab];
-    panel.append(node('p', 'draft-hint', description)); content.append(panel);
+    panel.append(node('p', 'draft-hint form-library-description', descriptions[tab])); content.append(panel);
     try {
       const records = list();
       const toolbar = node('div', 'form-library-heading');
-      toolbar.append(node('strong', '', `${records.length} / ${limit(tab)} 筆${labels[tab]}`));
       if (tab === 'templates') toolbar.append(button(templateId ? '儲存範本變更' : '將目前表單存為範本', () => openSave('templates'), 'draft-button-primary'));
       else if (tab === 'drafts') toolbar.append(button('儲存目前草稿', () => openSave('drafts'), 'draft-button-primary'));
-      panel.append(toolbar);
       if (tab !== 'recent' && records.length >= limit(tab)) panel.append(node('p', 'draft-hint draft-full', `${labels[tab]}庫已滿，仍可更新現有內容，或刪除舊資料後新增。`));
-      const tools = node('div', 'draft-library-tools');
+      const tools = node('div', `draft-library-tools form-library-tools${tab === 'recent' ? ' without-action' : ''}`);
       const search = node('input', 'fi'); search.type = 'search'; search.placeholder = `搜尋${labels[tab]}名稱或內容`; search.setAttribute('aria-label', `搜尋${labels[tab]}`); search.value = query;
       const sort = node('select', 'fi'); sort.setAttribute('aria-label', '資料排序');
       sort.add(new Option('最近更新優先', 'newest')); sort.add(new Option('最早更新優先', 'oldest')); sort.add(new Option('依名稱排序', 'name')); sort.value = order;
-      tools.append(search, sort); panel.append(tools);
-      const summary = node('p', 'draft-hint'); summary.setAttribute('role', 'status');
+      tools.append(search, sort); if (toolbar.childElementCount) tools.append(toolbar); panel.append(tools);
+      const summary = node('p', 'draft-hint form-library-result'); summary.setAttribute('role', 'status');
       const cards = node('div', 'draft-library-list');
       const pager = node('nav', 'form-library-pages'); pager.setAttribute('aria-label', '資料分頁');
       const previous = button('上一頁', () => { page--; renderCards(); panel.scrollIntoView({ block: 'start' }); });
@@ -87,6 +84,7 @@ window.DraftLibrary = (() => {
         cards.replaceChildren();
         const start = (page - 1) * 5;
         summary.textContent = filtered.length ? `顯示 ${start + 1}–${Math.min(start + 5, filtered.length)} 筆，共 ${filtered.length} 筆` : '';
+        summary.hidden = !query.trim() && filtered.length <= 5;
         if (!filtered.length) {
           const empty = node('div', 'draft-empty');
           empty.append(node('p', '', records.length ? '沒有符合的資料，換個關鍵字再找找。' : tab === 'templates' ? '還沒有範本。填好固定內容後，按上方「將目前表單存為範本」。' : tab === 'recent' ? '尚無完成紀錄。列印／另存 PDF 前會自動保存。' : '還沒有草稿，按「儲存目前草稿」保留填寫進度。'));
@@ -121,11 +119,13 @@ window.DraftLibrary = (() => {
     updateSession(); dialog.close();
   }
   function card(record, kind) {
-    const article = node('article', 'draft-card'); article.append(node('h4', '', record.title), node('p', 'draft-hint', `最後更新 ${date(record.updatedAt)}`));
-    if (kind === 'drafts' && record.id === currentId()) article.append(node('span', 'draft-current', '目前編輯中'));
+    const article = node('article', 'draft-card'); const info = node('div', 'draft-card-info');
+    const meta = node('div', 'draft-card-meta'); meta.append(node('p', 'draft-hint', `更新 ${date(record.updatedAt)}`));
+    if (kind === 'drafts' && record.id === currentId()) meta.append(node('span', 'draft-current', '編輯中'));
+    info.append(node('h4', '', record.title), meta);
     const details = node('details', 'draft-details'); details.append(node('summary', '', '查看內容'));
     const fields = config.type === 'payment' ? [['applicant', '申請人'], ['reqDate', '請款日期'], ['acctCategory', '科目'], ['reason', '事由'], ['amtGross', '金額'], ['payee', '付款對象'], ['paymentNote', '備註']] : [['applicant', '申請人'], ['startDate', '開始日期'], ['endDate', '結束日期'], ['reason', '理由'], ['handover', '交接'], ['remark', '備註']];
-    const values = node('dl'); fields.filter(([key]) => kind !== 'templates' || Object.hasOwn(record.data, key)).forEach(([key, label]) => values.append(node('dt', '', label), node('dd', '', String(record.data[key] || '未填寫')))); details.append(values); article.append(details);
+    const values = node('dl'); fields.filter(([key]) => kind !== 'templates' || Object.hasOwn(record.data, key)).forEach(([key, label]) => values.append(node('dt', '', label), node('dd', '', String(record.data[key] || '未填寫')))); details.append(values); info.append(details);
     const actions = node('div', 'draft-actions'); const inline = node('div', 'draft-inline');
     function requestLoad(editing = false, copy = false) {
       inline.replaceChildren(node('p', '', kind === 'templates' || copy ? '將保留目前申請人，清除日期與單號並帶入固定內容。其他未儲存變更會被取代。' : '載入會取代目前表單內容，請先確認未儲存的變更。'),
@@ -134,8 +134,16 @@ window.DraftLibrary = (() => {
     actions.append(button(kind === 'templates' ? '套用' : kind === 'recent' ? '載入修改' : '繼續填寫', () => requestLoad(), 'draft-button-primary'));
     if (kind === 'recent') actions.append(button('另開新單', () => requestLoad(false, true)));
     const manage = node('details', 'form-library-manage'); manage.append(node('summary', '', `管理${kind === 'recent' ? '紀錄' : labels[kind]}`));
-    if (kind === 'templates') manage.append(button('修改內容', () => requestLoad(true)));
-    if (kind !== 'recent') manage.append(button('重新命名', () => {
+    const menu = node('div', 'form-library-menu');
+    menu.addEventListener('click', event => { if (event.target.closest('button')) manage.open = false; });
+    manage.addEventListener('toggle', () => {
+      if (!manage.open || !manage.isConnected) return;
+      content.querySelectorAll('.form-library-manage[open]').forEach(other => { if (other !== manage) other.open = false; });
+      menu.classList.remove('opens-up');
+      if (menu.getBoundingClientRect().bottom > dialog.getBoundingClientRect().bottom - 8) menu.classList.add('opens-up');
+    });
+    if (kind === 'templates') menu.append(button('修改內容', () => requestLoad(true)));
+    if (kind !== 'recent') menu.append(button('重新命名', () => {
       const input = node('input', 'fi'); input.value = record.title; input.required = true; input.maxLength = 120; input.setAttribute('aria-label', '新名稱');
       const form = node('form', 'draft-rename'); const submit = node('button', 'draft-button draft-button-primary', '儲存名稱'); submit.type = 'submit';
       form.append(input, submit, button('取消', () => inline.replaceChildren()));
@@ -144,7 +152,7 @@ window.DraftLibrary = (() => {
         renderLibrary(); message.textContent = '名稱已更新。';
       } catch (error) { fail(error); } }); inline.replaceChildren(form); input.focus(); input.select();
     }));
-    manage.append(button('刪除', () => {
+    menu.append(button('刪除', () => {
       inline.replaceChildren(node('p', '', `確定刪除「${record.title}」？目前表單內容會保留。`), button('確定刪除', () => { try {
         if (kind === 'templates') { FormTemplates.remove(config.type, record.id); if (templateId === record.id) templateId = ''; }
         else if (kind === 'recent') { FormRecentRecords.deleteRecent(config.type, record.id); if (window[config.recentKey] === record.id) window[config.recentKey] = ''; }
@@ -152,7 +160,9 @@ window.DraftLibrary = (() => {
         renderLibrary(); message.textContent = '已刪除，目前表單內容保留。';
       } catch (error) { fail(error); } }, 'draft-button-danger'), button('取消', () => inline.replaceChildren()));
     }, 'draft-button-danger'));
-    article.append(actions, manage, inline); return article;
+    manage.append(menu);
+    const controls = node('div', 'draft-card-controls'); controls.append(actions, manage);
+    article.append(info, controls, inline); return article;
   }
   function openSave(kind = 'drafts') {
     show();
