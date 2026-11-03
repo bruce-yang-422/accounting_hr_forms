@@ -220,5 +220,8 @@ window.DraftLibrary = (() => {
     updateSession();
   }
   document.addEventListener('DOMContentLoaded', init);
-  return { open, openSave, resetCurrent };
+  return { open, openSave, resetCurrent,
+    getSessionSnapshot() { return savedSnapshot; },
+    restoreSessionSnapshot(snapshot) { savedSnapshot = typeof snapshot === 'string' ? snapshot : ''; updateSession(); },
+  };
 })();

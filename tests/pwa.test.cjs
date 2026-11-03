@@ -9,7 +9,7 @@ const source = readFileSync(resolve(root, 'service-worker.js'), 'utf8');
 const version = JSON.parse(source.match(/const VERSION = (.*);/)[1]);
 const resources = JSON.parse(source.match(/const PRECACHE = ([\s\S]*?);/)[1]);
 
-function worker({ failInstall = false } = {}) {
+function worker({ failInstall = false, legacy = false, modern = false } = {}) {
   const scope = 'https://example.test/project/';
   const handlers = {};
   const stores = new Map();
@@ -33,8 +33,8 @@ function worker({ failInstall = false } = {}) {
     async keys() { return [...stores.keys()]; },
     async delete(key) { return stores.delete(key); },
   };
-  const context = { URL, Request, Response, caches, fetch: async () => { throw new Error('offline'); }, self: {
-    registration: { scope }, clients: { async claim() { claimed = true; } },
+  const context = { URL, Request, Response, MessageChannel, setTimeout, clearTimeout, caches, fetch: async () => { throw new Error('offline'); }, self: {
+    registration: { scope, active: legacy || modern ? { postMessage(data, ports) { ports[0].postMessage(modern ? { version: 'previous' } : {}); } } : null }, clients: { async claim() { claimed = true; } },
     skipWaiting() { skipped = true; }, addEventListener: (name, handler) => { handlers[name] = handler; },
   } };
   vm.runInNewContext(source, context);
@@ -48,7 +48,12 @@ function worker({ failInstall = false } = {}) {
     handlers.fetch({ request: { url: new URL(path, scope).href, method, mode }, respondWith(promise) { pending = promise; } });
     return pending;
   }
-  return { stores, caches, lifecycle, request, scope, skipped: () => skipped, claimed: () => claimed };
+  async function message(data, ports = []) {
+    let pending;
+    handlers.message({ data, ports, waitUntil(promise) { pending = promise; } });
+    await pending;
+  }
+  return { stores, caches, lifecycle, request, message, scope, skipped: () => skipped, claimed: () => claimed };
 }
 
 test('manifest, icons, precache and build hash match the current source', () => {
@@ -86,6 +91,26 @@ test('interrupted installation rolls back its partial cache', async () => {
   const sw = worker({ failInstall: true });
   await assert.rejects(sw.lifecycle('install'), /interrupted/);
   assert.equal(sw.stores.size, 0);
+});
+
+test('worker exposes a version and activates when explicitly requested', async () => {
+  const sw = worker(); await sw.lifecycle('install');
+  let reply;
+  await sw.message({ type: 'GET_VERSION' }, [{ postMessage(data) { reply = data; } }]);
+  assert.equal(reply.version, version);
+  assert.equal(sw.skipped(), false);
+  await sw.message({ type: 'ACTIVATE_UPDATE' });
+  assert.equal(sw.skipped(), true);
+});
+
+test('legacy workers can migrate without requiring every old tab to close', async () => {
+  const sw = worker({ legacy: true }); await sw.lifecycle('install');
+  assert.equal(sw.skipped(), true);
+});
+
+test('workers supporting the update protocol continue waiting for user action', async () => {
+  const sw = worker({ modern: true }); await sw.lifecycle('install');
+  assert.equal(sw.skipped(), false);
 });
 
 test('activation removes only this app scope caches and claims clients', async () => {
