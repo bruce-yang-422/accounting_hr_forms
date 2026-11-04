@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('fillPage');
   if (!root) return;
   const main = root.querySelector('.main');
-  const toolbar = root.querySelector('.toolbar-inner');
   const tools = document.getElementById('toolbarSecondary');
   const toolsHome = tools.parentNode;
   const breakpoint = window.matchMedia('(min-width: 1024px)');
@@ -63,7 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
   context.append(main.querySelector('.draft-session'), help, main.querySelector('.leave-document-controls') || main.querySelector('.form-doc-number'));
   main.prepend(context);
   if (breakpoint.matches) help.open = false;
-  const topProgress = make('div', 'desktop-step-summary'); toolbar.append(topProgress);
+  const fillCheck = make('button', 'desktop-fill-check'); fillCheck.type = 'button';
+  fillCheck.addEventListener('click', () => window.goToPreview());
+  root.querySelector('.toolbar-inner').append(fillCheck);
   const bottom = make('div', 'desktop-form-actions'); bottom.setAttribute('aria-label', '表單操作');
   const bottomSecondary = make('div', 'desktop-action-secondary');
   const preview = make('button', 'btn desktop-preview', '檢查並預覽'); preview.type = 'button';
@@ -102,10 +103,13 @@ document.addEventListener('DOMContentLoaded', () => {
     links.forEach((link, i) => {
       if (i === index) link.setAttribute('aria-current', 'step'); else link.removeAttribute('aria-current');
     });
-    topProgress.textContent = `${index + 1} / ${cards.length}　${cards[index].querySelector('h2').textContent}`;
   }
   function updateProgress() {
     const missing = window.validateForm();
+    fillCheck.textContent = missing.length ? `尚有 ${missing.length} 項必填` : '填寫完成・預覽';
+    fillCheck.title = missing.length ? `點擊查看待補欄位或設定：\n${missing.join('\n')}` : '點擊檢查列印預覽';
+    fillCheck.setAttribute('aria-label', missing.length ? `尚有 ${missing.length} 項必填或設定待補，點擊查看` : '填寫完成，開啟預覽');
+    fillCheck.classList.toggle('is-ready', !missing.length);
     const groups = cards.map(() => []);
     missing.forEach(message => {
       let section;

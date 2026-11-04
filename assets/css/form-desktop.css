@@ -1,4 +1,4 @@
-.form-sidebar, .desktop-step-summary, .desktop-form-actions { display: none; }
+.form-sidebar, .desktop-form-actions, .desktop-fill-check { display: none; }
 .desktop-form-context { display: contents; }
 .toolbar-secondary .sidebar-label > .ui-icon, .desktop-action-secondary .sidebar-label > .ui-icon { display: none; }
 @media screen and (min-width: 1024px) {
@@ -8,7 +8,10 @@
   #fillPage .toolbar-inner { max-width: calc(var(--sidebar-width) + var(--form-content-width)); margin-left: auto; margin-right: auto; padding: 0 24px; gap: 24px; }
   #fillPage .toolbar-right { margin-left: auto; }
   #fillPage .toolbar-primary { display: none; }
-  .desktop-step-summary { display: block; font-size: 13px; opacity: .9; }
+  .desktop-fill-check { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid #ffffff80; border-radius: 999px; padding: 8px 14px; background: #ffffff18; color: #fff; font: inherit; font-size: 13px; font-weight: 500; cursor: pointer; }
+  .desktop-fill-check:hover { background: #ffffff30; }
+  .desktop-fill-check.is-ready { background: #fff; color: #8b3e10; }
+  .desktop-fill-check:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
   .form-sidebar { display: flex; flex-direction: column; position: fixed; top: 64px; bottom: 0; left: var(--workspace-offset); width: var(--sidebar-width); padding: 16px 12px; background: #f2e1d3; border-inline: 1px solid #c49b7c; z-index: 100; overflow-y: auto; }
   .sidebar-collapse, .section-link, .sidebar-resource { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 42px; padding: 9px 10px; border: 0; border-radius: 7px; font: inherit; font-size: 13px; color: var(--c-navy); background: none; text-decoration: none; cursor: pointer; text-align: left; }
   .sidebar-collapse { margin-bottom: 12px; color: #704525; }
@@ -61,4 +64,4 @@
   .sidebar-compact .sidebar-tools { margin-top: 18px; padding-top: 12px; border-top: 1px solid #c49b7c; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-@media print { .form-sidebar, .desktop-step-summary, .desktop-form-actions { display: none !important; } }
+@media print { .form-sidebar, .desktop-form-actions, .desktop-fill-check { display: none !important; } }
