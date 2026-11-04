@@ -19,7 +19,8 @@ test('payment templates exclude transaction and applicant fields while retaining
 });
 test('leave templates preserve recurring times and reasons but exclude dates and identity', () => {
   const { api } = setup();
-  const saved = api.save('leave', '上午特休', { applicant: '甲', agent: '代理人', contactPhone: '0900', startDate: '2020-01-01', endDate: '2020-01-01', leaveDays: '5', startHour: '09', endHour: '12', leaveType: 'annual', reason: '固定事由', remark: '備註' });
+  const saved = api.save('leave', '上午特休', { printLayout: 'bookstore', applicant: '甲', agent: '代理人', contactPhone: '0900', startDate: '2020-01-01', endDate: '2020-01-01', leaveDays: '5', startHour: '09', endHour: '12', leaveType: 'annual', reason: '固定事由', remark: '備註' });
+  assert.equal(saved.data.printLayout, 'bookstore');
   assert.equal(saved.data.startHour, '09'); assert.equal(saved.data.reason, '固定事由');
   for (const key of ['applicant', 'agent', 'contactPhone', 'startDate', 'endDate', 'leaveDays']) assert.equal(Object.hasOwn(saved.data, key), false);
 });

@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
   aside.append(collapse, sidebarContent); root.insertBefore(aside, main);
   const context = make('div', 'desktop-form-context');
   const help = main.querySelector('.form-help');
-  context.append(main.querySelector('.draft-session'), help, main.querySelector('.form-doc-number'));
+  context.append(main.querySelector('.draft-session'), help, main.querySelector('.leave-document-controls') || main.querySelector('.form-doc-number'));
   main.prepend(context);
   if (breakpoint.matches) help.open = false;
   const topProgress = make('div', 'desktop-step-summary'); toolbar.append(topProgress);

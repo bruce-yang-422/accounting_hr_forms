@@ -1,0 +1,38 @@
+.leave-document-controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.leave-layout-control { display: flex; align-items: center; gap: 8px; }
+.leave-layout-label { font-size: 12px; color: var(--c-muted); white-space: nowrap; }
+.leave-layout-toggle { display: inline-flex; padding: 3px; border: 1px solid var(--c-border-md); background: #f7e9de; border-radius: 999px; }
+.leave-layout-toggle button { border: 0; border-radius: 999px; padding: 7px 13px; font: inherit; font-size: 12px; color: var(--c-navy); background: transparent; cursor: pointer; white-space: nowrap; }
+.leave-layout-toggle button[aria-pressed="true"] { background: #934416; color: #fff; box-shadow: 0 1px 3px #53270726; }
+.leave-layout-toggle button:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+.leave-document-controls .doc-no-row { margin-bottom: 0; }
+@media screen and (min-width: 1024px) {
+  .desktop-form-context .leave-document-controls { grid-column: 1 / -1; grid-row: 2; margin-bottom: 0; }
+  .desktop-form-context:has(.leave-document-controls) .form-help { grid-row: 3; }
+  .desktop-form-context .leave-document-controls .form-doc-number { margin-left: auto; }
+}
+.pv-sheet[hidden] { display: none !important; }
+.bookstore-sheet { flex-shrink: 0; font-family: "標楷體", "DFKai-SB", "KaiTi", serif; padding: 9mm 10mm 7mm; font-size: 11pt; }
+.bookstore-title { align-self: center; font-size: 18pt; font-weight: 700; border-bottom: 0.6mm double #000; line-height: 1.35; margin-bottom: 4mm; }
+.bookstore-date { display: flex; justify-content: center; align-items: baseline; gap: 4mm; height: 7mm; flex-shrink: 0; }
+.bookstore-table { width: 100%; table-layout: fixed; border-collapse: collapse; border: 0.35mm solid #000; flex-shrink: 0; }
+.bookstore-table td, .bookstore-table th { border: 0.25mm solid #000; padding: 1mm 2mm; font-weight: 400; text-align: center; vertical-align: middle; overflow-wrap: anywhere; white-space: pre-wrap; line-height: 1.4; }
+.bookstore-table .bs-top { vertical-align: top; }
+.bs-caption { border-bottom: 0.2mm solid #000; padding-bottom: 1mm; margin: 0 auto 2mm; width: 75%; }
+.bs-leave-type { padding-top: 2mm; }
+.bookstore-table .bs-period { text-align: left; padding: 1mm 1.5mm; font-size: 10pt; white-space: nowrap; }
+.bs-vertical { writing-mode: vertical-rl; letter-spacing: 1mm; }
+.bs-remark-label { display: flex; flex-direction: column; justify-content: space-around; height: 40mm; }
+.bookstore-table .bs-notes { text-align: left; }
+#bs-details { margin-top: 2mm; white-space: pre-wrap; font-size: 9pt; line-height: 1.5; }
+.bs-reason { white-space: pre-wrap; font-size: 10pt; text-align: left; }
+.bookstore-table .bs-applicant { padding-top: 5mm; }
+.bs-row-one, .bs-row-two, .bs-row-three { height: 10mm; }
+.bs-row-four { height: 8mm; }
+.bs-row-five { height: 16mm; }
+.bs-row-six { height: 8mm; }
+.bs-row-seven { height: 39mm; }
+.bookstore-footer { margin-top: 1mm; font-size: 10pt; }
+@media screen and (max-width: 600px) { .bookstore-sheet { margin-bottom: -66.6mm; } }
+@media screen and (max-width: 400px) { .bookstore-sheet { margin-bottom: -85.84mm; } }
+@media print { .bookstore-sheet { transform: none !important; margin: 0 !important; flex-shrink: 0; } }

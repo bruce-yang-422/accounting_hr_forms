@@ -82,6 +82,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="stylesheet" href="../assets/css/leave-print-layouts.css">
 <link rel="stylesheet" href="../assets/css/favorites-ui.css">
 <link rel="stylesheet" href="../assets/css/draft-library.css">
 <link rel="stylesheet" href="../assets/css/form-toolbar.css">
@@ -176,6 +177,15 @@
     </div>
   </div>
 
+  <div class="leave-document-controls no-print">
+    <div class="leave-layout-control">
+      <span class="leave-layout-label" id="leaveLayoutLabel">列印版型</span>
+      <input type="hidden" id="printLayout" value="standard" onchange="syncLeavePrintLayout()">
+      <div class="leave-layout-toggle" role="group" aria-labelledby="leaveLayoutLabel" title="自動記住選擇，下次開啟時使用">
+        <button type="button" data-leave-layout="bookstore" aria-pressed="false" onclick="selectLeavePrintLayout('bookstore')">書店版</button>
+        <button type="button" data-leave-layout="standard" aria-pressed="true" onclick="selectLeavePrintLayout('standard')">完整版</button>
+      </div>
+    </div>
   <details class="form-doc-number" data-mobile-collapse open>
     <summary>單據編號（人資填）</summary>
   <div class="doc-no-row">
@@ -185,6 +195,7 @@
     </div>
   </div>
   </details>
+  </div>
 
   <div class="card">
     <div class="card-head">
@@ -524,6 +535,32 @@
   </div>
 
   <div class="pv-outer">
+    <div class="pv-sheet bookstore-sheet" id="bookstoreSheet" hidden>
+      <div class="bookstore-title">請　假　單</div>
+      <div class="bookstore-date">申請日期：<span id="bs-date"></span><span id="bs-weekday"></span></div>
+      <table class="bookstore-table" aria-label="書店版請假單">
+        <colgroup><col style="width:15%"><col style="width:25%"><col style="width:13%"><col style="width:47%"></colgroup>
+        <tbody>
+          <tr class="bs-row-one">
+            <th scope="row">單　位</th>
+            <td rowspan="3" class="bs-top"><div class="bs-caption">假　別</div><div class="bs-leave-type" id="bs-leavetype"></div></td>
+            <th rowspan="2" scope="row">請　假<br>期　間</th>
+            <td class="bs-period" id="bs-start"></td>
+          </tr>
+          <tr class="bs-row-two"><td rowspan="2" id="bs-dept"></td><td class="bs-period" id="bs-end"></td></tr>
+          <tr class="bs-row-three"><th scope="row">請假<br>日時數</th><td id="bs-duration"></td></tr>
+          <tr class="bs-row-four">
+            <th scope="row">卡片號碼</th>
+            <td rowspan="4" class="bs-top"><div class="bs-caption">事　由</div><div class="bs-reason" id="bs-reason"></div></td>
+            <th rowspan="2" scope="row"><span class="bs-vertical">核准簽章</span></th><td rowspan="2"></td>
+          </tr>
+          <tr class="bs-row-five"><td id="bs-employeeid"></td></tr>
+          <tr class="bs-row-six"><th scope="row">姓　名</th><th rowspan="2" scope="row"><span class="bs-remark-label"><span>備</span><span>註</span></span></th><td rowspan="2" class="bs-top bs-notes"><div>職務代理人：<span id="bs-agent"></span></div><div id="bs-details"></div></td></tr>
+          <tr class="bs-row-seven"><td class="bs-top bs-applicant" id="bs-applicant"></td></tr>
+        </tbody>
+      </table>
+      <div class="bookstore-footer">※注意：①請假須經獲准後始生效　②假滿後請準時上班</div>
+    </div>
     <div class="pv-sheet" id="pvSheet">
       <div class="pv-hd">
         <div class="pv-hd-title">請　假　單</div>

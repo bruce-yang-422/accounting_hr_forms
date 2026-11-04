@@ -4,7 +4,7 @@ const FormTemplates = (() => {
   const LIMIT = 20;
   const fields = {
     payment: ['acctCategory', 'reason', 'taxMode', 'amtGross', 'payee', 'payeeType', 'taxId', 'payMethod', 'bankName', 'bankBranch', 'bankAccount', 'voucherType', 'hasAttach', 'attachCount', 'attachTypes', 'attachOtherText', 'paymentNote'],
-    leave: ['leaveType', 'leaveTypeOther', 'startHour', 'startMinute', 'endHour', 'endMinute', 'reasonMode', 'reasonPreset', 'reason', 'bereavementRelation', 'handover', 'hasProof', 'proofNote', 'remark', 'note'],
+    leave: ['printLayout', 'leaveType', 'leaveTypeOther', 'startHour', 'startMinute', 'endHour', 'endMinute', 'reasonMode', 'reasonPreset', 'reason', 'bereavementRelation', 'handover', 'hasProof', 'proofNote', 'remark', 'note'],
   };
   function extract(type, data) {
     if (!Object.hasOwn(fields, type) || !data || typeof data !== 'object' || Array.isArray(data)) throw new Error('範本內容格式不正確。');

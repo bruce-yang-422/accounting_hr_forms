@@ -413,7 +413,7 @@ function clearForm() {
   window.__currentLeaveDraftId = '';
   window.DraftLibrary?.resetCurrent();
 
-  document.querySelectorAll('input:not([type="radio"]), textarea').forEach((el) => {
+  document.querySelectorAll('input:not([type="radio"]):not(#printLayout), textarea').forEach((el) => {
     el.value = '';
   });
 
@@ -647,6 +647,71 @@ function validateForm() {
   return missing;
 }
 
+function syncLeavePrintLayout() {
+  const bookstore = getText('printLayout') === 'bookstore';
+  document.querySelectorAll('[data-leave-layout]').forEach((button) => {
+    button.setAttribute('aria-pressed', String(button.dataset.leaveLayout === (bookstore ? 'bookstore' : 'standard')));
+  });
+  document.getElementById('bookstoreSheet').hidden = !bookstore;
+  document.getElementById('pvSheet').hidden = bookstore;
+}
+
+function getDefaultLeavePrintLayout() {
+  try {
+    return localStorage.getItem('hr_leave_print_layout') === 'bookstore' ? 'bookstore' : 'standard';
+  } catch { return 'standard'; }
+}
+
+function selectLeavePrintLayout(value) {
+  const layout = value === 'bookstore' ? 'bookstore' : 'standard';
+  document.getElementById('printLayout').value = layout;
+  syncLeavePrintLayout();
+  try { localStorage.setItem('hr_leave_print_layout', layout); } catch {}
+  document.getElementById('printLayout').dispatchEvent(new Event('input', { bubbles: true }));
+}
+
+function formatRocDate(value) {
+  if (!value) return '';
+  const [year, month, day] = value.split('-').map(Number);
+  const rocYear = year - 1911;
+  return `${rocYear > 0 ? `民國 ${rocYear}` : `民國前 ${1 - rocYear}`} 年 ${month} 月 ${day} 日`;
+}
+
+function formatLeaveDateTime(prefix) {
+  const date = getText(`${prefix}Date`);
+  const hour = getText(`${prefix}Hour`);
+  const minute = getText(`${prefix}Minute`);
+  if (!date || !hour || !minute) return '';
+  const hourValue = Number(hour);
+  const period = hourValue < 12 ? '上午' : '下午';
+  return `${formatRocDate(date)} ${period} ${hourValue % 12 || 12} 時 ${minute.padStart(2, '0')} 分`;
+}
+
+function buildBookstorePreview(leaveType) {
+  syncLeavePrintLayout();
+  setText('bs-date', formatRocDate(getText('reqDate')));
+  setText('bs-weekday', formatWeekday(getText('reqDate')));
+  setText('bs-dept', getText('department'));
+  setText('bs-employeeid', getText('employeeId'));
+  setText('bs-applicant', getText('applicant'));
+  setText('bs-leavetype', leaveType);
+  const start = formatLeaveDateTime('start');
+  const end = formatLeaveDateTime('end');
+  setText('bs-start', start ? `自 ${start} 起` : '');
+  setText('bs-end', end ? `至 ${end} 止` : '');
+  setText('bs-duration', `計 ${getText('leaveDays')} ${getText('leaveHours')} ${getText('leaveMinutes')}`);
+  setText('bs-reason', getText('reason'));
+  setText('bs-agent', getText('agent'));
+  const details = [
+    ['聯絡電話', getText('contactPhone')],
+    ['工作交接', getText('handover')],
+    ['證明文件', getRadioValue('hasProof') === 'yes' ? getText('proofNote') || '有' : ''],
+    ['', getText('remark')],
+    ['補充注意事項', getText('note') === DEFAULT_NOTE_TEXT ? '' : getText('note')],
+  ].filter(([, value]) => value).map(([label, value]) => label ? `${label}：${value}` : value);
+  setText('bs-details', details.join('\n'));
+}
+
 function buildPreview() {
   const leaveTypeMap = {
     annual: '特休',
@@ -689,6 +754,7 @@ function buildPreview() {
   setText('pv-proofnote', getText('proofNote'));
   setText('pv-remark', getText('remark'));
   setText('pv-note', getText('note'));
+  buildBookstorePreview(leaveTypeMap[getRadioValue('leaveType')] || '');
 }
 
 function getLeaveRecordTitle() {
@@ -738,7 +804,10 @@ function loadLeaveDraft() {
 }
 
 function restoreLeaveFormData(data) {
+  // Older saved forms use the user's preferred layout.
+  document.getElementById('printLayout').value = getDefaultLeavePrintLayout();
   FormRecentRecords.restore(data, document.getElementById('fillPage'));
+  syncLeavePrintLayout();
   if (!getRadioValue('hasProof')) document.getElementById('proofNoteGroup').style.display = 'none';
   if (!getRadioValue('leaveType')) document.getElementById('leaveTypeOtherGroup').style.display = 'none';
   const savedReasonPreset = data.reasonPreset || '';
@@ -750,6 +819,7 @@ function restoreLeaveFormData(data) {
   refreshReasonPresets();
   const reasonPreset = document.getElementById('reasonPreset');
   if (reasonPreset && savedReasonPreset) reasonPreset.value = savedReasonPreset;
+  if (data.reasonMode) setReasonMode(data.reasonMode);
   updateReasonRequirement();
   updateLeaveTypeTip();
   const bereavementRelation = document.getElementById('bereavementRelation');
@@ -801,6 +871,8 @@ document.getElementById('note').addEventListener('input', () => {
 });
 
 const DEFAULT_NOTE_TEXT = '請假須經獲批准後始生效，假滿後請準時上班';
+document.getElementById('printLayout').value = getDefaultLeavePrintLayout();
+syncLeavePrintLayout();
 document.getElementById('reqDate').value = today();
 window.__autoPolicyRemarkText = '';
 window.__remarkUserEdited = false;
@@ -813,4 +885,7 @@ updateReasonRequirement();
 updateLeaveTypeTip();
 syncPrintHeader();
 
-window.addEventListener('beforeprint', syncPrintHeader);
+window.addEventListener('beforeprint', () => {
+  syncPrintHeader();
+  buildPreview();
+});
