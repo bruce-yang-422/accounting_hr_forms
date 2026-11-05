@@ -5,15 +5,19 @@ const FormTemplates = (() => {
   const fields = {
     payment: ['acctCategory', 'reason', 'taxMode', 'amtGross', 'payee', 'payeeType', 'taxId', 'payMethod', 'bankName', 'bankBranch', 'bankAccount', 'voucherType', 'hasAttach', 'attachCount', 'attachTypes', 'attachOtherText', 'paymentNote'],
     leave: ['printLayout', 'leaveType', 'leaveTypeOther', 'startHour', 'startMinute', 'endHour', 'endMinute', 'reasonMode', 'reasonPreset', 'reason', 'bereavementRelation', 'handover', 'hasProof', 'proofNote', 'remark', 'note'],
+    overtime: ['applyType', 'dayType', 'compensation', 'startHour', 'startMinute', 'endHour', 'endMinute', 'restMinutes', 'reason', 'workContent', 'remark'],
+    travel: ['travelType', 'tripType', 'destination', 'visitTarget', 'startHour', 'startMinute', 'endHour', 'endMinute', 'reason', 'transportModes', 'transportOther', 'needLodging', 'lodgingNote', 'handover', 'costTransport', 'costLodging', 'costMeal', 'costOther', 'advanceNeeded', 'advanceAmount', 'remark'],
+    purchase: ['purchaseMode', 'category', 'categoryOther', 'urgency', 'reason', 'taxBasis', ...Array.from({ length: 15 }, (_, i) => ['Name', 'Spec', 'Qty', 'Unit', 'Price'].map(field => `item${i + 1}${field}`)).flat(), 'supplier1Channel', 'supplier1Name', 'supplier1Contact', 'supplier1Quote', 'supplier2Channel', 'supplier2Name', 'supplier2Contact', 'supplier2Quote', 'supplier3Channel', 'supplier3Name', 'supplier3Contact', 'supplier3Quote', 'recommendedSupplier', 'hasQuote', 'quoteCount', 'remark'],
   };
+  const arrayFields = new Set(['attachTypes', 'transportModes']);
   function extract(type, data) {
     if (!Object.hasOwn(fields, type) || !data || typeof data !== 'object' || Array.isArray(data)) throw new Error('範本內容格式不正確。');
     const result = {};
     fields[type].forEach(key => {
       if (!Object.hasOwn(data, key)) return;
       const value = data[key];
-      if (key === 'attachTypes') {
-        if (!Array.isArray(value) || value.some(item => typeof item !== 'string' || item.length > 100)) throw new Error('範本附件類型格式不正確。');
+      if (arrayFields.has(key)) {
+        if (!Array.isArray(value) || value.some(item => typeof item !== 'string' || item.length > 100)) throw new Error('範本複選欄位格式不正確。');
         result[key] = [...value];
       } else {
         if (typeof value !== 'string' || value.length > 10000) throw new Error('範本欄位格式不正確。');

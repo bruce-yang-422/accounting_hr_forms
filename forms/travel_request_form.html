@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#b65c22">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="表單中心">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/images/pwa/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/css/pwa.css">
+
+<title>線上出差申請單｜差旅天數與費用試算、PDF 列印｜表單填寫中心</title>
+<meta name="description" content="線上填寫出差申請單，支援當日外出與多日出差，記錄地點、起訖時間、交通與住宿、代理人及預估費用，自動計算天數與費用合計，支援差旅費預支、草稿與範本、A5 橫向預覽、列印和另存 PDF。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://office-forms.stack-base.com/forms/travel_request_form.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:site_name" content="表單填寫中心">
+<meta property="og:title" content="線上出差申請單｜差旅天數與費用試算、PDF 列印｜表單填寫中心">
+<meta property="og:description" content="線上填寫出差申請單，支援當日外出與多日出差，記錄地點、起訖時間、交通與住宿、代理人及預估費用，自動計算天數與費用合計，支援差旅費預支、草稿與範本、A5 橫向預覽、列印和另存 PDF。">
+<meta property="og:url" content="https://office-forms.stack-base.com/forms/travel_request_form.html">
+<meta property="og:image" content="https://office-forms.stack-base.com/assets/images/branding/form-center-hero-banner-desktop.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="2172">
+<meta property="og:image:height" content="724">
+<meta property="og:image:alt" content="表單填寫中心：請假單與請款單線上填寫工具">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="線上出差申請單｜差旅天數與費用試算、PDF 列印｜表單填寫中心">
+<meta name="twitter:description" content="線上填寫出差申請單，支援當日外出與多日出差，記錄地點、起訖時間、交通與住宿、代理人及預估費用，自動計算天數與費用合計，支援差旅費預支、草稿與範本、A5 橫向預覽、列印和另存 PDF。">
+<meta name="twitter:image" content="https://office-forms.stack-base.com/assets/images/branding/form-center-hero-banner-desktop.png">
+<meta name="twitter:image:alt" content="表單填寫中心：請假單與請款單線上填寫工具">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://office-forms.stack-base.com/forms/travel_request_form.html#webpage",
+      "url": "https://office-forms.stack-base.com/forms/travel_request_form.html",
+      "name": "線上出差申請單｜差旅天數與費用試算、PDF 列印｜表單填寫中心",
+      "description": "線上填寫出差申請單，支援當日外出與多日出差，記錄地點、起訖時間、交通與住宿、代理人及預估費用，自動計算天數與費用合計，支援差旅費預支、草稿與範本、A5 橫向預覽、列印和另存 PDF。",
+      "inLanguage": "zh-TW",
+      "isPartOf": {
+        "@id": "https://office-forms.stack-base.com/#website"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://office-forms.stack-base.com/assets/images/branding/form-center-hero-banner-desktop.png",
+        "width": 2172,
+        "height": 724
+      },
+      "breadcrumb": {
+        "@id": "https://office-forms.stack-base.com/forms/travel_request_form.html#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://office-forms.stack-base.com/forms/travel_request_form.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首頁",
+          "item": "https://office-forms.stack-base.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "出差單",
+          "item": "https://office-forms.stack-base.com/forms/travel_request_form.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="../assets/icons/brand.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="stylesheet" href="../assets/css/favorites-ui.css">
+<link rel="stylesheet" href="../assets/css/draft-library.css">
+<link rel="stylesheet" href="../assets/css/form-toolbar.css">
+<link rel="stylesheet" href="../assets/css/form-desktop.css">
+<link rel="stylesheet" href="../assets/css/request-forms.css">
+<link rel="stylesheet" href="../assets/css/icons.css">
+</head>
+<body>
+<!-- SVG ICONS:START -->
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden">
+  <!-- Original 24-unit line icons for the form center. -->
+  <symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7M5 9v11h5v-6h4v6h5V9"/></symbol>
+  <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 10h18m-14 4h3m4 0h3m-10 4h3"/><path d="m14 17 1.5 1.5L19 15"/></symbol>
+  <symbol id="icon-payment" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Zm0 0v6h6M8 12h3m-3 4h3"/><path d="M17 12v7m2-6h-3a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-3"/></symbol>
+  <symbol id="icon-overtime" viewBox="0 0 24 24"><circle cx="11" cy="13" r="8"/><path d="M11 8v5l3 2M8 2h6M19 4l2 2"/></symbol>
+  <symbol id="icon-travel" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M8 8V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3M3 14h18m-11-1v2m4-2v2"/></symbol>
+  <symbol id="icon-purchase" viewBox="0 0 24 24"><path d="M2 3h3l3 12h11l2-8H6"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></symbol>
+  <symbol id="icon-forms" viewBox="0 0 24 24"><rect x="5" y="5" width="15" height="16" rx="2"/><path d="M9 5V3H3v15m6-9h7m-7 4h7m-7 4h4"/></symbol>
+  <symbol id="icon-book" viewBox="0 0 24 24"><path d="M12 6C9 4 6 3.5 3 4v15c3-.5 6 0 9 2m0-15c3-2 6-2.5 9-2v15c-3-.5-6 0-9 2Zm-6 2 3 1m-3 3 3 1m6-4 3-1m-3 5 3-1"/></symbol>
+  <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="icon-construction" viewBox="0 0 24 24"><path d="M5 15v6m14-6v6M3 7h18v8H3Zm4 0 5 8m1-8 5 8"/></symbol>
+  <symbol id="icon-edit" viewBox="0 0 24 24"><path d="m14 5 5 5M4 20l1-6L16 3a2 2 0 0 1 3 0l2 2a2 2 0 0 1 0 3L10 19Zm1-6 5 5m-6 1 6-1"/></symbol>
+  <symbol id="icon-eye" viewBox="0 0 24 24"><path d="M2 12S5.5 5 12 5s10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="icon-printer" viewBox="0 0 24 24"><path d="M7 8V3h10v5M7 17H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-3M7 14h10v7H7Z"/><path d="M17 11h2"/></symbol>
+  <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3Zm5-5 3 3 3-3"/></symbol>
+  <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V3h8v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/></symbol>
+  <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10h.01"/></symbol>
+  <symbol id="icon-arrow-left" viewBox="0 0 24 24"><path d="M20 12H4m6-6-6 6 6 6"/></symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+  <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="icon-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></symbol>
+  <symbol id="icon-checkbox" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/></symbol>
+  <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Zm0 0v6h6M12 18v-7m-3 3 3-3 3 3"/></symbol>
+</svg>
+<!-- SVG ICONS:END -->
+<div id="fillPage">
+<header class="toolbar">
+  <div class="toolbar-inner">
+  <div class="toolbar-left">
+    <a class="toolbar-logo" href="../index.html" aria-label="回到首頁"><img src="../assets/icons/brand.svg" alt=""></a>
+    <div class="toolbar-brand">
+      <h1>出差申請單</h1>
+      <p>Business Travel Request Form</p>
+    </div>
+  </div>
+  <div class="toolbar-right">
+    <div class="toolbar-secondary" id="toolbarSecondary">
+      <button class="btn btn-outline-white" onclick="DraftLibrary.openSave()" title="儲存目前填寫內容">儲存草稿</button>
+      <button class="btn btn-outline-white" data-draft-library onclick="DraftLibrary.open()" title="開啟草稿庫，可搜尋、載入、命名及刪除">草稿庫</button>
+      <button type="button" class="btn btn-outline-white" data-template-library onclick="DraftLibrary.openTemplates()" title="套用及管理固定常用內容">範本庫</button>
+      <button class="btn btn-outline-white" data-recent-library onclick="DraftLibrary.openRecent()" title="載入最近列印紀錄">最近完成</button>
+      <a class="btn btn-outline-white" href="../index.html" title="返回首頁"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-left"></use></svg> 回到首頁</a>
+      <button class="btn btn-outline-white" onclick="fillSample()" title="填入範例資料"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-edit"></use></svg> 填入範例</button>
+      <button class="btn btn-outline-white" onclick="clearForm()" title="清除所有欄位"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-trash"></use></svg> 清除</button>
+    </div>
+    <button type="button" class="btn btn-outline-white toolbar-more-toggle" id="toolbarMore" aria-expanded="false" aria-controls="toolbarSecondary">更多 <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-more"></use></svg></button>
+    <button class="btn btn-white toolbar-primary" onclick="goToPreview()">下一步 <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg></button>
+  </div>
+  </div>
+</header>
+
+<main class="main">
+  <details class="form-help" data-mobile-collapse open>
+    <summary>填寫與列印說明</summary>
+    <div class="banner">
+      <span class="banner-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-info"></use></svg></span>
+      <span>出差須於出發前經主管核准。此處費用為預估金額，返回後請另以請款單檢附單據核銷。列印時選擇「另存為 PDF」或印表機，紙張設為 <strong>A5 橫向（210 × 148 mm）</strong>、縮放 <strong>100%</strong>、邊距設為 <strong>無</strong>。</span>
+    </div>
+  </details>
+
+  <details class="form-doc-number" data-mobile-collapse open>
+    <summary>單據編號（人資填）</summary>
+    <div class="doc-no-row">
+      <div class="doc-no-badge">
+        <span>單據編號（人資填）</span>
+        <input type="text" class="fi" id="docNo" placeholder="BTF-2026-0001">
+      </div>
+    </div>
+  </details>
+
+  <div class="card">
+    <div class="card-head"><div class="card-head-num">1</div><h2>基本資訊</h2></div>
+    <div class="card-body">
+      <div class="frow"><div class="fg fg-lg"><label class="flabel">申請日期 <span class="req">*</span></label><input type="date" class="fi" id="reqDate"></div><div class="fg fg-xl"><label class="flabel">申請人 <span class="req">*</span></label><input type="text" class="fi" id="applicant" placeholder="員工姓名"></div><div class="fg fg-xl"><label class="flabel">單位 <span class="req">*</span></label><input type="text" class="fi" id="department" placeholder="所屬部門"></div></div>
+      <div class="frow"><div class="fg fg-lg"><label class="flabel">職稱</label><input type="text" class="fi" id="jobTitle" placeholder="例：行銷專員"></div><div class="fg fg-lg"><label class="flabel">卡片號碼</label><input type="text" class="fi" id="employeeId" placeholder="例：EMP0012"></div><div class="fg"><label class="flabel">直屬主管</label><input type="text" class="fi" id="manager" placeholder="主管姓名"></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-head-num">2</div><h2>出差資訊</h2></div>
+    <div class="card-body">
+      <div class="frow"><div class="fg choice-block"><label class="flabel">出差類別 <span class="req">*</span></label><div class="rg"><label class="rpill"><input type="radio" name="travelType" value="domestic"> 國內</label><label class="rpill"><input type="radio" name="travelType" value="overseas"> 國外</label></div></div><div class="fg"><label class="flabel">出差地點 <span class="req">*</span></label><input type="text" class="fi" id="destination" placeholder="例：高雄市前鎮區／日本東京" maxlength="60"></div><div class="fg"><label class="flabel">拜訪單位／對象</label><input type="text" class="fi" id="visitTarget" placeholder="選填" maxlength="60"></div></div>
+      <div class="frow"><div class="fg choice-block"><label class="flabel">行程類型 <span class="req">*</span></label><div class="rg"><label class="rpill active"><input type="radio" name="tripType" value="sameDay" checked> 當日往返</label><label class="rpill"><input type="radio" name="tripType" value="multiDay"> 多日出差</label></div></div></div>
+      <div class="frow"><div class="fg fg-lg"><label class="flabel"><span id="startDateLabel">出差日期</span> <span class="req">*</span></label><input type="date" class="fi" id="startDate"></div><div class="fg fg-sm"><label class="flabel"><span id="startHourLabel">開始時</span> <span class="req" id="startHourRequired">*</span></label><select class="fi" id="startHour"><option value="">請選擇</option><option value="0">00</option><option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option></select></div><div class="fg fg-sm"><label class="flabel">分</label><select class="fi" id="startMinute"><option value="0">00</option><option value="15">15</option><option value="30">30</option><option value="45">45</option></select></div></div>
+      <div class="frow"><div class="fg fg-lg" data-show-when="tripType=multiDay" style="display:none"><label class="flabel">返回日期 <span class="req">*</span></label><input type="date" class="fi" id="endDate"></div><div class="fg fg-sm"><label class="flabel"><span id="endHourLabel">結束時</span> <span class="req" id="endHourRequired">*</span></label><select class="fi" id="endHour"><option value="">請選擇</option><option value="0">00</option><option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option></select></div><div class="fg fg-sm"><label class="flabel">分</label><select class="fi" id="endMinute"><option value="0">00</option><option value="15">15</option><option value="30">30</option><option value="45">45</option></select></div></div>
+      <div class="frow"><div class="fg fg-lg"><label class="flabel">出差時長</label><input type="text" class="fi fi-auto" id="tripDuration" placeholder="自動計算" readonly></div></div>
+      <div class="frow"><div class="fg"><label class="flabel">出差事由 <span class="req">*</span></label><input type="text" class="fi" id="reason" placeholder="請具體說明出差目的與預期工作" maxlength="120"></div></div>
+      <div class="frow"><div class="fg"><label class="flabel">交通方式（可複選） <span class="req">*</span></label><div class="attach-types"><label class="cbox-item"><input type="checkbox" name="transportModes" value="company"> 公司車</label><label class="cbox-item"><input type="checkbox" name="transportModes" value="private"> 自用車</label><label class="cbox-item"><input type="checkbox" name="transportModes" value="motorcycle"> 機車</label><label class="cbox-item"><input type="checkbox" name="transportModes" value="hsr"> 高鐵</label><label class="cbox-item"><input type="checkbox" name="transportModes" value="tra"> 台鐵</label><label class="cbox-item"><input type="checkbox" name="transportModes" value="bus"> 客運</label><label class="cbox-item"><input type="checkbox" name="transportModes" value="flight"> 飛機</label><label class="cbox-item"><input type="checkbox" name="transportModes" value="other"> 其他</label></div></div></div>
+      <div class="frow" data-show-when="transportModes=other" style="display:none"><div class="fg fg-xl"><label class="flabel">其他交通方式</label><input type="text" class="fi" id="transportOther" placeholder="請說明其他交通方式" maxlength="30"></div></div>
+      <div class="frow" data-show-when="tripType=multiDay" style="display:none"><div class="fg choice-block"><label class="flabel">是否需要住宿 <span class="req">*</span></label><div class="rg"><label class="rpill"><input type="radio" name="needLodging" value="yes"> 需要</label><label class="rpill"><input type="radio" name="needLodging" value="no"> 不需要</label></div></div><div class="fg" data-show-when="needLodging=yes" style="display:none"><label class="flabel">住宿說明</label><input type="text" class="fi" id="lodgingNote" placeholder="例：市區商務旅館 1 晚" maxlength="40"></div></div>
+    </div>
+  </div>
+  <div class="two-col">
+  <div class="card">
+    <div class="card-head"><div class="card-head-num">3</div><h2>代理與聯絡</h2></div>
+    <div class="card-body">
+      <div class="frow"><div class="fg"><label class="flabel">職務代理人 <span class="req" id="agentRequired">*</span></label><input type="text" class="fi" id="agent" placeholder="代理人姓名"></div><div class="fg"><label class="flabel">出差聯絡電話 <span class="req">*</span></label><input type="text" class="fi" id="contactPhone" placeholder="手機或聯絡電話"></div></div>
+      <div class="frow"><div class="fg"><label class="flabel">工作交接說明</label><textarea class="fi form-textarea" id="handover" placeholder="請填寫待辦事項與交接內容" maxlength="120"></textarea></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-head-num">4</div><h2>預估費用與預支</h2></div>
+    <div class="card-body">
+      <div class="amt-bar" id="amtBar" style="display:none"><div><div class="amt-bar-label">預估費用合計</div><div class="amt-bar-num" id="amtBarNum">NT$ 0</div><div class="amt-bar-zh" id="amtBarZh"></div></div></div>
+      <div class="frow"><div class="fg"><label class="flabel">交通費（NT$）</label><input type="number" class="fi" id="costTransport" placeholder="0" min="0" step="1"></div><div class="fg"><label class="flabel">住宿費（NT$）</label><input type="number" class="fi" id="costLodging" placeholder="0" min="0" step="1"></div></div>
+      <div class="frow"><div class="fg"><label class="flabel">膳雜費（NT$）</label><input type="number" class="fi" id="costMeal" placeholder="0" min="0" step="1"></div><div class="fg"><label class="flabel">其他費用（NT$）</label><input type="number" class="fi" id="costOther" placeholder="0" min="0" step="1"></div></div>
+      <div class="frow"><div class="fg"><label class="flabel">合計</label><input type="text" class="fi fi-auto" id="costTotal" placeholder="自動計算" readonly></div><div class="fg"><label class="flabel">中文大寫</label><input type="text" class="fi fi-auto" id="costChinese" placeholder="自動轉換" readonly></div></div>
+      <div class="frow"><div class="fg choice-block"><label class="flabel">是否預支差旅費 <span class="req">*</span></label><div class="rg"><label class="rpill active"><input type="radio" name="advanceNeeded" value="no" checked> 不預支</label><label class="rpill"><input type="radio" name="advanceNeeded" value="yes"> 預支</label></div></div><div class="fg" data-show-when="advanceNeeded=yes" style="display:none"><label class="flabel">預支金額（NT$） <span class="req">*</span></label><input type="number" class="fi" id="advanceAmount" placeholder="0" min="1" step="1"></div></div>
+      <div class="frow"><div class="fg"><label class="flabel">備註</label><textarea class="fi form-textarea" id="remark" placeholder="其他補充說明（選填）" maxlength="80"></textarea></div></div>
+    </div>
+  </div>
+  </div>
+</main>
+</div>
+
+<div id="previewPage">
+  <div class="pv-toolbar">
+    <div class="pv-toolbar-left">
+      <a class="btn btn-outline-white" href="../index.html"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-home"></use></svg> 回到首頁</a>
+      <button class="btn btn-outline-white" onclick="goBack()"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-left"></use></svg> 返回編輯</button>
+      <span class="pv-hint">確認內容後再列印</span>
+    </div>
+    <div class="pv-toolbar-right">
+      <span class="pv-hint">A5 橫向 210 × 148 mm</span>
+      <button class="btn btn-white" onclick="printRecord()"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-printer"></use></svg> 列印 / 另存 PDF</button>
+    </div>
+  </div>
+  <p class="pv-overflow-notice" id="pvOverflow" role="status" hidden>內容超過一頁，超出部分會被裁切。請返回編輯，精簡較長的文字。</p>
+
+  <div class="pv-outer">
+    <div class="pv-sheet" id="pvSheet">
+      <div class="pv-hd">
+        <div class="pv-hd-title">出　差　申　請　單</div>
+        <div class="pv-hd-meta">
+          <span class="pv-hd-field">單號：<span id="pv-docno" class="pv-hd-uline"></span></span>
+          <span class="pv-hd-divider">|</span>
+          <span class="pv-hd-field">日期：<span id="pv-date"></span></span>
+        </div>
+      </div>
+      <div class="pv-wrap">
+        <div class="pv-row pv-row-tight"><div class="pv-lbl" style="width:15mm"><span>申</span><span>請</span><span>日</span><span>期</span></div><div class="pv-val" style="width:26mm;flex:none" id="pv-reqdate"></div><div class="pv-lbl" style="width:13mm"><span>申</span><span>請</span><span>人</span></div><div class="pv-val" style="width:30mm;flex:none" id="pv-applicant"></div><div class="pv-lbl" style="width:11mm"><span>單</span><span>位</span></div><div class="pv-val" style="width:42mm;flex:none" id="pv-dept"></div><div class="pv-lbl" style="width:11mm"><span>職</span><span>稱</span></div><div class="pv-val" id="pv-jobtitle"></div></div>
+        <div class="pv-row pv-row-tight"><div class="pv-lbl" style="width:15mm"><span>卡</span><span>片</span><span>號</span><span>碼</span></div><div class="pv-val" style="width:26mm;flex:none" id="pv-employeeid"></div><div class="pv-lbl" style="width:13mm"><span>主</span><span>管</span></div><div class="pv-val" style="width:30mm;flex:none" id="pv-manager"></div><div class="pv-lbl" style="width:11mm"><span>類</span><span>別</span></div><div class="pv-val" style="width:16mm;flex:none" id="pv-traveltype"></div><div class="pv-lbl" style="width:11mm"><span>事</span><span>由</span></div><div class="pv-val pv-small" id="pv-reason"></div></div>
+        <div class="pv-row pv-twocol">
+          <div class="pv-tcol-l" style="width:112mm">
+            <div class="pv-subcell-hd">出差資訊</div>
+            <div class="pv-subrow pv-subrow-tight"><div class="pv-sublbl" style="width:14mm"><span>地</span><span>點</span></div><div class="pv-subval" id="pv-destination"></div></div>
+            <div class="pv-subrow pv-subrow-tight"><div class="pv-sublbl" style="width:14mm"><span>拜</span><span>訪</span></div><div class="pv-subval pv-small" id="pv-visit"></div></div>
+            <div class="pv-subrow pv-subrow-tight"><div class="pv-sublbl" style="width:14mm"><span>時</span><span>間</span></div><div class="pv-subval pv-small" id="pv-period"></div><div class="pv-sublbl" style="width:10mm"><span>時</span><span>長</span></div><div class="pv-subval" style="flex:none;width:18mm" id="pv-duration"></div></div>
+            <div class="pv-subrow pv-subrow-tight"><div class="pv-sublbl" style="width:14mm"><span>交</span><span>通</span></div><div class="pv-subval pv-small" id="pv-transport"></div></div>
+            <div class="pv-subrow pv-subrow-tight"><div class="pv-sublbl" style="width:14mm"><span>住</span><span>宿</span></div><div class="pv-subval pv-small" id="pv-lodging"></div></div>
+          </div>
+          <div class="pv-tcol-r">
+            <div class="pv-subcell-hd">代理與聯絡</div>
+            <div class="pv-subrow pv-subrow-tight"><div class="pv-sublbl" style="width:14mm"><span>代</span><span>理</span><span>人</span></div><div class="pv-subval" id="pv-agent"></div></div>
+            <div class="pv-subrow pv-subrow-tight"><div class="pv-sublbl" style="width:14mm"><span>電</span><span>話</span></div><div class="pv-subval" id="pv-phone"></div></div>
+            <div class="pv-subrow"><div class="pv-sublbl" style="width:14mm"><span>交</span><span>接</span></div><div class="pv-subval pv-multi" id="pv-handover"></div></div>
+          </div>
+        </div>
+        <div class="pv-row pv-row-tight"><div class="pv-lbl" style="width:12mm"><span>交</span><span>通</span><span>費</span></div><div class="pv-val" style="width:22mm;flex:none" id="pv-costTransport"></div><div class="pv-lbl" style="width:12mm"><span>住</span><span>宿</span><span>費</span></div><div class="pv-val" style="width:22mm;flex:none" id="pv-costLodging"></div><div class="pv-lbl" style="width:12mm"><span>膳</span><span>雜</span><span>費</span></div><div class="pv-val" style="width:22mm;flex:none" id="pv-costMeal"></div><div class="pv-lbl" style="width:12mm"><span>其</span><span>他</span></div><div class="pv-val" style="width:22mm;flex:none" id="pv-costOther"></div><div class="pv-lbl" style="width:10mm"><span>合</span><span>計</span></div><div class="pv-val pv-total" id="pv-costTotal"></div></div>
+        <div class="pv-row pv-row-tight"><div class="pv-lbl" style="width:15mm"><span>中</span><span>文</span><span>大</span><span>寫</span></div><div class="pv-val pv-small" id="pv-chinese"></div><div class="pv-lbl" style="width:15mm"><span>預</span><span>支</span><span>金</span><span>額</span></div><div class="pv-val" style="width:36mm;flex:none" id="pv-advance"></div></div>
+        <div class="pv-row pv-row-tight"><div class="pv-lbl" style="width:15mm"><span>備</span><span>註</span></div><div class="pv-val pv-multi" id="pv-remark"></div></div>
+      </div>
+      <div class="pv-spacer"></div>
+      <div class="pv-bottom">
+        <div class="pv-acct-cashier" data-review="travel"></div>
+        <div class="pv-sign" data-signoff="travel"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/form-toolbar.js"></script>
+<script src="../assets/js/favorites-ui.js"></script>
+<script src="../assets/js/form-recent-records.js"></script>
+<script src="../assets/js/form-templates.js"></script>
+<script src="../assets/js/signoff-store.js"></script>
+<script src="../assets/js/form-calculations.js"></script>
+<script src="../assets/js/form-page.js"></script>
+<script src="../assets/js/forms/travel_request_form.js"></script>
+<script src="../assets/js/draft-library.js"></script>
+<script src="../assets/js/form-desktop.js"></script>
+<script src="../assets/js/profile-store.js"></script>
+<script src="../assets/js/profile-autofill.js"></script>
+<script src="../assets/js/pwa.js"></script>
+</body>
+</html>

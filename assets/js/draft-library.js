@@ -131,7 +131,7 @@ window.DraftLibrary = (() => {
     if (kind === 'drafts' && record.id === currentId()) meta.append(node('span', 'draft-current', '編輯中'));
     info.append(node('h4', '', record.title), meta);
     const details = node('details', 'draft-details'); details.append(node('summary', '', '查看內容'));
-    const fields = config.type === 'payment' ? [['applicant', '申請人'], ['reqDate', '請款日期'], ['acctCategory', '科目'], ['reason', '事由'], ['amtGross', '金額'], ['payee', '付款對象'], ['paymentNote', '備註']] : [['applicant', '申請人'], ['startDate', '開始日期'], ['endDate', '結束日期'], ['reason', '理由'], ['handover', '交接'], ['remark', '備註']];
+    const fields = config.summaryFields || (config.type === 'payment' ? [['applicant', '申請人'], ['reqDate', '請款日期'], ['acctCategory', '科目'], ['reason', '事由'], ['amtGross', '金額'], ['payee', '付款對象'], ['paymentNote', '備註']] : [['applicant', '申請人'], ['startDate', '開始日期'], ['endDate', '結束日期'], ['reason', '理由'], ['handover', '交接'], ['remark', '備註']]);
     const values = node('dl'); fields.filter(([key]) => kind !== 'templates' || Object.hasOwn(record.data, key)).forEach(([key, label]) => values.append(node('dt', '', label), node('dd', '', String(record.data[key] || '未填寫')))); details.append(values); info.append(details);
     const actions = node('div', 'draft-actions'); const inline = node('div', 'draft-inline');
     function requestLoad(editing = false, copy = false) {
@@ -200,8 +200,8 @@ window.DraftLibrary = (() => {
   }
   function resetCurrent() { if (!config) return; window[config.idKey] = ''; savedSnapshot = ''; templateId = ''; originLabel = ''; updateSession(); }
   function init() {
-    config = document.getElementById('payee') ? { type: 'payment', label: '請款單', idKey: '__currentPaymentDraftId', recentKey: '__currentRecentPaymentRecordId', title: getPaymentRecordTitle, restore: restorePaymentFormData } :
-      { type: 'leave', label: '請假單', idKey: '__currentLeaveDraftId', recentKey: '__currentRecentLeaveRecordId', title: getLeaveRecordTitle, restore: restoreLeaveFormData };
+    config = window.FormConfig || (document.getElementById('payee') ? { type: 'payment', label: '請款單', idKey: '__currentPaymentDraftId', recentKey: '__currentRecentPaymentRecordId', title: getPaymentRecordTitle, restore: restorePaymentFormData } :
+      { type: 'leave', label: '請假單', idKey: '__currentLeaveDraftId', recentKey: '__currentRecentLeaveRecordId', title: getLeaveRecordTitle, restore: restoreLeaveFormData });
     dialog = node('dialog', 'draft-dialog'); dialog.setAttribute('aria-labelledby', 'draft-dialog-title');
     const header = node('div', 'draft-dialog-header'); const title = node('h2', '', `${config.label}資料庫`); title.id = 'draft-dialog-title'; header.append(title, button('關閉', () => dialog.close()));
     message = node('p', 'draft-message'); message.setAttribute('role', 'status'); content = node('div', 'draft-dialog-content'); dialog.append(header, message, content); document.body.append(dialog);

@@ -4,7 +4,7 @@ const { readFileSync } = require('node:fs');
 const { resolve } = require('node:path');
 const vm = require('node:vm');
 const { randomUUID } = require('node:crypto');
-const source = readFileSync(resolve(__dirname, '../assets/js/form-templates.js'), 'utf8') + '\n' + readFileSync(resolve(__dirname, '../assets/js/favorites-backup.js'), 'utf8');
+const source = readFileSync(resolve(__dirname, '../assets/js/form-templates.js'), 'utf8') + '\n' + readFileSync(resolve(__dirname, '../assets/js/signoff-store.js'), 'utf8') + '\n' + readFileSync(resolve(__dirname, '../assets/js/favorites-backup.js'), 'utf8');
 
 function setup(initial = {}, failKey = '') {
   const storage = new Map(Object.entries(initial).map(([key, value]) => [key, JSON.stringify(value)]));
@@ -34,7 +34,7 @@ test('export and replace round trip preserves all fields and default, and exclud
     yijia_payee_favorites: [payee('r_a', '常用公司')], hr_form_drafts_leave: [{ id: 'draft' }] };
   const { api } = setup(initial);
   const exported = api.createExport();
-  assert.deepEqual(Object.keys(exported.datasets), ['profiles', 'payees', 'templates']);
+  assert.deepEqual(Object.keys(exported.datasets), ['profiles', 'payees', 'templates', 'signoffs', 'reviews']);
   const target = setup();
   target.api.importData(target.api.parse(JSON.stringify(exported)), 'replace');
   assert.deepEqual(JSON.parse(target.storage.get('yijia_profiles')), initial.yijia_profiles);
@@ -118,4 +118,33 @@ test('template backup round trip retains fixed content, excludes transaction fie
   const before = target.storage.get('hr_form_templates');
   target.api.importData(target.api.parse(envelope({ payees: [] })), 'replace');
   assert.equal(target.storage.get('hr_form_templates'), before);
+});
+
+test('backup round trip carries sign-off settings, and merge keeps local choices', () => {
+  const origin = setup({ hr_form_signoffs: { leave: ['申請人', '老闆'], travel: ['主管'] } });
+  const exported = origin.api.createExport();
+  const target = setup({ hr_form_signoffs: { leave: ['本機'] } });
+  target.api.importData(target.api.parse(JSON.stringify(exported)), 'merge');
+  assert.deepEqual(JSON.parse(target.storage.get('hr_form_signoffs')), { leave: ['本機'], travel: ['主管'] });
+  target.api.importData(target.api.parse(JSON.stringify(exported)), 'replace');
+  assert.deepEqual(JSON.parse(target.storage.get('hr_form_signoffs')).leave, ['申請人', '老闆']);
+  assert.throws(() => target.api.parse(envelope({ signoffs: { leave: Array(7).fill('甲') } })));
+});
+
+test('backup round trip carries review settings, including a hidden section', () => {
+  const origin = setup({ hr_form_reviews: { leave: [], travel: [{ name: '老闆', options: ['同意'] }] } });
+  const target = setup();
+  target.api.importData(target.api.parse(JSON.stringify(origin.api.createExport())), 'replace');
+  assert.deepEqual(JSON.parse(target.storage.get('hr_form_reviews')), { leave: [], travel: [{ name: '老闆', options: ['同意'] }] });
+});
+
+test('backup round trip includes overtime, travel and purchase templates', () => {
+  const record = (id, data) => ({ id, title: id, createdAt: '', updatedAt: '', data });
+  const origin = setup({ hr_form_templates: { overtime: [record('t_o', { reason: '加班', docNo: 'OLD' })], travel: [record('t_t', { transportModes: ['hsr'] })], purchase: [record('t_p', { item1Name: '紙' })] } });
+  const exported = origin.api.createExport();
+  const target = setup(); target.api.importData(target.api.parse(JSON.stringify(exported)), 'replace');
+  const saved = JSON.parse(target.storage.get('hr_form_templates'));
+  assert.deepEqual(saved.overtime[0].data, { reason: '加班' });
+  assert.deepEqual(saved.travel[0].data.transportModes, ['hsr']);
+  assert.equal(saved.purchase[0].data.item1Name, '紙');
 });

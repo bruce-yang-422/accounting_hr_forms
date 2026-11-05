@@ -70,7 +70,7 @@ test('manifest, icons, precache and build hash match the current source', () => 
   });
   assert.equal(hash.digest('hex').slice(0, 16), version, 'Run python scripts/build_pwa.py after changing cached files');
   assert.equal(new Set(resources).size, resources.length);
-  for (const page of ['index.html', 'guide.html', 'favorites.html', 'forms/leave_request_form.html', 'forms/payment_request_form.html']) {
+  for (const page of ['index.html', 'guide.html', 'favorites.html', 'forms/leave_request_form.html', 'forms/payment_request_form.html', 'forms/overtime_request_form.html', 'forms/travel_request_form.html', 'forms/purchase_request_form.html']) {
     const html = readFileSync(resolve(root, page), 'utf8');
     assert.match(html, /rel="manifest"/); assert.match(html, /assets\/js\/pwa\.js/);
     assert.ok(resources.includes(page));

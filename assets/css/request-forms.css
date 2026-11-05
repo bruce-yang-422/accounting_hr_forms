@@ -1,0 +1,84 @@
+/* Shared additions for the overtime, travel and purchase forms. */
+.form-textarea { height: 76px; padding: 9px 11px; resize: vertical; }
+.choice-block { flex: 0 0 auto; max-width: 100%; }
+.form-hint { font-size: 12px; color: var(--c-muted); margin: 0; }
+
+@media (max-width: 480px) {
+  .frow > .fg:not(.fg-sm):not(.choice-block) { flex: 1 1 100%; }
+}
+
+/* Purchase versions: the simple version hides, but keeps, what only the full one uses. */
+.mode-hint { flex: 1 1 260px; align-self: flex-end; padding-bottom: 8px; }
+#fillPage.purchase-simple [data-full-only], .pv-sheet-simple [data-full-only] { display: none !important; }
+#fillPage.purchase-simple .supplier-row { grid-template-columns: 150px minmax(0, 1fr) minmax(0, 1.4fr); }
+#fillPage.purchase-simple .supplier-row > * { grid-column: auto; }
+.supplier-row .rg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+.supplier-row .rg .rpill { justify-content: center; padding-inline: 6px; }
+@media (max-width: 860px) { #fillPage.purchase-simple .supplier-row { grid-template-columns: minmax(0, 1fr); } }
+#fillPage:not(.purchase-simple) [data-simple-only] { display: none; }
+.pv-simple-only { display: none; }
+.pv-sheet-simple .pv-simple-only { display: flex; }
+.pv-sheet-simple #pv-dept { flex: 1 !important; }
+
+/* Purchase item rows */
+.item-grid { display: grid; gap: 8px; margin-bottom: 11px; }
+.item-row { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.2fr) 72px 64px 104px 104px 56px; gap: 8px; align-items: center; }
+.item-head { font-size: 12px; font-weight: 600; color: var(--c-muted); }
+.item-remove { border: 1.5px solid var(--c-border); border-radius: 8px; background: #fff; color: var(--c-muted); font: inherit; font-size: 12px; height: 34px; cursor: pointer; }
+.item-remove:hover { border-color: var(--c-accent); color: var(--c-blue); }
+.item-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 11px; }
+.item-actions .profile-pick-btn { height: 34px; padding: 0 14px; }
+.item-actions .profile-pick-btn:disabled { opacity: .5; cursor: not-allowed; }
+.supplier-row { display: grid; grid-template-columns: 82px 150px minmax(0, 1.1fr) minmax(0, 1.3fr) 120px 56px; gap: 8px; align-items: center; }
+.supplier-row .rpill { justify-content: center; padding-inline: 6px; }
+@media (max-width: 860px) {
+  .supplier-row { grid-template-columns: repeat(6, minmax(0, 1fr)); padding-bottom: 10px; border-bottom: 1.5px dashed var(--c-border); }
+  .supplier-row > :nth-child(1) { grid-column: span 2; }
+  .supplier-row > :nth-child(2) { grid-column: span 4; }
+  .supplier-row > :nth-child(3), .supplier-row > :nth-child(4) { grid-column: span 6; }
+  .supplier-row > :nth-child(5) { grid-column: span 4; }
+  .supplier-row > :nth-child(6) { grid-column: span 2; }
+  .item-head { display: none; }
+  .item-row { grid-template-columns: repeat(6, minmax(0, 1fr)); padding-bottom: 10px; border-bottom: 1.5px dashed var(--c-border); }
+  .item-row > :nth-child(1), .item-row > :nth-child(2) { grid-column: span 6; }
+  .item-row > :nth-child(3), .item-row > :nth-child(4), .item-row > :nth-child(5) { grid-column: span 2; }
+  .item-row > :nth-child(6) { grid-column: span 4; }
+  .item-row > :nth-child(7) { grid-column: span 2; }
+}
+
+/* Printed sheet */
+.pv-multi { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.25; font-size: 8.5pt; }
+.pv-small { font-size: 8pt; line-height: 1.2; overflow-wrap: anywhere; }
+.pv-total { font-weight: 700; }
+.pv-row-tight { min-height: 6.5mm; }
+.pv-subrow-tight { min-height: 6mm; }
+.pv-items { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 8pt; }
+.pv-items th, .pv-items td { border-right: 0.25mm solid #999; border-bottom: 0.25mm solid #999; height: 4.8mm; padding: 0 1mm; overflow-wrap: anywhere; line-height: 1.15; }
+.pv-items th { background: #f0f0f0; font-weight: 700; text-align: center; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.pv-items th:last-child, .pv-items td:last-child { border-right: none; }
+.pv-items .num { text-align: right; }
+.pv-items .center { text-align: center; }
+/* A4 portrait: same content with larger rows, for forms with many items. */
+.pv-sheet-a4 { height: 297mm; padding: 9mm 8mm 8mm; font-size: 10pt; }
+.pv-sheet-a4 .pv-hd { padding-bottom: 2.5mm; margin-bottom: 3mm; }
+.pv-sheet-a4 .pv-hd-title { font-size: 20pt; }
+.pv-sheet-a4 .pv-row, .pv-sheet-a4 .pv-row-tight { min-height: 9mm; }
+.pv-sheet-a4 .pv-val, .pv-sheet-a4 .pv-multi, .pv-sheet-a4 .pv-small, .pv-sheet-a4 .pv-items { font-size: 9.5pt; }
+.pv-sheet-a4 .pv-items th, .pv-sheet-a4 .pv-items td { height: 8mm; line-height: 1.2; padding: 0 1.5mm; }
+.pv-sheet-a4 .pv-spacer { max-height: 6mm; }
+.pv-sheet-a4 .pv-ac-body { padding: 3mm; gap: 3mm; }
+.pv-sheet-a4 .pv-ac-row { font-size: 9pt; }
+@media screen and (max-width: 860px) { .pv-sheet-a4 { margin-bottom: -74mm; } }
+@media screen and (max-width: 600px) { .pv-sheet-a4 { margin-bottom: -134mm; } }
+@media screen and (max-width: 400px) { .pv-sheet-a4 { margin-bottom: -172mm; } }
+/* Use the page's spare height for signing room instead of leaving a gap below. */
+.pv-bottom { flex: 1 0 auto; display: flex; flex-direction: column; }
+.pv-sign { flex: 1; }
+.pv-sign-cell { display: flex; flex-direction: column; }
+.pv-sign-body { flex: 1; min-height: 10mm; height: auto; }
+.pv-overflow-notice { margin: 0; padding: 8px 16px; background: #fff4e0; border-bottom: 1.5px solid #e8a84c; color: #7a3b10; font-size: 13px; text-align: center; }
+.pv-overflow-notice[hidden] { display: none; }
+@media print {
+  .pv-overflow-notice { display: none !important; }
+  .pv-items th { background: #e8e8e8 !important; }
+}

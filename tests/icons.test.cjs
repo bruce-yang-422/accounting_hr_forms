@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const { readFileSync } = require('node:fs');
 const { resolve } = require('node:path');
 const root = resolve(__dirname, '..');
-const pages = ['index.html', 'guide.html', 'favorites.html', '404.html', 'offline.html', 'forms/leave_request_form.html', 'forms/payment_request_form.html'];
+const pages = ['index.html', 'guide.html', 'favorites.html', '404.html', 'offline.html', 'forms/leave_request_form.html', 'forms/payment_request_form.html', 'forms/overtime_request_form.html', 'forms/travel_request_form.html', 'forms/purchase_request_form.html'];
 const emoji = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\uFE0F]/u;
 const read = path => readFileSync(resolve(root, path), 'utf8');
 
@@ -30,16 +30,16 @@ test('home form identity uses the supplied PNG artwork and operation SVG assets 
     assert.ok(readFileSync(resolve(root, path)).length > 0);
   }
   const worker = read('service-worker.js');
-  for (const path of ['assets/icons/brand.svg', 'assets/icons/ui.svg', 'assets/css/icons.css', 'assets/icons/leave-calendar-approval.svg', 'assets/icons/payment-money-bag-invoice.svg']) assert.ok(worker.includes(`"${path}"`), path);
+  for (const path of ['assets/icons/brand.svg', 'assets/icons/ui.svg', 'assets/css/icons.css', 'assets/icons/leave-calendar-approval.svg', 'assets/icons/payment-money-bag-invoice.svg', 'assets/icons/overtime-clock-moon.svg', 'assets/icons/travel-suitcase-plane.svg', 'assets/icons/purchase-cart-list.svg']) assert.ok(worker.includes(`"${path}"`), path);
 });
 
 test('functional arrow and checkbox glyphs are rendered with SVG rather than text', () => {
-  for (const path of ['forms/leave_request_form.html', 'forms/payment_request_form.html']) {
+  for (const path of ['forms/leave_request_form.html', 'forms/payment_request_form.html', 'forms/overtime_request_form.html', 'forms/travel_request_form.html', 'forms/purchase_request_form.html']) {
     const html = read(path);
     assert.equal(/[□⌂⋯]/u.test(html), false, path);
     assert.match(html, /href="#icon-printer"/);
-    assert.match(html, /href="#icon-checkbox"/);
     assert.match(html, /href="#icon-more"/);
   }
+  assert.match(read('assets/js/signoff-store.js'), /#icon-checkbox/);
   assert.equal(/content:\s*['"][→▾]/u.test(read('assets/css/index.css') + read('assets/css/styles.css')), false);
 });

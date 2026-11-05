@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     name: record => record.name, searchText: record => Object.values(record).join(' '),
     filters: [{ label: '單位', value: record => record.department }],
     priority: record => Number(record.id === defaultId), defaultSortLabel: '預設人員優先，再依姓名',
-    emptyTitle: '還沒有個人常用資料', emptyText: '新增後，請假單與請款單都可以帶入使用。',
+    emptyTitle: '還沒有個人常用資料', emptyText: '新增後，各表單都可以帶入使用。',
     createLabel: '新增個人資料', onCreate: () => openEditor(),
     renderItem(record) {
       const card = node('article', `fm-record${record.id === defaultId ? ' is-default' : ''}`);

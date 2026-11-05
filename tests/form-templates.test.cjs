@@ -24,6 +24,19 @@ test('leave templates preserve recurring times and reasons but exclude dates and
   assert.equal(saved.data.startHour, '09'); assert.equal(saved.data.reason, '固定事由');
   for (const key of ['applicant', 'agent', 'contactPhone', 'startDate', 'endDate', 'leaveDays']) assert.equal(Object.hasOwn(saved.data, key), false);
 });
+test('new form templates keep recurring content but exclude dates, numbers and identity', () => {
+  const { api } = setup();
+  const overtime = api.save('overtime', '週五加班', { applicant: '甲', docNo: 'OLD', reqDate: '2020-01-01', startDate: '2020-01-01', endDate: '2020-01-01', startHour: '18', dayType: 'weekday', reason: '固定事由' });
+  assert.equal(overtime.data.startHour, '18'); assert.equal(overtime.data.reason, '固定事由');
+  for (const key of ['applicant', 'docNo', 'reqDate', 'startDate', 'endDate']) assert.equal(Object.hasOwn(overtime.data, key), false);
+  const travel = api.save('travel', '高雄拜訪', { agent: '代理人', contactPhone: '0900', startDate: '2020-01-01', destination: '高雄', transportModes: ['hsr', 'bus'], costLodging: '2000' });
+  assert.deepEqual([...travel.data.transportModes], ['hsr', 'bus']); assert.equal(travel.data.costLodging, '2000');
+  for (const key of ['agent', 'contactPhone', 'startDate']) assert.equal(Object.hasOwn(travel.data, key), false);
+  const purchase = api.save('purchase', '辦公用品', { applicant: '甲', neededDate: '2020-01-01', item15Name: '紙', item15Price: '100', purchaseMode: 'full', supplier2Channel: 'store', supplier2Name: '公司', recommendedSupplier: '2' });
+  assert.equal(purchase.data.item15Name, '紙'); assert.equal(purchase.data.purchaseMode, 'full'); assert.equal(purchase.data.supplier2Name, '公司'); assert.equal(purchase.data.supplier2Channel, 'store'); assert.equal(purchase.data.recommendedSupplier, '2');
+  assert.equal(Object.hasOwn(purchase.data, 'neededDate'), false);
+  assert.throws(() => api.save('travel', 'bad', { transportModes: 'hsr' }));
+});
 test('20-template capacity never evicts records and supports update, rename and delete', () => {
   const { api, storage } = setup();
   const saved = Array.from({ length: 20 }, (_, i) => api.save('payment', `項目${i}`, { reason: String(i) }));

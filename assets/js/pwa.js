@@ -33,12 +33,18 @@
   });
   update.append(updateText, applyUpdate, dismiss); notices.append(offline, update); document.body.append(notices);
 
+  function formState() {
+    const custom = window.FormConfig;
+    if (custom) return { draftKey: custom.idKey, recentKey: custom.recentKey, restore: custom.restore };
+    const payment = Boolean(document.getElementById('payee'));
+    return { draftKey: payment ? '__currentPaymentDraftId' : '__currentLeaveDraftId',
+      recentKey: payment ? '__currentRecentPaymentRecordId' : '__currentRecentLeaveRecordId',
+      restore: payment ? window.restorePaymentFormData : window.restoreLeaveFormData };
+  }
   function preserveForm() {
     const fillPage = document.getElementById('fillPage');
     if (!fillPage || typeof FormRecentRecords === 'undefined') return;
-    const payment = Boolean(document.getElementById('payee'));
-    const draftKey = payment ? '__currentPaymentDraftId' : '__currentLeaveDraftId';
-    const recentKey = payment ? '__currentRecentPaymentRecordId' : '__currentRecentLeaveRecordId';
+    const { draftKey, recentKey } = formState();
     const snapshot = { path: location.pathname, savedAt: Date.now(), data: FormRecentRecords.collect(fillPage),
       draftId: window[draftKey] || '', recentId: window[recentKey] || '', baseline: window.DraftLibrary?.getSessionSnapshot() || '',
       libraryState: window.DraftLibrary?.getLibraryState(),
@@ -53,12 +59,11 @@
       const snapshot = JSON.parse(raw);
       if (snapshot.path !== location.pathname) return;
       if (Date.now() - snapshot.savedAt > 30 * 60 * 1000) { sessionStorage.removeItem(pendingKey); return; }
-      const payment = Boolean(document.getElementById('payee'));
-      const restore = payment ? window.restorePaymentFormData : window.restoreLeaveFormData;
+      const { draftKey, recentKey, restore } = formState();
       if (!document.getElementById('fillPage') || typeof restore !== 'function') return;
       restore(snapshot.data);
-      window[payment ? '__currentPaymentDraftId' : '__currentLeaveDraftId'] = snapshot.draftId || '';
-      window[payment ? '__currentRecentPaymentRecordId' : '__currentRecentLeaveRecordId'] = snapshot.recentId || '';
+      window[draftKey] = snapshot.draftId || '';
+      window[recentKey] = snapshot.recentId || '';
       window.DraftLibrary?.restoreSessionSnapshot(snapshot.baseline);
       window.DraftLibrary?.restoreLibraryState(snapshot.libraryState);
       if (snapshot.preview) {

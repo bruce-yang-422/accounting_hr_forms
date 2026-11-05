@@ -26,7 +26,8 @@ def build():
             image.convert('RGB').save(icons / name, optimize=True)
 
     paths = ['index.html', 'guide.html', 'favorites.html', 'forms/payment_request_form.html',
-             'forms/leave_request_form.html', 'offline.html', 'manifest.webmanifest']
+             'forms/leave_request_form.html', 'forms/overtime_request_form.html', 'forms/travel_request_form.html', 'forms/purchase_request_form.html',
+             'offline.html', 'manifest.webmanifest']
     paths += [path.relative_to(ROOT).as_posix() for folder in ['assets/js', 'assets/css', 'assets/images/pwa', 'assets/images/forms', 'assets/icons']
               for path in sorted((ROOT / folder).rglob('*')) if path.is_file()]
     paths += ['assets/images/branding/form-center-hero-banner-desktop.png',

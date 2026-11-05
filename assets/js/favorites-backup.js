@@ -59,7 +59,7 @@ window.FavoritesBackup = (() => {
   }
 
   registerDataset('profiles', {
-    key: 'yijia_profiles', label: '個人常用資料（請假／請款）', empty: { profiles: [], defaultId: null },
+    key: 'yijia_profiles', label: '個人常用資料', empty: { profiles: [], defaultId: null },
     validate(value) {
       requireValue(isObject(value), '個人常用資料格式不正確。');
       const profiles = records(value.profiles, ['name', 'department', 'jobTitle', 'agent', 'contactPhone'], ['name', 'department']);
@@ -95,9 +95,21 @@ window.FavoritesBackup = (() => {
   });
 
   registerDataset('templates', {
-    key: FormTemplates.KEY, label: '表單範本（請假／請款）', empty: { payment: [], leave: [] },
+    key: FormTemplates.KEY, label: '表單範本', empty: { payment: [], leave: [], overtime: [], travel: [], purchase: [] },
     validate: FormTemplates.validateAll, merge: FormTemplates.merge,
-    count: value => value.payment.length + value.leave.length,
+    count: value => Object.values(value).reduce((total, list) => total + list.length, 0),
+  });
+
+  registerDataset('signoffs', {
+    key: SignoffStore.KEY, label: '簽核欄設定', empty: {},
+    validate: SignoffStore.validate, merge: SignoffStore.merge,
+    count: value => Object.keys(value).length,
+  });
+
+  registerDataset('reviews', {
+    key: ReviewStore.KEY, label: '審核區設定', empty: {},
+    validate: ReviewStore.validate, merge: ReviewStore.merge,
+    count: value => Object.keys(value).length,
   });
 
   function read(adapter) {

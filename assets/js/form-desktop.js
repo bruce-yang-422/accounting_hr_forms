@@ -113,7 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const groups = cards.map(() => []);
     missing.forEach(message => {
       let section;
-      if (payment) section = /請款日期|申請人|部門|科目|請款事由/.test(message) ? 0 : /金額/.test(message) ? 1 : /憑證|開立|單據/.test(message) ? 3 : 2;
+      if (window.FormConfig) section = window.FormConfig.sectionOf(message);
+      else if (payment) section = /請款日期|申請人|部門|科目|請款事由/.test(message) ? 0 : /金額/.test(message) ? 1 : /憑證|開立|單據/.test(message) ? 3 : 2;
       else section = /申請日期|申請人|部門/.test(message) ? 0 : /代理人|聯絡電話/.test(message) ? 2 : /證明文件/.test(message) ? 3 : 1;
       groups[section].push(message);
     });

@@ -1,82 +1,3 @@
-/* Chinese Uppercase Conversion */
-function numToChinese(amount) {
-  if (!amount || isNaN(amount)) return '';
-  amount = parseFloat(amount);
-  if (amount <= 0) return '';
-
-  const D = ['零', '壹', '貳', '參', '肆', '伍', '陸', '柒', '捌', '玖'];
-  const SU = ['', '萬', '億', '兆'];
-
-  const tc = Math.round(amount * 100);
-  const yuan = Math.floor(tc / 100);
-  const jiao = Math.floor((tc % 100) / 10);
-  const fen = tc % 10;
-
-  function g4(n) {
-    if (!n) return '';
-    const th = Math.floor(n / 1000);
-    const hu = Math.floor((n % 1000) / 100);
-    const te = Math.floor((n % 100) / 10);
-    const on = n % 10;
-    let s = '';
-
-    if (th) s += D[th] + '仟';
-    if (hu) {
-      s += D[hu] + '佰';
-    } else if (th && (te || on)) {
-      s += '零';
-    }
-    if (te) {
-      s += D[te] + '拾';
-    } else if ((th || hu) && on) {
-      s += '零';
-    }
-    if (on) s += D[on];
-    return s;
-  }
-
-  function convYuan(n) {
-    if (!n) return '零';
-    const parts = [];
-    let t = n;
-
-    while (t > 0) {
-      parts.unshift(t % 10000);
-      t = Math.floor(t / 10000);
-    }
-
-    let r = '';
-    parts.forEach((p, i) => {
-      const su = SU[parts.length - 1 - i];
-      if (!p) {
-        if (r && !r.endsWith('零')) r += '零';
-      } else {
-        const s = g4(p);
-        if (r && p < 1000 && !r.endsWith('零')) r += '零';
-        r += s + su;
-      }
-    });
-
-    return r.replace(/零+$/, '') || '零';
-  }
-
-  let res = '';
-  if (yuan > 0) res += convYuan(yuan) + '元';
-
-  if (jiao > 0 && fen > 0) {
-    res += D[jiao] + '角' + D[fen] + '分';
-  } else if (jiao > 0) {
-    res += D[jiao] + '角整';
-  } else if (fen > 0) {
-    if (yuan > 0) res += '零';
-    res += D[fen] + '分';
-  } else {
-    res += '整';
-  }
-
-  return res;
-}
-
 function fmtNum(n) {
   return parseFloat(n).toLocaleString('zh-TW', {
     minimumFractionDigits: 0,
@@ -311,7 +232,7 @@ function fillSample() {
 }
 
 function today() {
-  return new Date().toISOString().split('T')[0];
+  return FormCalc.localDate();
 }
 
 document.getElementById('reqDate').value = today();

@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       FavoritesBackup.importData(pending, mode.value);
       resetFile();
-      status.textContent = '常用資料已匯入。請假單與請款單可使用匯入的資料；已開啟的表單請重新整理。';
+      status.textContent = '常用資料已匯入。各表單可使用匯入的資料；已開啟的表單請重新整理。';
     } catch (error) {
       status.textContent = error.message;
     }

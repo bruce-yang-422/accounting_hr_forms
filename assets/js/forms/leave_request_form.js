@@ -53,7 +53,7 @@ function syncPrintHeader() {
 }
 
 function today() {
-  return new Date().toISOString().split('T')[0];
+  return FormCalc.localDate();
 }
 
 function formatWeekday(value) {

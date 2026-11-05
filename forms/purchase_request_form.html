@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#b65c22">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="表單中心">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/images/pwa/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/css/pwa.css">
+
+<title>線上採購申請單｜品項金額試算與 PDF 列印｜表單填寫中心</title>
+<meta name="description" content="線上填寫採購申請單，精簡版適合小額採購，完整版支援最多 15 項品項與 3 家比價，可記錄網購或實體供應商，自動計算小計、稅額與中文大寫金額，支援草稿與範本，依內容使用 A5 或 A4 列印和另存 PDF。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://office-forms.stack-base.com/forms/purchase_request_form.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:site_name" content="表單填寫中心">
+<meta property="og:title" content="線上採購申請單｜品項金額試算與 PDF 列印｜表單填寫中心">
+<meta property="og:description" content="線上填寫採購申請單，精簡版適合小額採購，完整版支援最多 15 項品項與 3 家比價，可記錄網購或實體供應商，自動計算小計、稅額與中文大寫金額，支援草稿與範本，依內容使用 A5 或 A4 列印和另存 PDF。">
+<meta property="og:url" content="https://office-forms.stack-base.com/forms/purchase_request_form.html">
+<meta property="og:image" content="https://office-forms.stack-base.com/assets/images/branding/form-center-hero-banner-desktop.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="2172">
+<meta property="og:image:height" content="724">
+<meta property="og:image:alt" content="表單填寫中心：請假單與請款單線上填寫工具">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="線上採購申請單｜品項金額試算與 PDF 列印｜表單填寫中心">
+<meta name="twitter:description" content="線上填寫採購申請單，精簡版適合小額採購，完整版支援最多 15 項品項與 3 家比價，可記錄網購或實體供應商，自動計算小計、稅額與中文大寫金額，支援草稿與範本，依內容使用 A5 或 A4 列印和另存 PDF。">
+<meta name="twitter:image" content="https://office-forms.stack-base.com/assets/images/branding/form-center-hero-banner-desktop.png">
+<meta name="twitter:image:alt" content="表單填寫中心：請假單與請款單線上填寫工具">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://office-forms.stack-base.com/forms/purchase_request_form.html#webpage",
+      "url": "https://office-forms.stack-base.com/forms/purchase_request_form.html",
+      "name": "線上採購申請單｜品項金額試算與 PDF 列印｜表單填寫中心",
+      "description": "線上填寫採購申請單，精簡版適合小額採購，完整版支援最多 15 項品項與 3 家比價，可記錄網購或實體供應商，自動計算小計、稅額與中文大寫金額，支援草稿與範本，依內容使用 A5 或 A4 列印和另存 PDF。",
+      "inLanguage": "zh-TW",
+      "isPartOf": {
+        "@id": "https://office-forms.stack-base.com/#website"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://office-forms.stack-base.com/assets/images/branding/form-center-hero-banner-desktop.png",
+        "width": 2172,
+        "height": 724
+      },
+      "breadcrumb": {
+        "@id": "https://office-forms.stack-base.com/forms/purchase_request_form.html#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://office-forms.stack-base.com/forms/purchase_request_form.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首頁",
+          "item": "https://office-forms.stack-base.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "採購單",
+          "item": "https://office-forms.stack-base.com/forms/purchase_request_form.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="../assets/icons/brand.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="stylesheet" href="../assets/css/favorites-ui.css">
+<link rel="stylesheet" href="../assets/css/draft-library.css">
+<link rel="stylesheet" href="../assets/css/form-toolbar.css">
+<link rel="stylesheet" href="../assets/css/form-desktop.css">
+<link rel="stylesheet" href="../assets/css/request-forms.css">
+<link rel="stylesheet" href="../assets/css/icons.css">
+</head>
+<body>
+<!-- SVG ICONS:START -->
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden">
+  <!-- Original 24-unit line icons for the form center. -->
+  <symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7M5 9v11h5v-6h4v6h5V9"/></symbol>
+  <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 10h18m-14 4h3m4 0h3m-10 4h3"/><path d="m14 17 1.5 1.5L19 15"/></symbol>
+  <symbol id="icon-payment" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Zm0 0v6h6M8 12h3m-3 4h3"/><path d="M17 12v7m2-6h-3a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-3"/></symbol>
+  <symbol id="icon-overtime" viewBox="0 0 24 24"><circle cx="11" cy="13" r="8"/><path d="M11 8v5l3 2M8 2h6M19 4l2 2"/></symbol>
+  <symbol id="icon-travel" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M8 8V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3M3 14h18m-11-1v2m4-2v2"/></symbol>
+  <symbol id="icon-purchase" viewBox="0 0 24 24"><path d="M2 3h3l3 12h11l2-8H6"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></symbol>
+  <symbol id="icon-forms" viewBox="0 0 24 24"><rect x="5" y="5" width="15" height="16" rx="2"/><path d="M9 5V3H3v15m6-9h7m-7 4h7m-7 4h4"/></symbol>
+  <symbol id="icon-book" viewBox="0 0 24 24"><path d="M12 6C9 4 6 3.5 3 4v15c3-.5 6 0 9 2m0-15c3-2 6-2.5 9-2v15c-3-.5-6 0-9 2Zm-6 2 3 1m-3 3 3 1m6-4 3-1m-3 5 3-1"/></symbol>
+  <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="icon-construction" viewBox="0 0 24 24"><path d="M5 15v6m14-6v6M3 7h18v8H3Zm4 0 5 8m1-8 5 8"/></symbol>
+  <symbol id="icon-edit" viewBox="0 0 24 24"><path d="m14 5 5 5M4 20l1-6L16 3a2 2 0 0 1 3 0l2 2a2 2 0 0 1 0 3L10 19Zm1-6 5 5m-6 1 6-1"/></symbol>
+  <symbol id="icon-eye" viewBox="0 0 24 24"><path d="M2 12S5.5 5 12 5s10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="icon-printer" viewBox="0 0 24 24"><path d="M7 8V3h10v5M7 17H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-3M7 14h10v7H7Z"/><path d="M17 11h2"/></symbol>
+  <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3Zm5-5 3 3 3-3"/></symbol>
+  <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V3h8v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/></symbol>
+  <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10h.01"/></symbol>
+  <symbol id="icon-arrow-left" viewBox="0 0 24 24"><path d="M20 12H4m6-6-6 6 6 6"/></symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+  <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="icon-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></symbol>
+  <symbol id="icon-checkbox" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/></symbol>
+  <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Zm0 0v6h6M12 18v-7m-3 3 3-3 3 3"/></symbol>
+</svg>
+<!-- SVG ICONS:END -->
+<div id="fillPage">
+<header class="toolbar">
+  <div class="toolbar-inner">
+  <div class="toolbar-left">
+    <a class="toolbar-logo" href="../index.html" aria-label="回到首頁"><img src="../assets/icons/brand.svg" alt=""></a>
+    <div class="toolbar-brand">
+      <h1>採購申請單</h1>
+      <p>Purchase Request Form</p>
+    </div>
+  </div>
+  <div class="toolbar-right">
+    <div class="toolbar-secondary" id="toolbarSecondary">
+      <button class="btn btn-outline-white" onclick="DraftLibrary.openSave()" title="儲存目前填寫內容">儲存草稿</button>
+      <button class="btn btn-outline-white" data-draft-library onclick="DraftLibrary.open()" title="開啟草稿庫，可搜尋、載入、命名及刪除">草稿庫</button>
+      <button type="button" class="btn btn-outline-white" data-template-library onclick="DraftLibrary.openTemplates()" title="套用及管理固定常用內容">範本庫</button>
+      <button class="btn btn-outline-white" data-recent-library onclick="DraftLibrary.openRecent()" title="載入最近列印紀錄">最近完成</button>
+      <a class="btn btn-outline-white" href="../index.html" title="返回首頁"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-left"></use></svg> 回到首頁</a>
+      <button class="btn btn-outline-white" onclick="fillSample()" title="填入範例資料"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-edit"></use></svg> 填入範例</button>
+      <button class="btn btn-outline-white" onclick="clearForm()" title="清除所有欄位"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-trash"></use></svg> 清除</button>
+    </div>
+    <button type="button" class="btn btn-outline-white toolbar-more-toggle" id="toolbarMore" aria-expanded="false" aria-controls="toolbarSecondary">更多 <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-more"></use></svg></button>
+    <button class="btn btn-white toolbar-primary" onclick="goToPreview()">下一步 <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg></button>
+  </div>
+  </div>
+</header>
+
+<main class="main">
+  <details class="form-help" data-mobile-collapse open>
+    <summary>填寫與列印說明</summary>
+    <div class="banner">
+      <span class="banner-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-info"></use></svg></span>
+      <span>此單用於採購前的申請與核准，金額為預估值；實際付款請另以請款單辦理。精簡版列印 <strong>A5 橫向</strong>，完整版列印 <strong>A4 直向</strong>。列印時請依預覽頁標示的紙張設定，縮放 <strong>100%</strong>、邊距設為 <strong>無</strong>。</span>
+    </div>
+  </details>
+
+  <details class="form-doc-number" data-mobile-collapse open>
+    <summary>單據編號（採購填）</summary>
+    <div class="doc-no-row">
+      <div class="doc-no-badge">
+        <span>單據編號（採購填）</span>
+        <input type="text" class="fi" id="docNo" placeholder="PUR-2026-0001">
+      </div>
+    </div>
+  </details>
+
+  <div class="card">
+    <div class="card-head"><div class="card-head-num">1</div><h2>基本資訊</h2></div>
+    <div class="card-body">
+      <div class="frow"><div class="fg choice-block"><label class="flabel">表單版本</label><div class="rg"><label class="rpill active"><input type="radio" name="purchaseMode" value="simple" checked data-keep-on-reset> 精簡版</label><label class="rpill"><input type="radio" name="purchaseMode" value="full" data-keep-on-reset> 完整版</label></div></div><p class="form-hint mode-hint">精簡版：買小東西，A5 一張。完整版：金額較高、需要比價，A4，最多 15 項品項與 3 家報價。</p></div>
+      <div class="frow"><div class="fg fg-lg"><label class="flabel">申請日期 <span class="req">*</span></label><input type="date" class="fi" id="reqDate"></div><div class="fg fg-xl"><label class="flabel">申請人 <span class="req">*</span></label><input type="text" class="fi" id="applicant" placeholder="員工姓名"></div><div class="fg fg-xl"><label class="flabel">部門 <span class="req">*</span></label><input type="text" class="fi" id="department" placeholder="所屬部門"></div></div>
+      <div class="frow" data-full-only><div class="fg fg-lg"><label class="flabel">需求日期 <span class="req">*</span></label><input type="date" class="fi" id="neededDate"></div><div class="fg fg-lg"><label class="flabel">聯絡電話</label><input type="text" class="fi" id="contactPhone" placeholder="分機或手機"></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-head-num">2</div><h2>採購需求</h2></div>
+    <div class="card-body">
+      <div class="frow" data-full-only><div class="fg choice-block"><label class="flabel">採購類別 <span class="req">*</span></label><div class="rg"><label class="rpill"><input type="radio" name="category" value="office"> 辦公用品</label><label class="rpill"><input type="radio" name="category" value="equipment"> 設備</label><label class="rpill"><input type="radio" name="category" value="consumable"> 耗材</label><label class="rpill"><input type="radio" name="category" value="software"> 軟體／服務</label><label class="rpill"><input type="radio" name="category" value="other"> 其他</label></div></div><div class="fg" data-show-when="category=other" style="display:none"><label class="flabel">其他類別說明 <span class="req">*</span></label><input type="text" class="fi" id="categoryOther" placeholder="請說明類別" maxlength="20"></div></div>
+      <div class="frow" data-full-only><div class="fg choice-block"><label class="flabel">緊急程度 <span class="req">*</span></label><div class="rg"><label class="rpill active"><input type="radio" name="urgency" value="normal" checked> 一般</label><label class="rpill"><input type="radio" name="urgency" value="urgent"> 急件</label></div></div></div>
+      <div class="frow"><div class="fg"><label class="flabel">採購用途 <span class="req">*</span></label><input type="text" class="fi" id="reason" placeholder="請說明採購原因與用途" maxlength="100"></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-head-num">3</div><h2>採購品項</h2></div>
+    <div class="card-body">
+      <div class="item-grid">
+        <div class="item-row item-head" aria-hidden="true"><span>品名 *</span><span>規格</span><span>數量 *</span><span>單位</span><span>預估單價 *</span><span>小計</span><span></span></div>
+        <div class="item-row" id="itemRow1">
+          <input type="text" class="fi" id="item1Name" placeholder="品名" aria-label="第 1 項品名" maxlength="40">
+          <input type="text" class="fi" id="item1Spec" placeholder="規格" aria-label="第 1 項規格" maxlength="40">
+          <input type="number" class="fi" id="item1Qty" placeholder="數量" aria-label="第 1 項數量" min="0" step="any">
+          <input type="text" class="fi" id="item1Unit" placeholder="單位" aria-label="第 1 項單位" maxlength="6">
+          <input type="number" class="fi" id="item1Price" placeholder="單價" aria-label="第 1 項預估單價" min="0" step="any">
+          <input type="text" class="fi fi-auto" id="item1Amount" placeholder="小計" aria-label="第 1 項小計" readonly>
+          <button type="button" class="item-remove" onclick="removePurchaseItem(1)" aria-label="移除第 1 項">移除</button>
+        </div>
+        <div class="item-row" id="itemRow2" style="display:none">
+          <input type="text" class="fi" id="item2Name" placeholder="品名" aria-label="第 2 項品名" maxlength="40">
+          <input type="text" class="fi" id="item2Spec" placeholder="規格" aria-label="第 2 項規格" maxlength="40">
+          <input type="number" class="fi" id="item2Qty" placeholder="數量" aria-label="第 2 項數量" min="0" step="any">
+          <input type="text" class="fi" id="item2Unit" placeholder="單位" aria-label="第 2 項單位" maxlength="6">
+          <input type="number" class="fi" id="item2Price" placeholder="單價" aria-label="第 2 項預估單價" min="0" step="any">
+          <input type="text" class="fi fi-auto" id="item2Amount" placeholder="小計" aria-label="第 2 項小計" readonly>
+          <button type="button" class="item-remove" onclick="removePurchaseItem(2)" aria-label="移除第 2 項">移除</button>
+        </div>
+        <div class="item-row" id="itemRow3" style="display:none">
+          <input type="text" class="fi" id="item3Name" placeholder="品名" aria-label="第 3 項品名" maxlength="40">
+          <input type="text" class="fi" id="item3Spec" placeholder="規格" aria-label="第 3 項規格" maxlength="40">
+          <input type="number" class="fi" id="item3Qty" placeholder="數量" aria-label="第 3 項數量" min="0" step="any">
+          <input type="text" class="fi" id="item3Unit" placeholder="單位" aria-label="第 3 項單位" maxlength="6">
+          <input type="number" class="fi" id="item3Price" placeholder="單價" aria-label="第 3 項預估單價" min="0" step="any">
+          <input type="text" class="fi fi-auto" id="item3Amount" placeholder="小計" aria-label="第 3 項小計" readonly>
+          <button type="button" class="item-remove" onclick="removePurchaseItem(3)" aria-label="移除第 3 項">移除</button>
+        </div>
+        <div class="item-row" id="itemRow4" style="display:none">
+          <input type="text" class="fi" id="item4Name" placeholder="品名" aria-label="第 4 項品名" maxlength="40">
+          <input type="text" class="fi" id="item4Spec" placeholder="規格" aria-label="第 4 項規格" maxlength="40">
+          <input type="number" class="fi" id="item4Qty" placeholder="數量" aria-label="第 4 項數量" min="0" step="any">
+          <input type="text" class="fi" id="item4Unit" placeholder="單位" aria-label="第 4 項單位" maxlength="6">
+          <input type="number" class="fi" id="item4Price" placeholder="單價" aria-label="第 4 項預估單價" min="0" step="any">
+          <input type="text" class="fi fi-auto" id="item4Amount" placeholder="小計" aria-label="第 4 項小計" readonly>
+          <button type="button" class="item-remove" onclick="removePurchaseItem(4)" aria-label="移除第 4 項">移除</button>
+        </div>
+        <div class="item-row" id="itemRow5" style="display:none">
+          <input type="text" class="fi" id="item5Name" placeholder="品名" aria-label="第 5 項品名" maxlength="40">
+          <input type="text" class="fi" id="item5Spec" placeholder="規格" aria-label="第 5 項規格" maxlength="40">
+          <input type="number" class="fi" id="item5Qty" placeholder="數量" aria-label="第 5 項數量" min="0" step="any">
+          <input type="text" class="fi" id="item5Unit" placeholder="單位" aria-label="第 5 項單位" maxlength="6">
+          <input type="number" class="fi" id="item5Price" placeholder="單價" aria-label="第 5 項預估單價" min="0" step="any">
+          <input type="text" class="fi fi-auto" id="item5Amount" placeholder="小計" aria-label="第 5 項小計" readonly>
+          <button type="button" class="item-remove" onclick="removePurchaseItem(5)" aria-label="移除第 5 項">移除</button>
+        </div>
+        <div class="item-row" id="itemRow6" style="display:none">
+          <input type="text" class="fi" id="item6Name" placeholder="品名" aria-label="第 6 項品名" maxlength="40">
+          <input type="text" class="fi" id="item6Spec" placeholder="規格" aria-label="第 6 項規格" maxlength="40">
+          <input type="number" class="fi" id="item6Qty" placeholder="數量" aria-label="第 6 項數量" min="0" step="any">
+          <input type="text" class="fi" id="item6Unit" placeholder="單位" aria-label="第 6 項單位" maxlength="6">
+          <input type="number" class="fi" id="item6Price" placeholder="單價" aria-label="第 6 項預估單價" min="0" step="any">
+          <input type="text" class="fi fi-auto" id="item6Amount" placeholder="小計" aria-label="第 6 項小計" readonly>
+          <button type="button" class="item-remove" onclick="removePurchaseItem(6)" aria-label="移除第 6 項">移除</button>
+        </div>
+        <div class="item-row" id="itemRow7" style="display:none">
+          <input type="text" class="fi" id="item7Name" placeholder="品名" aria-label="第 7 項品名" maxlength="40">
+          <input type="text" class="fi" id="item7Spec" placeholder="規格" aria-label="第 7 項規格" maxlength="40">
+          <input type="number" class="fi" id="item7Qty" placeholder="數量" aria-label="第 7 項數量" min="0" step="any">
+          <input type="text" class="fi" id="item7Unit" placeholder="單位" aria-label="第 7 項單位" maxlength="6">
+          <input type="number" class="fi" id="item7Price" placeholder="單價" aria-label="第 7 項預估單價" min="0" step="any">
+          <input type="text" class="fi fi-auto" id="item7Amount" placeholder="小計" aria-label="第 7 項小計" readonly>
+          <button type="button" class="item-remove" onclick="removePurchaseItem(7)" aria-label="移除第 7 項">移除</button>
+        </div>
+        <div class="item-row" id="itemRow8" style="display:none">
+          <input type="text" class="fi" id="item8Name" placeholder="品名" aria-label="第 8 項品名" maxlength="40">
+          <input type="text" class="fi" id="item8Spec" placeholder="規格" aria-label="第 8 項規格" maxlength="40">
+          <input type="number" class="fi" id="item8Qty" placeholder="數量" aria-label="第 8 項數量" min="0" step="any">
+          <input type="text" class="fi" id="item8Unit" placeholder="單位" aria-label="第 8 項單位" maxlength="6">
+          <input type="number" class="fi" id="item8Price" placeholder="單價" aria-label="第 8 項預估單價" min="0" step="any">
+          <input type="text" class="fi fi-auto" id="item8Amount" placeholder="小計" aria-label="第 8 項小計" readonly>
+          <button type="button" class="item-remove" onclick="removePurchaseItem(8)" aria-label="移除第 8 項">移除</button>
+        </div>
+        <div class="item-row" id="itemRow9" style="display:none">
+          <input type="text" class="fi" id="item9Name" placeholder="品名" aria-label="第 9 項品名" maxlength="40">
+          <input type="text" class="fi" id="item9Spec" placeholder="規格" aria-label="第 9 項規格" maxlength="40">
+          <input type="number" class="fi" id="item9Qty" placeholder="數量" aria-label="第 9 項數量" min="0" step="any">
+          <input type="text" class="fi" id="item9Unit" placeholder="單位" aria-label="第 9 項單位" maxlength="6">
+          <input type="number" class="fi" id="item9Price" placeholder="單價" aria-label="第 9 項預估單價" min="0" step="any">
+          <input type="text" class="fi fi-auto" id="item9Amount" placeholder="小計" aria-label="第 9 項小計" readonly>
+          <button type="button" class="item-remove" onclick="removePurchaseItem(9)" aria-label="移除第 9 項">移除</button>
+        </div>
+        <div class="item-row" id="itemRow10" style="display:none">
+          <input type="text" class="fi" id="item10Name" placeholder="品名" aria-label="第 10 項品名" maxlength="40">
+          <input type="text" class="fi" id="item10Spec" placeholder="規格" aria-label="第 10 項規格" maxlength="40">
+          <input type="number" class="fi" id="item10Qty" placeholder="數量" aria-label="第 10 項數量" min="0" step="any">
+          <input type="text" class="fi" id="item10Unit" placeholder="單位" aria-label="第 10 項單位" maxlength="6">
+          <input type="number" class="fi" id="item10Price" placeholder="單價" aria-label="第 10 項預估單價" min="0" step="any">
+          <input type="text" class="fi fi-auto" id="item10Amount" placeholder="小計" aria-label="第 10 項小計" readonly>
+          <button type="button" class="item-remove" onclick="removePurchaseItem(10)" aria-label="移除第 10 項">移除</button>
+        </div>
+        <div class="item-row" id="itemRow11" style="display:none">
+          <input type="text" class="fi" id="item11Name" placeholder="品名" aria-label="第 11 項品名" maxlength="40">
+          <input type="text" class="fi" id="item11Spec" placeholder="規格" aria-label="第 11 項規格" maxlength="40">
+          <input type="number" class="fi" id="item11Qty" placeholder="數量" aria-label="第 11 項數量" min="0" step="any">
+          <input type="text" class="fi" id="item11Unit" placeholder="單位" aria-label="第 11 項單位" maxlength="6">
+          <input type="number" class="fi" id="item11Price" placeholder="單價" aria-label="第 11 項預估單價" min="0" step="any">
+          <input type="text" class="fi fi-auto" id="item11Amount" placeholder="小計" aria-label="第 11 項小計" readonly>
+          <button type="button" class="item-remove" onclick="removePurchaseItem(11)" aria-label="移除第 11 項">移除</button>
+        </div>
+        <div class="item-row" id="itemRow12" style="display:none">
+          <input type="text" class="fi" id="item12Name" placeholder="品名" aria-label="第 12 項品名" maxlength="40">
+          <input type="text" class="fi" id="item12Spec" placeholder="規格" aria-label="第 12 項規格" maxlength="40">
+          <input type="number" class="fi" id="item12Qty" placeholder="數量" aria-label="第 12 項數量" min="0" step="any">
+          <input type="text" class="fi" id="item12Unit" placeholder="單位" aria-label="第 12 項單位" maxlength="6">
+          <input type="number" class="fi" id="item12Price" placeholder="單價" aria-label="第 12 項預估單價" min="0" step="any">
+          <input type="text" class="fi fi-auto" id="item12Amount" placeholder="小計" aria-label="第 12 項小計" readonly>
+          <button type="button" class="item-remove" onclick="removePurchaseItem(12)" aria-label="移除第 12 項">移除</button>
+        </div>
+        <div class="item-row" id="itemRow13" style="display:none">
+          <input type="text" class="fi" id="item13Name" placeholder="品名" aria-label="第 13 項品名" maxlength="40">
+          <input type="text" class="fi" id="item13Spec" placeholder="規格" aria-label="第 13 項規格" maxlength="40">
+          <input type="number" class="fi" id="item13Qty" placeholder="數量" aria-label="第 13 項數量" min="0" step="any">
+          <input type="text" class="fi" id="item13Unit" placeholder="單位" aria-label="第 13 項單位" maxlength="6">
+          <input type="number" class="fi" id="item13Price" placeholder="單價" aria-label="第 13 項預估單價" min="0" step="any">
+          <input type="text" class="fi fi-auto" id="item13Amount" placeholder="小計" aria-label="第 13 項小計" readonly>
+          <button type="button" class="item-remove" onclick="removePurchaseItem(13)" aria-label="移除第 13 項">移除</button>
+        </div>
+        <div class="item-row" id="itemRow14" style="display:none">
+          <input type="text" class="fi" id="item14Name" placeholder="品名" aria-label="第 14 項品名" maxlength="40">
+          <input type="text" class="fi" id="item14Spec" placeholder="規格" aria-label="第 14 項規格" maxlength="40">
+          <input type="number" class="fi" id="item14Qty" placeholder="數量" aria-label="第 14 項數量" min="0" step="any">
+          <input type="text" class="fi" id="item14Unit" placeholder="單位" aria-label="第 14 項單位" maxlength="6">
+          <input type="number" class="fi" id="item14Price" placeholder="單價" aria-label="第 14 項預估單價" min="0" step="any">
+          <input type="text" class="fi fi-auto" id="item14Amount" placeholder="小計" aria-label="第 14 項小計" readonly>
+          <button type="button" class="item-remove" onclick="removePurchaseItem(14)" aria-label="移除第 14 項">移除</button>
+        </div>
+        <div class="item-row" id="itemRow15" style="display:none">
+          <input type="text" class="fi" id="item15Name" placeholder="品名" aria-label="第 15 項品名" maxlength="40">
+          <input type="text" class="fi" id="item15Spec" placeholder="規格" aria-label="第 15 項規格" maxlength="40">
+          <input type="number" class="fi" id="item15Qty" placeholder="數量" aria-label="第 15 項數量" min="0" step="any">
+          <input type="text" class="fi" id="item15Unit" placeholder="單位" aria-label="第 15 項單位" maxlength="6">
+          <input type="number" class="fi" id="item15Price" placeholder="單價" aria-label="第 15 項預估單價" min="0" step="any">
+          <input type="text" class="fi fi-auto" id="item15Amount" placeholder="小計" aria-label="第 15 項小計" readonly>
+          <button type="button" class="item-remove" onclick="removePurchaseItem(15)" aria-label="移除第 15 項">移除</button>
+        </div>
+      </div>
+      <div class="item-actions"><button type="button" class="profile-pick-btn" id="addItem" onclick="addPurchaseItem()">新增品項</button><p class="form-hint" id="addItemHint" role="status"></p></div>
+      <div class="amt-bar" id="amtBar" style="display:none"><div><div class="amt-bar-label">預估總金額</div><div class="amt-bar-num" id="amtBarNum">NT$ 0</div><div class="amt-bar-zh" id="amtBarZh"></div></div><div class="amt-bar-badge" id="amtBarBadge" data-full-only></div></div>
+      <div class="frow" data-full-only><div class="fg choice-block"><label class="flabel">單價稅別（稅率 5%） <span class="req">*</span></label><div class="rg"><label class="rpill active"><input type="radio" name="taxBasis" value="incl" checked> 含稅</label><label class="rpill"><input type="radio" name="taxBasis" value="excl"> 未稅</label><label class="rpill"><input type="radio" name="taxBasis" value="free"> 免稅</label></div></div><div class="fg"><label class="flabel">未稅金額</label><input type="text" class="fi fi-auto" id="amtNet" placeholder="自動計算" readonly></div><div class="fg"><label class="flabel">稅額</label><input type="text" class="fi fi-auto" id="amtTax" placeholder="自動計算" readonly></div></div>
+      <div class="frow"><div class="fg"><label class="flabel">中文大寫金額</label><input type="text" class="fi fi-auto" id="amtChinese" placeholder="自動轉換" readonly></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-head-num">4</div><h2>供應商與報價</h2></div>
+    <div class="card-body">
+      <datalist id="supplierOptions"><option value="PChome 24h購物"><option value="momo購物網"><option value="蝦皮購物"></datalist>
+      <div class="item-grid">
+        <div class="supplier-row item-head" data-full-only aria-hidden="true"><span>建議</span><span>購買方式</span><span>供應商</span><span>賣場、網址或聯絡方式</span><span>報價金額（NT$）</span><span></span></div>
+        <div class="supplier-row item-head" data-simple-only aria-hidden="true"><span>購買方式</span><span>供應商</span><span>賣場、網址或聯絡方式</span></div>
+        <div class="supplier-row" id="supplierRow1">
+          <label class="rpill" data-full-only><input type="radio" name="recommendedSupplier" value="1"> 建議</label>
+          <div class="rg" role="group" aria-label="第 1 家購買方式"><label class="rpill"><input type="radio" name="supplier1Channel" value="online"> 網購</label><label class="rpill"><input type="radio" name="supplier1Channel" value="store"> 實體</label></div>
+          <input type="text" class="fi" id="supplier1Name" placeholder="先選網購或實體" aria-label="第 1 家供應商名稱" maxlength="40">
+          <input type="text" class="fi" id="supplier1Contact" placeholder="賣場、網址或聯絡方式（選填）" aria-label="第 1 家賣場、網址或聯絡方式" maxlength="120">
+          <input type="number" class="fi" data-full-only id="supplier1Quote" placeholder="報價金額" aria-label="第 1 家報價金額" min="0" step="1">
+          <button type="button" class="item-remove" data-full-only onclick="removePurchaseSupplier(1)" aria-label="移除第 1 家">移除</button>
+        </div>
+        <div class="supplier-row" id="supplierRow2" data-full-only style="display:none">
+          <label class="rpill" data-full-only><input type="radio" name="recommendedSupplier" value="2"> 建議</label>
+          <div class="rg" role="group" aria-label="第 2 家購買方式"><label class="rpill"><input type="radio" name="supplier2Channel" value="online"> 網購</label><label class="rpill"><input type="radio" name="supplier2Channel" value="store"> 實體</label></div>
+          <input type="text" class="fi" id="supplier2Name" placeholder="先選網購或實體" aria-label="第 2 家供應商名稱" maxlength="40">
+          <input type="text" class="fi" id="supplier2Contact" placeholder="賣場、網址或聯絡方式（選填）" aria-label="第 2 家賣場、網址或聯絡方式" maxlength="120">
+          <input type="number" class="fi" data-full-only id="supplier2Quote" placeholder="報價金額" aria-label="第 2 家報價金額" min="0" step="1">
+          <button type="button" class="item-remove" data-full-only onclick="removePurchaseSupplier(2)" aria-label="移除第 2 家">移除</button>
+        </div>
+        <div class="supplier-row" id="supplierRow3" data-full-only style="display:none">
+          <label class="rpill" data-full-only><input type="radio" name="recommendedSupplier" value="3"> 建議</label>
+          <div class="rg" role="group" aria-label="第 3 家購買方式"><label class="rpill"><input type="radio" name="supplier3Channel" value="online"> 網購</label><label class="rpill"><input type="radio" name="supplier3Channel" value="store"> 實體</label></div>
+          <input type="text" class="fi" id="supplier3Name" placeholder="先選網購或實體" aria-label="第 3 家供應商名稱" maxlength="40">
+          <input type="text" class="fi" id="supplier3Contact" placeholder="賣場、網址或聯絡方式（選填）" aria-label="第 3 家賣場、網址或聯絡方式" maxlength="120">
+          <input type="number" class="fi" data-full-only id="supplier3Quote" placeholder="報價金額" aria-label="第 3 家報價金額" min="0" step="1">
+          <button type="button" class="item-remove" data-full-only onclick="removePurchaseSupplier(3)" aria-label="移除第 3 家">移除</button>
+        </div>
+      </div>
+      <div class="item-actions" data-full-only><button type="button" class="profile-pick-btn" id="addSupplier" onclick="addPurchaseSupplier()">新增比價廠商</button><p class="form-hint" id="addSupplierHint" role="status"></p></div>
+      <div class="frow" data-full-only><div class="fg choice-block"><label class="flabel">是否附報價單 <span class="req">*</span></label><div class="rg"><label class="rpill"><input type="radio" name="hasQuote" value="yes"> 有</label><label class="rpill"><input type="radio" name="hasQuote" value="no"> 無</label></div></div><div class="fg fg-sm" data-show-when="hasQuote=yes" style="display:none"><label class="flabel">份數 <span class="req">*</span></label><input type="number" class="fi" id="quoteCount" placeholder="1" min="1" step="1" value="1"></div></div>
+      <div class="frow"><div class="fg"><label class="flabel">備註</label><textarea class="fi form-textarea" id="remark" placeholder="選擇原因或其他補充說明（選填）" maxlength="80"></textarea></div></div>
+    </div>
+  </div>
+</main>
+</div>
+
+<div id="previewPage">
+  <div class="pv-toolbar">
+    <div class="pv-toolbar-left">
+      <a class="btn btn-outline-white" href="../index.html"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-home"></use></svg> 回到首頁</a>
+      <button class="btn btn-outline-white" onclick="goBack()"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-left"></use></svg> 返回編輯</button>
+      <span class="pv-hint">確認內容後再列印</span>
+    </div>
+    <div class="pv-toolbar-right">
+      <span class="pv-hint" id="pvPaperHint">A5 橫向 210 × 148 mm</span>
+      <button class="btn btn-white" onclick="printRecord()"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-printer"></use></svg> 列印 / 另存 PDF</button>
+    </div>
+  </div>
+  <p class="pv-overflow-notice" id="pvOverflow" role="status" hidden>內容超過一頁，超出部分會被裁切。請返回編輯，精簡較長的文字或改用完整版。</p>
+
+  <div class="pv-outer">
+    <div class="pv-sheet" id="pvSheet">
+      <div class="pv-hd">
+        <div class="pv-hd-title">採　購　申　請　單</div>
+        <div class="pv-hd-meta">
+          <span class="pv-hd-field">單號：<span id="pv-docno" class="pv-hd-uline"></span></span>
+          <span class="pv-hd-divider">|</span>
+          <span class="pv-hd-field">日期：<span id="pv-date"></span></span>
+        </div>
+      </div>
+      <div class="pv-wrap">
+        <div class="pv-row pv-row-tight"><div class="pv-lbl" style="width:15mm"><span>申</span><span>請</span><span>日</span><span>期</span></div><div class="pv-val" style="width:26mm;flex:none" id="pv-reqdate"></div><div class="pv-lbl" style="width:13mm"><span>申</span><span>請</span><span>人</span></div><div class="pv-val" style="width:30mm;flex:none" id="pv-applicant"></div><div class="pv-lbl" style="width:11mm"><span>部</span><span>門</span></div><div class="pv-val" style="width:42mm;flex:none" id="pv-dept"></div><div data-full-only class="pv-lbl" style="width:15mm"><span>需</span><span>求</span><span>日</span><span>期</span></div><div data-full-only class="pv-val" id="pv-neededdate"></div></div>
+        <div class="pv-row pv-row-tight" data-full-only><div class="pv-lbl" style="width:15mm"><span>採</span><span>購</span><span>類</span><span>別</span></div><div class="pv-val" style="width:26mm;flex:none" id="pv-category"></div><div class="pv-lbl" style="width:13mm"><span>緊</span><span>急</span></div><div class="pv-val" style="width:30mm;flex:none" id="pv-urgency"></div><div class="pv-lbl" style="width:15mm"><span>電</span><span>話</span></div><div class="pv-val" id="pv-phone"></div></div>
+        <div class="pv-row pv-row-tight"><div class="pv-lbl" style="width:15mm"><span>採</span><span>購</span><span>用</span><span>途</span></div><div class="pv-val pv-multi" id="pv-reason"></div></div>
+        <div class="pv-row"><table class="pv-items"><colgroup><col style="width:7mm"><col style="width:58mm"><col style="width:48mm"><col style="width:14mm"><col style="width:12mm"><col style="width:26mm"><col></colgroup><thead><tr><th>項</th><th>品名</th><th>規格</th><th>數量</th><th>單位</th><th>預估單價</th><th>小計</th></tr></thead><tbody><tr id="pv-item1-row"><td class="center" id="pv-item1-no"></td><td id="pv-item1-name"></td><td id="pv-item1-spec"></td><td class="num" id="pv-item1-qty"></td><td class="center" id="pv-item1-unit"></td><td class="num" id="pv-item1-price"></td><td class="num" id="pv-item1-amount"></td></tr><tr id="pv-item2-row"><td class="center" id="pv-item2-no"></td><td id="pv-item2-name"></td><td id="pv-item2-spec"></td><td class="num" id="pv-item2-qty"></td><td class="center" id="pv-item2-unit"></td><td class="num" id="pv-item2-price"></td><td class="num" id="pv-item2-amount"></td></tr><tr id="pv-item3-row"><td class="center" id="pv-item3-no"></td><td id="pv-item3-name"></td><td id="pv-item3-spec"></td><td class="num" id="pv-item3-qty"></td><td class="center" id="pv-item3-unit"></td><td class="num" id="pv-item3-price"></td><td class="num" id="pv-item3-amount"></td></tr><tr id="pv-item4-row"><td class="center" id="pv-item4-no"></td><td id="pv-item4-name"></td><td id="pv-item4-spec"></td><td class="num" id="pv-item4-qty"></td><td class="center" id="pv-item4-unit"></td><td class="num" id="pv-item4-price"></td><td class="num" id="pv-item4-amount"></td></tr><tr id="pv-item5-row"><td class="center" id="pv-item5-no"></td><td id="pv-item5-name"></td><td id="pv-item5-spec"></td><td class="num" id="pv-item5-qty"></td><td class="center" id="pv-item5-unit"></td><td class="num" id="pv-item5-price"></td><td class="num" id="pv-item5-amount"></td></tr><tr id="pv-item6-row"><td class="center" id="pv-item6-no"></td><td id="pv-item6-name"></td><td id="pv-item6-spec"></td><td class="num" id="pv-item6-qty"></td><td class="center" id="pv-item6-unit"></td><td class="num" id="pv-item6-price"></td><td class="num" id="pv-item6-amount"></td></tr><tr id="pv-item7-row"><td class="center" id="pv-item7-no"></td><td id="pv-item7-name"></td><td id="pv-item7-spec"></td><td class="num" id="pv-item7-qty"></td><td class="center" id="pv-item7-unit"></td><td class="num" id="pv-item7-price"></td><td class="num" id="pv-item7-amount"></td></tr><tr id="pv-item8-row"><td class="center" id="pv-item8-no"></td><td id="pv-item8-name"></td><td id="pv-item8-spec"></td><td class="num" id="pv-item8-qty"></td><td class="center" id="pv-item8-unit"></td><td class="num" id="pv-item8-price"></td><td class="num" id="pv-item8-amount"></td></tr><tr id="pv-item9-row"><td class="center" id="pv-item9-no"></td><td id="pv-item9-name"></td><td id="pv-item9-spec"></td><td class="num" id="pv-item9-qty"></td><td class="center" id="pv-item9-unit"></td><td class="num" id="pv-item9-price"></td><td class="num" id="pv-item9-amount"></td></tr><tr id="pv-item10-row"><td class="center" id="pv-item10-no"></td><td id="pv-item10-name"></td><td id="pv-item10-spec"></td><td class="num" id="pv-item10-qty"></td><td class="center" id="pv-item10-unit"></td><td class="num" id="pv-item10-price"></td><td class="num" id="pv-item10-amount"></td></tr><tr id="pv-item11-row"><td class="center" id="pv-item11-no"></td><td id="pv-item11-name"></td><td id="pv-item11-spec"></td><td class="num" id="pv-item11-qty"></td><td class="center" id="pv-item11-unit"></td><td class="num" id="pv-item11-price"></td><td class="num" id="pv-item11-amount"></td></tr><tr id="pv-item12-row"><td class="center" id="pv-item12-no"></td><td id="pv-item12-name"></td><td id="pv-item12-spec"></td><td class="num" id="pv-item12-qty"></td><td class="center" id="pv-item12-unit"></td><td class="num" id="pv-item12-price"></td><td class="num" id="pv-item12-amount"></td></tr><tr id="pv-item13-row"><td class="center" id="pv-item13-no"></td><td id="pv-item13-name"></td><td id="pv-item13-spec"></td><td class="num" id="pv-item13-qty"></td><td class="center" id="pv-item13-unit"></td><td class="num" id="pv-item13-price"></td><td class="num" id="pv-item13-amount"></td></tr><tr id="pv-item14-row"><td class="center" id="pv-item14-no"></td><td id="pv-item14-name"></td><td id="pv-item14-spec"></td><td class="num" id="pv-item14-qty"></td><td class="center" id="pv-item14-unit"></td><td class="num" id="pv-item14-price"></td><td class="num" id="pv-item14-amount"></td></tr><tr id="pv-item15-row"><td class="center" id="pv-item15-no"></td><td id="pv-item15-name"></td><td id="pv-item15-spec"></td><td class="num" id="pv-item15-qty"></td><td class="center" id="pv-item15-unit"></td><td class="num" id="pv-item15-price"></td><td class="num" id="pv-item15-amount"></td></tr></tbody></table></div>
+        <div class="pv-row pv-row-tight"><div data-full-only class="pv-lbl" style="width:11mm"><span>稅</span><span>別</span></div><div data-full-only class="pv-val pv-small" style="width:26mm;flex:none" id="pv-taxbasis"></div><div data-full-only class="pv-lbl" style="width:11mm"><span>未</span><span>稅</span></div><div data-full-only class="pv-val" style="width:30mm;flex:none" id="pv-net"></div><div data-full-only class="pv-lbl" style="width:11mm"><span>稅</span><span>額</span></div><div data-full-only class="pv-val" style="width:28mm;flex:none" id="pv-tax"></div><div class="pv-lbl" style="width:11mm"><span>合</span><span>計</span></div><div class="pv-val pv-total" id="pv-total"></div></div>
+        <div class="pv-row pv-row-tight"><div class="pv-lbl" style="width:15mm"><span>中</span><span>文</span><span>大</span><span>寫</span></div><div class="pv-val pv-small" id="pv-chinese"></div></div>
+        <div class="pv-row" data-full-only><table class="pv-items"><colgroup><col style="width:12mm"><col style="width:12mm"><col style="width:54mm"><col><col style="width:30mm"></colgroup><thead><tr><th>建議</th><th>方式</th><th>供應商</th><th>賣場、網址或聯絡方式</th><th>報價金額</th></tr></thead><tbody><tr id="pv-sup1-row"><td class="center" id="pv-sup1-rec"></td><td class="center" id="pv-sup1-channel"></td><td id="pv-sup1-name"></td><td id="pv-sup1-contact"></td><td class="num" id="pv-sup1-quote"></td></tr><tr id="pv-sup2-row"><td class="center" id="pv-sup2-rec"></td><td class="center" id="pv-sup2-channel"></td><td id="pv-sup2-name"></td><td id="pv-sup2-contact"></td><td class="num" id="pv-sup2-quote"></td></tr><tr id="pv-sup3-row"><td class="center" id="pv-sup3-rec"></td><td class="center" id="pv-sup3-channel"></td><td id="pv-sup3-name"></td><td id="pv-sup3-contact"></td><td class="num" id="pv-sup3-quote"></td></tr></tbody></table></div>
+        <div class="pv-row pv-row-tight pv-simple-only"><div class="pv-lbl" style="width:15mm"><span>供</span><span>應</span><span>商</span></div><div class="pv-val" style="width:50mm;flex:none" id="pv-channel"></div><div class="pv-lbl" style="width:15mm"><span>聯</span><span>絡</span><span>方</span><span>式</span></div><div class="pv-val pv-small" id="pv-channel-link"></div></div>
+        <div class="pv-row pv-row-tight"><div data-full-only class="pv-lbl" style="width:13mm"><span>報</span><span>價</span><span>單</span></div><div data-full-only class="pv-val" style="width:20mm;flex:none" id="pv-quote"></div><div class="pv-lbl" style="width:11mm"><span>備</span><span>註</span></div><div class="pv-val pv-multi" id="pv-remark"></div></div>
+      </div>
+      <div class="pv-spacer"></div>
+      <div class="pv-bottom">
+        <div class="pv-acct-cashier" data-review="purchaseSimple"></div>
+        <div class="pv-sign" data-signoff="purchaseSimple"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/form-toolbar.js"></script>
+<script src="../assets/js/favorites-ui.js"></script>
+<script src="../assets/js/form-recent-records.js"></script>
+<script src="../assets/js/form-templates.js"></script>
+<script src="../assets/js/signoff-store.js"></script>
+<script src="../assets/js/form-calculations.js"></script>
+<script src="../assets/js/form-page.js"></script>
+<script src="../assets/js/forms/purchase_request_form.js"></script>
+<script src="../assets/js/draft-library.js"></script>
+<script src="../assets/js/form-desktop.js"></script>
+<script src="../assets/js/profile-store.js"></script>
+<script src="../assets/js/profile-autofill.js"></script>
+<script src="../assets/js/pwa.js"></script>
+</body>
+</html>

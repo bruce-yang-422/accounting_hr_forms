@@ -2,7 +2,7 @@
   "id": "./",
   "name": "表單填寫中心",
   "short_name": "表單中心",
-  "description": "請假單、請款單與常用資料管理，支援離線填寫、草稿與 PDF 列印。",
+  "description": "請假、請款、加班、出差、採購表單與常用資料管理，支援離線填寫、草稿與 PDF 列印。",
   "lang": "zh-TW",
   "start_url": "./",
   "scope": "./",
