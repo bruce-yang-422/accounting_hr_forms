@@ -28,7 +28,7 @@ def build():
     paths = ['index.html', 'guide.html', 'favorites.html', 'forms/payment_request_form.html',
              'forms/leave_request_form.html', 'forms/overtime_request_form.html', 'forms/travel_request_form.html', 'forms/purchase_request_form.html',
              'offline.html', 'manifest.webmanifest']
-    paths += [path.relative_to(ROOT).as_posix() for folder in ['assets/js', 'assets/css', 'assets/images/pwa', 'assets/images/forms', 'assets/icons']
+    paths += [path.relative_to(ROOT).as_posix() for folder in ['assets/js', 'assets/css', 'assets/images/pwa', 'assets/icons']
               for path in sorted((ROOT / folder).rglob('*')) if path.is_file()]
     paths += ['assets/images/branding/form-center-hero-banner-desktop.png',
               'assets/images/branding/form-center-hero-banner-mobile.png']
@@ -40,7 +40,7 @@ def build():
         digest.update(b'\0')
         digest.update((ROOT / path).read_bytes())
     version = digest.hexdigest()[:16]
-    output = template.replace('__PWA_VERSION__', json.dumps(version)).replace('__PWA_PRECACHE__', json.dumps(paths, indent=2))
+    output = template.replace('__PWA_VERSION__', json.dumps(version)).replace('__PWA_PRECACHE__', json.dumps(paths, indent=2, ensure_ascii=False))
     with (ROOT / 'service-worker.js').open('w', encoding='utf-8', newline='\n') as target:
         target.write(output)
     print(f'PWA version {version}: {len(paths)} offline resources')

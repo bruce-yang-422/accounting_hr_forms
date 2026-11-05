@@ -23,14 +23,22 @@ test('every page embeds the same original SVG library and resolves all icon refe
   });
 });
 
-test('home form identity uses the supplied PNG artwork and operation SVG assets work offline', () => {
-  const home = read('index.html');
-  for (const path of ['assets/images/forms/leave-calendar-approval.png', 'assets/images/forms/payment-money-bag-invoice.png']) {
-    assert.ok(home.includes(path));
-    assert.ok(readFileSync(resolve(root, path)).length > 0);
-  }
+test('form identity artwork is used on its pages and works offline', () => {
+  const art = {
+    'index.html': ['leave-calendar-document.png', 'payment-banknote-document.png', 'overtime-clock-plus.png', 'travel-plane-suitcase.png', 'purchase-cart-document.png'],
+    'favorites.html': ['profile-folder-sync.png'],
+  };
   const worker = read('service-worker.js');
-  for (const path of ['assets/icons/brand.svg', 'assets/icons/ui.svg', 'assets/css/icons.css', 'assets/icons/leave-calendar-approval.svg', 'assets/icons/payment-money-bag-invoice.svg', 'assets/icons/overtime-clock-moon.svg', 'assets/icons/travel-suitcase-plane.svg', 'assets/icons/purchase-cart-list.svg']) assert.ok(worker.includes(`"${path}"`), path);
+  for (const [page, names] of Object.entries(art)) {
+    const html = read(page);
+    names.forEach(name => {
+      const path = `assets/icons/${name}`;
+      assert.ok(html.includes(path), path);
+      assert.ok(worker.includes(`"${path}"`), path);
+      assert.ok(readFileSync(resolve(root, path)).length > 0, path);
+    });
+  }
+  for (const path of ['assets/icons/brand.svg', 'assets/icons/ui.svg', 'assets/css/icons.css']) assert.ok(worker.includes(`"${path}"`), path);
 });
 
 test('functional arrow and checkbox glyphs are rendered with SVG rather than text', () => {

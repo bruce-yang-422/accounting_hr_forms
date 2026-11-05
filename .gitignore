@@ -32,3 +32,6 @@ dist/
 
 # Generated outputs
 請款單_空白版.pdf
+
+# Full-size source artwork; the site serves the resized copies in assets/icons
+icon-originals/

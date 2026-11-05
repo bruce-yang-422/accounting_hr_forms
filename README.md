@@ -252,8 +252,7 @@ PWA 測試會比對原始檔與快取版本；若提示版本不符，請先執�
 
 頁面中 `SVG ICONS:START` 至 `SVG ICONS:END` 為產生區塊，請修改來源圖示後重建，
 避免直接改寫。行內圖示可在離線或直接開啟本機 HTML 時顯示。
-請款單與請假單的識別圖示依指定使用 `assets/images/forms/` 的 PNG，
-加班、出差與採購單使用 `assets/icons/` 的 SVG，其他操作圖示也維持 SVG。PWA 安裝與 Apple 主畫面圖示也保留平台所需的 PNG。
+各表單與常用資料的識別圖示依指定使用 `assets/icons/` 的 PNG，操作圖示維持 SVG。PWA 安裝與 Apple 主畫面圖示也保留平台所需的 PNG。
 
 ## 部署與更新
 
@@ -287,7 +286,7 @@ accounting_hr_forms/
 │   ├── icons/                   # 自製 SVG 圖示、品牌與首頁表單圖示
 │   ├── css/                     # 共用、管理頁、手機與列印樣式
 │   ├── js/                      # 表單、資料儲存、管理介面與 PWA 邏輯
-│   └── images/                  # branding 品牌、forms 表單與 pwa 安裝圖示
+│   └── images/                  # branding 品牌與 pwa 安裝圖示
 ├── manifest.webmanifest         # PWA 安裝設定
 ├── service-worker.js            # 自動產生的離線快取程式
 ├── offline.html                 # 無法離線開啟網址時的備援頁

@@ -21,7 +21,7 @@ function worker({ failInstall = false, legacy = false, modern = false } = {}) {
       return {
         async addAll(requests) {
           for (const request of requests) {
-            const path = new URL(request.url).pathname.slice('/project/'.length);
+            const path = decodeURIComponent(new URL(request.url).pathname.slice('/project/'.length));
             store.set(request.url, new Response(readFileSync(resolve(root, path))));
             if (failInstall) throw new Error('interrupted download');
           }
