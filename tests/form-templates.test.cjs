@@ -37,6 +37,10 @@ test('new form templates keep recurring content but exclude dates, numbers and i
   assert.equal(Object.hasOwn(purchase.data, 'neededDate'), false);
   assert.throws(() => api.save('travel', 'bad', { transportModes: 'hsr' }));
 });
+test('payment templates remember the print layout', () => {
+  const { api } = setup();
+  assert.equal(api.save('payment', '書店版範本', { printLayout: 'bookstore', reason: '雜支' }).data.printLayout, 'bookstore');
+});
 test('20-template capacity never evicts records and supports update, rename and delete', () => {
   const { api, storage } = setup();
   const saved = Array.from({ length: 20 }, (_, i) => api.save('payment', `項目${i}`, { reason: String(i) }));

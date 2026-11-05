@@ -162,7 +162,7 @@ function clearForm() {
   window.__currentPaymentDraftId = '';
   window.DraftLibrary?.resetCurrent();
 
-  document.querySelectorAll('input:not([type="radio"]):not([type="checkbox"]), textarea').forEach((el) => {
+  document.querySelectorAll('input:not([type="radio"]):not([type="checkbox"]):not(#printLayout), textarea').forEach((el) => {
     if (el.id === 'attachCount') {
       el.value = '1';
     } else {
@@ -293,6 +293,8 @@ function goToPreview() {
   document.getElementById('fillPage').style.display = 'none';
   document.getElementById('previewPage').style.display = 'block';
   window.scrollTo(0, 0);
+  const sheet = document.getElementById(gv('printLayout') === 'bookstore' ? 'bookstoreSheet' : 'pvSheet');
+  document.getElementById('pvOverflow').hidden = sheet.scrollHeight <= sheet.clientHeight + 1;
 }
 
 function goBack() {
@@ -321,7 +323,71 @@ function pshow(id, show) {
   if (e) e.style.display = show ? '' : 'none';
 }
 
+// Loaded after the shared stylesheet, so this @page overrides its A5 default.
+const paymentPageStyle = document.createElement('style');
+document.head.append(paymentPageStyle);
+
+function syncPaymentPrintLayout() {
+  const bookstore = gv('printLayout') === 'bookstore';
+  document.querySelectorAll('[data-payment-layout]').forEach((button) => {
+    button.setAttribute('aria-pressed', String(button.dataset.paymentLayout === (bookstore ? 'bookstore' : 'standard')));
+  });
+  document.getElementById('bookstoreSheet').hidden = !bookstore;
+  document.getElementById('pvSheet').hidden = bookstore;
+  paymentPageStyle.textContent = bookstore ? '@media print { @page { size: 210mm 99mm; margin: 0; } }' : '';
+  pset('pvPaperHint', bookstore ? '書店版 210 × 99 mm' : 'A5 橫向 210 × 148 mm');
+}
+
+function getDefaultPaymentPrintLayout() {
+  try {
+    return localStorage.getItem('hr_payment_print_layout') === 'bookstore' ? 'bookstore' : 'standard';
+  } catch { return 'standard'; }
+}
+
+function selectPaymentPrintLayout(value) {
+  const layout = value === 'bookstore' ? 'bookstore' : 'standard';
+  document.getElementById('printLayout').value = layout;
+  syncPaymentPrintLayout();
+  try { localStorage.setItem('hr_payment_print_layout', layout); } catch {}
+  document.getElementById('printLayout').dispatchEvent(new Event('input', { bubbles: true }));
+}
+
+function buildBookstorePreview() {
+  syncPaymentPrintLayout();
+  const date = FormCalc.parseDate(gv('reqDate'));
+  pset('pb-date', date ? `${date.getFullYear() - 1911} 年 ${date.getMonth() + 1} 月 ${date.getDate()} 日` : '');
+  pset('pb-applicant', [gv('applicant'), gv('department')].filter(Boolean).join('／'));
+  pset('pb-reason', gv('reason'));
+  pset('pb-acct', gv('acctCategory'));
+  const vtMap = { invoice: '發票', receipt: '收據', other: '憑證' };
+  pset('pb-details', [
+    gv('voucherNo') ? `${vtMap[gr('voucherType')] || '憑證'}：${gv('voucherNo')}` : '',
+    gv('paymentNote'),
+  ].filter(Boolean).join('\n'));
+
+  // Amounts the printed boxes cannot hold are written out in full instead.
+  const units = FormCalc.amountUnits(gv('amtGross'));
+  document.getElementById('pb-amount-units').hidden = !units;
+  document.getElementById('pb-amount-text').hidden = Boolean(units);
+  (units || []).forEach((digit, index) => pset(`pb-digit-${index}`, digit));
+  pset('pb-amount-text', `新台幣 ${gv('amtChinese')}`);
+
+  // Bank and branch on the first line, account on the second.
+  const bankName = gv('bankName');
+  const bankLabel = !bankName || /(銀行|郵局|郵政|信用合作社|信合社|農會|漁會)$/.test(bankName) ? bankName : `${bankName}銀行`;
+  pset('pb-method', {
+    cash: '現金',
+    check: '支票',
+    transfer: [[bankLabel, gv('bankBranch')].filter(Boolean).join('　'), gv('bankAccount') ? `帳號 ${gv('bankAccount')}` : ''].filter(Boolean).join('\n'),
+  }[gr('payMethod')] || '');
+  pset('pb-payee', gv('payee'));
+  const idLabel = { company: '統編', person: '身分證字號' }[gr('payeeType')];
+  pset('pb-taxid', idLabel && gv('taxId') ? `${idLabel}：${gv('taxId')}` : '');
+  pset('pb-attach', gr('hasAttach') === 'yes' ? gv('attachCount') : '');
+}
+
 function buildPreview() {
+  buildBookstorePreview();
   pset('pv-docno', gv('docNo'));
   pset('pv-date', gv('reqDate'));
   pset('pv-reqdate', gv('reqDate'));
@@ -452,6 +518,9 @@ function loadPaymentDraft() {
 
 function restorePaymentFormData(data) {
   FormRecentRecords.restore(data, document.getElementById('fillPage'));
+  // Older saved forms and fresh copies use the user's preferred layout.
+  if (!gv('printLayout')) document.getElementById('printLayout').value = getDefaultPaymentPrintLayout();
+  syncPaymentPrintLayout();
   if (!gr('payMethod')) ['bankInfoRow', 'bankAccountRow'].forEach(id => { document.getElementById(id).style.display = 'none'; });
   if (!gr('payeeType')) {
     const group = document.getElementById('taxIdGroup'); group.style.display = '';
@@ -468,6 +537,11 @@ function restorePaymentFormData(data) {
   window.scrollTo(0, 0);
 }
 
-window.addEventListener('beforeprint', syncPrintHeader);
+document.getElementById('printLayout').value = getDefaultPaymentPrintLayout();
+syncPaymentPrintLayout();
+window.addEventListener('beforeprint', () => {
+  syncPrintHeader();
+  buildPreview();
+});
 window.__currentRecentPaymentRecordId = '';
 window.__currentPaymentDraftId = '';

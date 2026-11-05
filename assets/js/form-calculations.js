@@ -116,6 +116,14 @@ const FormCalc = (() => {
     return days > 0 ? { days, nights: days - 1, invalid: false } : { days: null, nights: null, invalid: true };
   }
 
+  /* Digits for the pre-printed 拾萬…元 boxes: blank before the first digit, null when they cannot fit. */
+  function amountUnits(amount) {
+    const value = Number(amount);
+    if (!Number.isInteger(value) || value <= 0 || value >= 1000000) return null;
+    const words = '零壹貳參肆伍陸柒捌玖';
+    return [...String(value).padStart(6, ' ')].map(digit => (digit === ' ' ? '' : words[digit]));
+  }
+
   const lineAmount = (quantity, price) => Math.round((Number(quantity) || 0) * (Number(price) || 0));
 
   /* basis: incl = prices include 5% tax, excl = 5% added on top, free = tax exempt. */
@@ -129,5 +137,5 @@ const FormCalc = (() => {
     return { net: subtotal, tax, total: subtotal + tax };
   }
 
-  return { localDate, parseDate, weekday, slashDate, money, hoursText, periodMinutes, tripDays, lineAmount, taxTotals };
+  return { localDate, parseDate, weekday, slashDate, money, hoursText, periodMinutes, tripDays, amountUnits, lineAmount, taxTotals };
 })();

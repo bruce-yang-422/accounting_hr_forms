@@ -50,6 +50,14 @@ test('overtime form carries no labor-law guidance, since company rules differ', 
   for (const text of [page, script]) assert.doesNotMatch(text, /勞基法|加給|補假|加倍/);
 });
 
+test('amount units fill the printed boxes, and refuse amounts they cannot hold', () => {
+  assert.deepEqual(plain(calc.amountUnits('50000')), ['', '伍', '零', '零', '零', '零']);
+  assert.deepEqual(plain(calc.amountUnits('123456')), ['壹', '貳', '參', '肆', '伍', '陸']);
+  assert.deepEqual(plain(calc.amountUnits('999999')), Array(6).fill('玖'));
+  assert.deepEqual(plain(calc.amountUnits('7')), ['', '', '', '', '', '柒']);
+  for (const value of ['1000000', '100.5', '0', '', '-5', 'abc']) assert.equal(calc.amountUnits(value), null, value);
+});
+
 test('amount words and local dates stay stable after moving to the shared module', () => {
   assert.equal(words(84000), '捌萬肆仟元整');
   assert.equal(words(50005), '伍萬零伍元整');

@@ -82,10 +82,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="stylesheet" href="../assets/css/leave-print-layouts.css">
+<link rel="stylesheet" href="../assets/css/payment-print-layouts.css">
 <link rel="stylesheet" href="../assets/css/favorites-ui.css">
 <link rel="stylesheet" href="../assets/css/draft-library.css">
 <link rel="stylesheet" href="../assets/css/form-toolbar.css">
 <link rel="stylesheet" href="../assets/css/form-desktop.css">
+<link rel="stylesheet" href="../assets/css/request-forms.css">
 <link rel="stylesheet" href="../assets/css/icons.css">
 </head>
 <body>
@@ -166,7 +169,7 @@
   <div class="banner">
     <span class="banner-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-info"></use></svg></span>
     <span>
-      列印時請選擇「另存為 PDF」，紙張尺寸設定為 <strong>A5 橫向（210 × 148 mm）</strong>，
+      列印時請選擇「另存為 PDF」，完整版紙張設為 <strong>A5 橫向（210 × 148 mm）</strong>，書店版為 <strong>210 × 99 mm（A4 三分之一）</strong>，
       縮放設為 <strong>100%（實際大小）</strong>，頁面邊距設為 <strong>無</strong>，即可輸出 300 DPI 高品質 PDF。
     </span>
   </div>
@@ -180,6 +183,15 @@
     </div>
   </div>
 
+  <div class="leave-document-controls no-print">
+    <div class="leave-layout-control">
+      <span class="leave-layout-label" id="paymentLayoutLabel">列印版型</span>
+      <input type="hidden" id="printLayout" value="standard">
+      <div class="leave-layout-toggle" role="group" aria-labelledby="paymentLayoutLabel" title="自動記住選擇，下次開啟時使用">
+        <button type="button" data-payment-layout="bookstore" aria-pressed="false" onclick="selectPaymentPrintLayout('bookstore')">書店版</button>
+        <button type="button" data-payment-layout="standard" aria-pressed="true" onclick="selectPaymentPrintLayout('standard')">完整版</button>
+      </div>
+    </div>
   <details class="form-doc-number" data-mobile-collapse open>
     <summary>單據編號（出納填）</summary>
   <div class="doc-no-row">
@@ -189,6 +201,7 @@
     </div>
   </div>
   </details>
+  </div>
 
   <div class="card">
     <div class="card-head">
@@ -450,12 +463,31 @@
       <span class="pv-hint">確認內容後再列印</span>
     </div>
     <div class="pv-toolbar-right">
-      <span class="pv-hint">A5 橫向 210 × 148 mm</span>
+      <span class="pv-hint" id="pvPaperHint">A5 橫向 210 × 148 mm</span>
       <button class="btn btn-white" onclick="printAndSaveRecentPaymentRecord()"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-printer"></use></svg> 列印 / 另存 PDF</button>
     </div>
   </div>
 
+  <p class="pv-overflow-notice" id="pvOverflow" role="status" hidden>內容超過一頁，超出部分會被裁切。請返回編輯，精簡較長的文字。</p>
+
   <div class="pv-outer">
+    <div class="pv-sheet bookstore-sheet payment-bookstore" id="bookstoreSheet" hidden>
+      <div class="bookstore-title">請款單</div>
+      <div class="pb-meta"><span id="pb-applicant"></span><span id="pb-date"></span></div>
+      <div class="pb-body">
+        <table class="pb-table" aria-label="書店版請款單">
+          <colgroup><col style="width:17%"><col style="width:35%"><col style="width:13%"><col style="width:35%"></colgroup>
+          <tbody>
+            <tr><th scope="row">請款事由</th><td><span id="pb-reason"></span><span class="pb-small" id="pb-details"></span></td><th scope="row">科　目</th><td id="pb-acct"></td></tr>
+            <tr><th scope="row">金　額</th><td colspan="3"><div class="pb-amount" id="pb-amount-units"><span>新台幣</span><span class="pb-digit"><b id="pb-digit-0"></b>拾</span><span class="pb-digit"><b id="pb-digit-1"></b>萬</span><span class="pb-digit"><b id="pb-digit-2"></b>仟</span><span class="pb-digit"><b id="pb-digit-3"></b>佰</span><span class="pb-digit"><b id="pb-digit-4"></b>拾</span><span class="pb-digit"><b id="pb-digit-5"></b>元正</span></div><div id="pb-amount-text" hidden></div></td></tr>
+            <tr><td colspan="3"><div class="pb-check"><span>民國</span><span>年</span><span>月</span><span>日</span><span>支票第</span><span></span><span>號</span></div></td><td><div class="pb-bank"><span></span><span>銀行</span></div></td></tr>
+            <tr><th scope="row">現金支付<br>支票支付<br>匯款支付</th><td id="pb-method"></td><th scope="row">領款人</th><td><span id="pb-payee"></span><span class="pb-small" id="pb-taxid"></span></td></tr>
+          </tbody>
+        </table>
+        <div class="pb-side"><span>附單據</span><span class="pb-side-count" id="pb-attach"></span><span>張</span></div>
+      </div>
+      <div class="pv-sign" data-signoff="payment"></div>
+    </div>
     <div class="pv-sheet" id="pvSheet">
       <div class="pv-hd">
         <div class="pv-hd-title">請　款　單</div>

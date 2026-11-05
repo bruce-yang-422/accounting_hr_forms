@@ -1,30 +1,85 @@
 📁 accounting_hr_forms
 ├── 📁 .venv
+├── 📁 .vscode
 ├── 📂 assets
 │   ├── 📂 css
-│   │   ├── 🎨 index.css
-│   │   └── 🎨 styles.css
+│   │   ├── 📊 ... 還有 8 個 .css 檔案
+│   │   ├── 🎨 draft-library.css
+│   │   ├── 🎨 favorites-ui.css
+│   │   └── 🎨 form-desktop.css
+│   ├── 📂 icons
+│   │   ├── 📊 ... 還有 4 個 .svg 檔案
+│   │   ├── 🎨 brand.svg
+│   │   ├── 🎨 leave-calendar-approval.svg
+│   │   └── 🎨 overtime-clock-moon.svg
 │   ├── 📂 images
-│   │   └── 📂 branding
-│   │       ├── 🖼️ form-center-hero-banner-desktop.png
-│   │       └── 🖼️ form-center-hero-banner-mobile.png
+│   │   ├── 📂 branding
+│   │   │   ├── 🖼️ form-center-hero-banner-desktop.png
+│   │   │   ├── 🖼️ form-center-hero-banner-mobile.png
+│   │   │   ├── 🖼️ form-center.ico
+│   │   │   └── 🖼️ not-found-cats-dogs.png
+│   │   ├── 📂 forms
+│   │   │   ├── 🖼️ leave-calendar-approval.png
+│   │   │   └── 🖼️ payment-money-bag-invoice.png
+│   │   └── 📂 pwa
+│   │       ├── 🖼️ apple-touch-icon.png
+│   │       ├── 🖼️ icon-192.png
+│   │       └── 🖼️ icon-512.png
 │   └── 📂 js
 │       ├── 📂 data
 │       │   └── 🟨 leave_reason_library.js
 │       ├── 📂 forms
 │       │   ├── 🟨 leave_request_form.js
-│       │   └── 🟨 payment_request_form.js
+│       │   ├── 🟨 overtime_request_form.js
+│       │   ├── 🟨 payment_request_form.js
+│       │   ├── 🟨 purchase_request_form.js
+│       │   └── 🟨 travel_request_form.js
+│       ├── 🟨 draft-library.js
+│       ├── 🟨 favorites-backup-ui.js
+│       ├── 🟨 favorites-backup.js
+│       ├── 🟨 favorites-page.js
+│       ├── 🟨 favorites-ui.js
+│       ├── 🟨 form-calculations.js
+│       ├── 🟨 form-desktop.js
+│       ├── 🟨 form-page.js
+│       ├── 🟨 form-recent-records.js
+│       ├── 🟨 form-templates.js
+│       ├── 🟨 form-toolbar.js
+│       ├── 🟨 payee-favorites.js
+│       ├── 🟨 payee-manager.js
+│       ├── 🟨 payee-store.js
 │       ├── 🟨 profile-autofill.js
 │       ├── 🟨 profile-manager.js
-│       └── 🟨 profile-store.js
+│       ├── 🟨 profile-store.js
+│       ├── 🟨 pwa.js
+│       ├── 🟨 signoff-manager.js
+│       └── 🟨 signoff-store.js
 ├── 📂 docs
 │   └── 📄 project_tree_structure.txt
 ├── 📂 forms
+│   ├── 📊 ... 還有 2 個 .html 檔案
 │   ├── 🌐 leave_request_form.html
+│   ├── 🌐 overtime_request_form.html
 │   └── 🌐 payment_request_form.html
 ├── 📂 scripts
-│   └── 🐍 project_tree_structure_generator.py
+│   ├── 🐍 build_icons.py
+│   ├── 🐍 build_pwa.py
+│   ├── 🐍 project_tree_structure_generator.py
+│   └── 🟨 service-worker.template.js
+├── 📂 tests
+│   ├── 📊 ... 還有 7 個 .cjs 檔案
+│   ├── 📄 favorites-backup.test.cjs
+│   ├── 📄 form-calculations.test.cjs
+│   └── 📄 form-drafts.test.cjs
+├── 📊 ... 還有 2 個 .html 檔案
 ├── 🌐 404.html
+├── 📄 CNAME
+├── 📜 LICENSE
 ├── 📖 README.md
-├── 🌐 index.html
-└── 📋 requirements.txt
+├── 🌐 favorites.html
+├── 🌐 guide.html
+├── 📄 manifest.webmanifest
+├── 📋 requirements.txt
+├── 📄 robots.txt
+├── 🟨 service-worker.js
+└── 📋 sitemap.xml

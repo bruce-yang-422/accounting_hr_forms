@@ -3,7 +3,7 @@ const FormTemplates = (() => {
   const KEY = 'hr_form_templates';
   const LIMIT = 20;
   const fields = {
-    payment: ['acctCategory', 'reason', 'taxMode', 'amtGross', 'payee', 'payeeType', 'taxId', 'payMethod', 'bankName', 'bankBranch', 'bankAccount', 'voucherType', 'hasAttach', 'attachCount', 'attachTypes', 'attachOtherText', 'paymentNote'],
+    payment: ['printLayout', 'acctCategory', 'reason', 'taxMode', 'amtGross', 'payee', 'payeeType', 'taxId', 'payMethod', 'bankName', 'bankBranch', 'bankAccount', 'voucherType', 'hasAttach', 'attachCount', 'attachTypes', 'attachOtherText', 'paymentNote'],
     leave: ['printLayout', 'leaveType', 'leaveTypeOther', 'startHour', 'startMinute', 'endHour', 'endMinute', 'reasonMode', 'reasonPreset', 'reason', 'bereavementRelation', 'handover', 'hasProof', 'proofNote', 'remark', 'note'],
     overtime: ['applyType', 'dayType', 'compensation', 'startHour', 'startMinute', 'endHour', 'endMinute', 'restMinutes', 'reason', 'workContent', 'remark'],
     travel: ['travelType', 'tripType', 'destination', 'visitTarget', 'startHour', 'startMinute', 'endHour', 'endMinute', 'reason', 'transportModes', 'transportOther', 'needLodging', 'lodgingNote', 'handover', 'costTransport', 'costLodging', 'costMeal', 'costOther', 'advanceNeeded', 'advanceAmount', 'remark'],
