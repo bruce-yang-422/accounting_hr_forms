@@ -5,7 +5,7 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ['index.html', 'guide.html', 'favorites.html', 'offline.html', '404.html',
          'forms/payment_request_form.html', 'forms/leave_request_form.html',
-         'forms/overtime_request_form.html', 'forms/travel_request_form.html', 'forms/purchase_request_form.html', 'forms/receipt_form.html', 'forms/simple_receipt_form.html']
+         'forms/overtime_request_form.html', 'forms/travel_request_form.html', 'forms/purchase_request_form.html', 'forms/receipt_form.html', 'forms/simple_receipt_form.html', 'forms/expense_certificate_form.html']
 
 
 def build():

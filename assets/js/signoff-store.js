@@ -4,6 +4,7 @@ const SignoffStore = (() => {
   const MAX_BOXES = 6;
   const MAX_NAME = 10;
   const FORMS = [
+    { id: 'expense', label: '支出證明單', defaults: ['核准', '會計', '覆核', '出納', '經辦', '製單'] },
     { id: 'leave', label: '請假單', defaults: ['申請人', '代理人', '核決主管', '人資', '備查', '歸檔'] },
     { id: 'payment', label: '請款單', defaults: ['總經理', '經理', '覆核', '會計', '出納', '製單'] },
     { id: 'overtime', label: '加班申請單', defaults: ['申請人', '直屬主管', '部門主管', '人資', '薪資', '歸檔'] },
@@ -81,6 +82,7 @@ const ReviewStore = (() => {
   const approve = { name: '核決主管', options: ['同意', '退回'] };
   const line = name => ({ name, options: [] });
   const DEFAULTS = {
+    expense: [],
     leave: [{ name: '核決主管審核', options: ['同意', '退回'] }, line('人資確認'), line('簽核備註')],
     payment: [line('科目代碼'), { name: '稅別', options: ['應稅', '免稅', '零稅率'] }, line('憑證編號'), line('付款日期'), line('付款編號')],
     overtime: [approve, line('實際打卡'), line('核定時數'), line('簽核備註')],

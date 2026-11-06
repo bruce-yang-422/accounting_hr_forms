@@ -1,0 +1,33 @@
+.expense-certificate-sheet { padding: 5mm; font-family: 'DFKai-SB', 'BiauKai', 'Noto Serif TC', serif; font-size: 11pt; }
+.ev-frame { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 6mm 7mm 4mm; }
+.ev-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; gap: 3mm; min-height: 21mm; flex-shrink: 0; }
+.ev-header h2 { grid-column: 2; font-size: 20pt; font-weight: 400; letter-spacing: .3em; margin: 1mm -.3em 0 0; white-space: nowrap; }
+.ev-meta { grid-column: 3; justify-self: end; align-self: end; margin-bottom: 2mm; text-align: right; font-size: 9.5pt; line-height: 1.7; }
+.ev-meta > div + div { margin-top: 2mm; white-space: nowrap; }
+.ev-docno { display: inline-block; min-width: 25mm; max-width: 45mm; min-height: 4mm; border-bottom: .2mm solid #777; overflow-wrap: anywhere; }
+.ev-table { width: 100%; table-layout: fixed; border-collapse: collapse; flex-shrink: 0; }
+.ev-table th, .ev-table td { border: .25mm solid #555; padding: 2mm 3mm; font-weight: 400; line-height: 1.5; overflow-wrap: anywhere; }
+.ev-table th { text-align: center; font-size: 11pt; letter-spacing: .2em; }
+.ev-table td { font-size: 12pt; white-space: pre-wrap; }
+.ev-category-row { height: 15mm; }
+.ev-reason-row { height: 18mm; }
+.ev-no-voucher-row { height: 23mm; }
+.ev-no-voucher-row td, .ev-reason-row td { vertical-align: top; }
+.ev-amount-row { height: 17mm; }
+.ev-amount-row td { white-space: normal; }
+.ev-money-units { display: flex; align-items: baseline; justify-content: space-between; gap: 1mm; font-size: 12pt; }
+.ev-currency { font-size: 11pt; white-space: nowrap; }
+.ev-money-unit { display: inline-flex; align-items: baseline; gap: 1mm; }
+.ev-money-unit b { display: inline-block; min-width: 5mm; text-align: center; font-weight: 400; }
+.ev-money-text { display: flex; flex-wrap: wrap; gap: 2mm; align-items: baseline; font-size: 13pt; }
+.ev-money-units[hidden], .ev-money-text[hidden] { display: none; }
+.ev-amount-numeric { margin-top: 1mm; text-align: right; font-family: 'Noto Sans TC', sans-serif; font-size: 12pt; font-weight: 500; }
+.ev-review:not([hidden]) { margin-top: 3mm; flex-shrink: 0; }
+.ev-signoffs.pv-sign { flex: 1 0 auto; margin-top: 3mm; border: 0; }
+.ev-signoffs .pv-sign-cell { border: 0; padding-inline: 1mm; }
+.ev-signoffs .pv-sign-head { background: transparent !important; color: #000 !important; font-size: 10pt; font-weight: 400; padding: 0; letter-spacing: .2em; }
+.ev-signoffs .pv-sign-body { flex: 1; height: auto; min-height: 15mm; }
+@media print {
+  @page { size: 210mm 148mm; margin: 5mm; }
+  .expense-certificate-sheet { width: 200mm; height: 138mm; padding: 0; break-inside: avoid; }
+}

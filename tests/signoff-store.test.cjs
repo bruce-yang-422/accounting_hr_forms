@@ -15,7 +15,7 @@ const plain = value => JSON.parse(JSON.stringify(value));
 
 test('every form has one to six default boxes, and its page has a sign-off slot', () => {
   const { api } = setup();
-  assert.equal(api.FORMS.length, 6);
+  assert.equal(api.FORMS.length, 7);
   api.FORMS.forEach(form => {
     assert.ok(form.defaults.length >= 1 && form.defaults.length <= api.MAX_BOXES, form.id);
     form.defaults.forEach(name => assert.ok(name.length <= api.MAX_NAME, name));

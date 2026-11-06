@@ -3,6 +3,7 @@ const FormTemplates = (() => {
   const KEY = 'hr_form_templates';
   const LIMIT = 20;
   const fields = {
+    expense: ['acctCategory', 'reason', 'noVoucherReason', 'amount'],
     simple_receipt: ['payer', 'amount', 'payMethod', 'bankName', 'bankBranch', 'bankAccount', 'accountLast5', 'methodOther', 'reason', 'recipient', 'contactPhone'],
     receipt: ['sellerTaxId', 'buyer', 'buyerAddress', 'buyerTaxId', 'reason', 'paid', ...Array.from({ length: 7 }, (_, i) => ['Name', 'Qty', 'Price'].map(field => `item${i + 1}${field}`)).flat()],
     payment: ['printLayout', 'acctCategory', 'reason', 'taxMode', 'amtGross', 'payee', 'payeeType', 'taxId', 'payMethod', 'bankName', 'bankBranch', 'bankAccount', 'voucherType', 'hasAttach', 'attachCount', 'attachTypes', 'attachOtherText', 'paymentNote'],

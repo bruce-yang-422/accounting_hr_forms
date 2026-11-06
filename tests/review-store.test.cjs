@@ -15,7 +15,7 @@ const plain = value => JSON.parse(JSON.stringify(value));
 
 test('every form has defaults, including the approve or return choice where it applied before', () => {
   const { api, forms } = setup();
-  forms.forEach(form => assert.ok(api.get(form.id).length >= 2, form.id));
+  forms.forEach(form => assert.ok(form.id === 'expense' ? api.get(form.id).length === 0 : api.get(form.id).length >= 2, form.id));
   assert.deepEqual(plain(api.get('travel')[0]), { name: '核決主管', options: ['同意', '退回'] });
   assert.deepEqual(plain(api.get('payment')[1].options), ['應稅', '免稅', '零稅率']);
   assert.equal(api.get('leave')[1].options.length, 0);
