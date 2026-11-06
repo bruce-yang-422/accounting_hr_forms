@@ -76,6 +76,49 @@
 .pv-sign { flex: 1; }
 .pv-sign-cell { display: flex; flex-direction: column; }
 .pv-sign-body { flex: 1; min-height: 10mm; height: auto; }
+/* A5 purchase form: give the information and item grid priority over signing space. */
+.pv-sheet-simple .pv-hd-meta { font-size: 9pt; }
+.pv-sheet-simple .pv-row { min-height: 8mm; }
+.pv-sheet-simple .pv-lbl { width: 18mm !important; padding-inline: 1mm; font-size: 9.5pt; }
+.pv-sheet-simple .pv-val,
+.pv-sheet-simple .pv-multi,
+.pv-sheet-simple .pv-small { font-size: 10.5pt; line-height: 1.3; }
+.pv-sheet-simple .pv-items { font-size: 10pt; }
+.pv-sheet-simple .pv-items th,
+.pv-sheet-simple .pv-items td { height: 6mm; line-height: 1.25; padding: .5mm 1mm; }
+.pv-sheet-simple .pv-wrap { flex: 1 0 auto; }
+.pv-sheet-simple .pv-wrap > .pv-row:last-child { flex: 1 0 8mm; }
+.pv-sheet-simple .pv-spacer { display: none; }
+.pv-sheet-simple .pv-bottom,
+.pv-sheet-simple .pv-sign { flex: 0 0 auto; }
+.pv-sheet-simple .pv-ac-head,
+.pv-sheet-simple .pv-ac-row,
+.pv-sheet-simple .pv-sign-head { font-size: 9pt; }
+.pv-sheet-simple .pv-sign-body { flex: 0 0 15mm; min-height: 15mm; height: 15mm; }
+/* Travel: enlarge trip details and keep the six signing boxes compact. */
+.travel-sheet .pv-hd-meta { font-size: 9pt; }
+.travel-sheet .pv-row { min-height: 7.5mm; }
+.travel-sheet .pv-lbl { padding-inline: 1mm; font-size: 9pt; }
+.travel-sheet .pv-wrap > .pv-row:nth-child(-n+2) .pv-lbl { width: 18mm !important; }
+.travel-sheet .pv-val,
+.travel-sheet .pv-subval,
+.travel-sheet .pv-multi { font-size: 10.5pt; line-height: 1.3; overflow-wrap: anywhere; }
+.travel-sheet .pv-small { font-size: 9.5pt; }
+.travel-sheet .pv-subcell-hd { font-size: 10pt; padding-block: 1mm; }
+.travel-sheet .pv-sublbl { padding-inline: 1mm; font-size: 9pt; }
+.travel-sheet .pv-subrow { min-height: 7.2mm; }
+.travel-sheet .travel-cost-row .pv-val { white-space: nowrap; overflow-wrap: normal; padding-inline: 1mm; }
+.travel-sheet .travel-cost-row .pv-val:not(.pv-total) { width: 25mm !important; font-size: 10pt; }
+.travel-sheet .pv-tcol-r .pv-multi { align-items: flex-start; padding-block: 1.5mm; }
+.travel-sheet .pv-wrap { flex: 1 0 auto; }
+.travel-sheet .pv-wrap > .pv-row:last-child { flex: 1 0 7.5mm; }
+.travel-sheet .pv-spacer { display: none; }
+.travel-sheet .pv-bottom,
+.travel-sheet .pv-sign { flex: 0 0 auto; }
+.travel-sheet .pv-ac-head,
+.travel-sheet .pv-ac-row,
+.travel-sheet .pv-sign-head { font-size: 9pt; }
+.travel-sheet .pv-sign-body { flex: 0 0 15mm; min-height: 15mm; height: 15mm; }
 /* Overtime: prioritize readable work details and cap the signing area. */
 .overtime-sheet .pv-hd-meta { font-size: 9pt; }
 .overtime-sheet .pv-row { min-height: 8.5mm; }
@@ -102,7 +145,7 @@
 .overtime-sheet .pv-ac-items { display: flex; flex-wrap: wrap; column-gap: 4mm; row-gap: 3mm; }
 .overtime-sheet .pv-ac-item { flex: 0 0 auto; min-height: 5mm; align-items: baseline; }
 .overtime-sheet .pv-ac-item:last-child { flex: 1 1 auto; }
-.overtime-sheet .pv-ac-item > .pv-uline { flex: 1; min-width: 20mm; transform: translateY(.5mm); }
+.overtime-sheet .pv-ac-item > .pv-uline { flex: 1; min-width: 20mm; }
 .overtime-sheet .pv-ac-item[data-review-name="實際打卡"] > .pv-uline { flex: 0 0 32mm; min-width: 0; width: 32mm; }
 .overtime-sheet .pv-ac-item[data-review-name="核定時數"] > .pv-uline { flex: 0 0 18mm; min-width: 0; width: 18mm; }
 .overtime-sheet .pv-sign { flex: 0 0 auto; }

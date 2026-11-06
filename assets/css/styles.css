@@ -683,6 +683,7 @@ select.fi {
 .pv-ac-lbl { font-weight: 600; white-space: nowrap; }
 .pv-ac-items { column-gap: 5mm; row-gap: 2mm; }
 .pv-ac-item { display: inline-flex; align-items: baseline; gap: 1.5mm; }
+.pv-ac-item > .pv-uline { transform: translateY(.5mm); }
 .pv-acct-cashier[hidden] + .pv-sign { border-top: 0.25mm solid #333; }
 .pv-uline { border-bottom: 0.2mm solid #555; display: inline-block; }
 .pv-uline-sm { width: 14mm; }
