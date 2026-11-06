@@ -159,6 +159,7 @@ const ReviewStore = (() => {
     const row = document.createElement('div'); row.className = 'pv-ac-row pv-ac-items';
     items.forEach(item => {
       const entry = span('pv-ac-item');
+      entry.dataset.reviewName = item.name;
       entry.append(span('pv-ac-lbl', item.name));
       if (item.options.length) item.options.forEach(option => {
         const choice = span('pv-pcheck');

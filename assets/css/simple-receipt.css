@@ -1,0 +1,41 @@
+/* A quiet, monochrome receipt with generous writing and signing space. */
+.simple-receipt-sheet { padding: 7mm 5mm; font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif; font-size: 11pt; color: #222; }
+.sr-header { display: flex; align-items: center; justify-content: space-between; gap: 8mm; padding-bottom: 3mm; margin-bottom: 3mm; border-bottom: .5mm solid #222; flex-shrink: 0; }
+.sr-title { display: flex; flex-direction: column; align-items: flex-start; gap: 1mm; }
+.sr-title h2 { font-family: 'DFKai-SB', 'BiauKai', serif; font-size: 30pt; font-weight: 400; letter-spacing: .25em; line-height: 1.2; margin: 0 -.25em 0 0; }
+.sr-title > span { font-size: 7pt; letter-spacing: .3em; color: #666; }
+.sr-meta { text-align: right; font-size: 9pt; line-height: 1.9; }
+.sr-line { display: inline-block; min-width: 32mm; min-height: 5mm; border-bottom: .2mm solid #888; vertical-align: baseline; padding: 0 1mm 1mm; overflow-wrap: anywhere; }
+.sr-meta .sr-line { max-width: 100mm; border-color: #bbb; }
+.sr-table { width: 100%; border-collapse: collapse; table-layout: fixed; flex-shrink: 0; border-top: .2mm solid #bbb; border-bottom: .3mm solid #555; }
+.sr-table th, .sr-table td { border-bottom: .2mm solid #ccc; padding: 3mm; overflow-wrap: anywhere; line-height: 1.5; }
+.sr-table tr:last-child th, .sr-table tr:last-child td { border-bottom: 0; }
+.sr-table th { text-align: left; vertical-align: top; padding-top: 3.5mm; font-size: 10pt; background: #f5f5f5; font-weight: 500; letter-spacing: .12em; }
+.sr-table td { font-size: 11pt; }
+.sr-amount-row { height: 23mm; }
+.sr-amount-small { display: flex; align-items: baseline; gap: 3mm; }
+.sr-currency { font-size: 11pt; font-weight: 500; color: #555; }
+#pv-amount { font-size: 26pt; font-weight: 500; font-variant-numeric: tabular-nums; letter-spacing: .02em; line-height: 1.2; }
+.sr-amount { display: flex; align-items: baseline; gap: 3mm; flex-wrap: wrap; margin-top: 2mm; }
+.sr-amount-label { font-size: 8pt; color: #666; letter-spacing: .08em; }
+#pv-amountChinese { font-size: 12pt; }
+.sr-payer { border: 0; }
+.sr-methods { display: flex; align-items: center; flex-wrap: wrap; gap: 6mm; }
+.sr-choice { display: inline-flex; align-items: center; gap: 1.5mm; white-space: nowrap; font-size: 10pt; }
+.sr-choice .ui-icon { width: 4mm; height: 4mm; }
+.sr-transfer, .sr-other { margin-top: 2mm; font-size: 9pt; line-height: 1.7; overflow-wrap: anywhere; }
+.sr-bank-divider { padding: 0 2mm; color: #aaa; }
+.sr-transfer[hidden], .sr-other[hidden], #pv-legacyAccount[hidden] { display: none; }
+.sr-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.sr-reason-row { height: 17mm; }
+.sr-reason-row td { vertical-align: top; text-align: left; white-space: pre-wrap; }
+.sr-footer { display: flex; align-items: flex-start; justify-content: space-between; gap: 8mm; padding-top: 4mm; flex-shrink: 0; }
+.sr-recipient { flex: 1; min-width: 0; font-size: 10pt; line-height: 1.6; }
+.sr-recipient > div + div { margin-top: 3mm; }
+.sr-recipient .sr-line { min-width: 38mm; max-width: 95mm; }
+.sr-seal { flex: 0 0 48mm; min-height: 24mm; border: .2mm solid #aaa; padding: 2mm 3mm; text-align: left; }
+.sr-seal > span { display: block; color: #777; font-size: 8pt; letter-spacing: .1em; }
+@media print {
+  @page { size: 210mm 148mm; margin: 5mm; }
+  .simple-receipt-sheet { width: 200mm; height: 138mm; padding: 2mm 0; break-inside: avoid; }
+}

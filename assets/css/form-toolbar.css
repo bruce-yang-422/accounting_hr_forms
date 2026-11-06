@@ -1,5 +1,15 @@
 .toolbar-secondary { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .toolbar-more-toggle { display: none; }
+.blank-print-document-controls { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+.blank-print-control { display: flex; align-items: center; gap: 8px; }
+.blank-print-label { color: var(--c-muted); font-size: 12px; }
+.blank-print-toggle { border: 1px solid var(--c-border-md); border-radius: 999px; padding: 8px 13px; color: var(--c-navy); background: #fff; font: inherit; font-size: 12px; cursor: pointer; white-space: nowrap; }
+.blank-print-toggle[aria-pressed="true"] { border-color: #934416; background: #934416; color: #fff; }
+.blank-print-toggle:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+.leave-layout-control:has(.blank-print-toggle) { flex-wrap: wrap; }
+.blank-print-original { display: none !important; }
+.blank-print-sheet.pv-sheet-simple [data-blank-field="pv-dept"] { flex: 1 !important; }
+@media print { .blank-print-original { display: none !important; } }
 .form-help > summary, .form-doc-number > summary { display: none; }
 @media (max-width: 660px) {
   #fillPage .toolbar { min-height: 60px; }

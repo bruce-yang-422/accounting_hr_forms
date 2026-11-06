@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#b65c22">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="表單中心">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/images/pwa/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/css/pwa.css">
+
+<title>線上免用統一發票收據｜A5 通用／書局版與 PDF 列印｜表單填寫中心</title>
+<meta name="description" content="A5 橫向通用／書局版免用統一發票收據，支援品項計算、草稿、預覽與列印。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://office-forms.stack-base.com/forms/receipt_form.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:site_name" content="表單填寫中心">
+<meta property="og:title" content="線上免用統一發票收據｜A5 通用／書局版與 PDF 列印｜表單填寫中心">
+<meta property="og:description" content="A5 橫向通用／書局版免用統一發票收據，7 列品項與中文大寫金額自動計算，支援草稿、範本、預覽與列印。">
+<meta property="og:url" content="https://office-forms.stack-base.com/forms/receipt_form.html">
+<meta property="og:image" content="https://office-forms.stack-base.com/assets/images/branding/form-center-hero-banner-desktop.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="2172">
+<meta property="og:image:height" content="724">
+<meta property="og:image:alt" content="表單填寫中心：請假單與請款單線上填寫工具">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="線上免用統一發票收據｜A5 通用／書局版與 PDF 列印｜表單填寫中心">
+<meta name="twitter:description" content="A5 橫向通用／書局版免用統一發票收據，7 列品項與中文大寫金額自動計算，支援草稿、範本、預覽與列印。">
+<meta name="twitter:image" content="https://office-forms.stack-base.com/assets/images/branding/form-center-hero-banner-desktop.png">
+<meta name="twitter:image:alt" content="表單填寫中心：請假單與請款單線上填寫工具">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://office-forms.stack-base.com/forms/receipt_form.html#webpage",
+      "url": "https://office-forms.stack-base.com/forms/receipt_form.html",
+      "name": "線上免用統一發票收據｜A5 通用／書局版與 PDF 列印｜表單填寫中心",
+      "description": "A5 橫向通用／書局版免用統一發票收據，7 列品項與中文大寫金額自動計算，支援草稿、範本、預覽與列印。",
+      "inLanguage": "zh-TW",
+      "isPartOf": {
+        "@id": "https://office-forms.stack-base.com/#website"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://office-forms.stack-base.com/assets/images/branding/form-center-hero-banner-desktop.png",
+        "width": 2172,
+        "height": 724
+      },
+      "breadcrumb": {
+        "@id": "https://office-forms.stack-base.com/forms/receipt_form.html#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://office-forms.stack-base.com/forms/receipt_form.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首頁",
+          "item": "https://office-forms.stack-base.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "免用統一發票收據",
+          "item": "https://office-forms.stack-base.com/forms/receipt_form.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="../assets/icons/brand.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="stylesheet" href="../assets/css/favorites-ui.css">
+<link rel="stylesheet" href="../assets/css/draft-library.css">
+<link rel="stylesheet" href="../assets/css/form-toolbar.css">
+<link rel="stylesheet" href="../assets/css/form-desktop.css">
+<link rel="stylesheet" href="../assets/css/request-forms.css">
+<link rel="stylesheet" href="../assets/css/icons.css">
+<link rel="stylesheet" href="../assets/css/receipt.css">
+</head>
+<body>
+<!-- SVG ICONS:START -->
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden">
+  <!-- Original 24-unit line icons for the form center. -->
+  <symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7M5 9v11h5v-6h4v6h5V9"/></symbol>
+  <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 10h18m-14 4h3m4 0h3m-10 4h3"/><path d="m14 17 1.5 1.5L19 15"/></symbol>
+  <symbol id="icon-payment" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Zm0 0v6h6M8 12h3m-3 4h3"/><path d="M17 12v7m2-6h-3a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-3"/></symbol>
+  <symbol id="icon-overtime" viewBox="0 0 24 24"><circle cx="11" cy="13" r="8"/><path d="M11 8v5l3 2M8 2h6M19 4l2 2"/></symbol>
+  <symbol id="icon-travel" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M8 8V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3M3 14h18m-11-1v2m4-2v2"/></symbol>
+  <symbol id="icon-purchase" viewBox="0 0 24 24"><path d="M2 3h3l3 12h11l2-8H6"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></symbol>
+  <symbol id="icon-forms" viewBox="0 0 24 24"><rect x="5" y="5" width="15" height="16" rx="2"/><path d="M9 5V3H3v15m6-9h7m-7 4h7m-7 4h4"/></symbol>
+  <symbol id="icon-book" viewBox="0 0 24 24"><path d="M12 6C9 4 6 3.5 3 4v15c3-.5 6 0 9 2m0-15c3-2 6-2.5 9-2v15c-3-.5-6 0-9 2Zm-6 2 3 1m-3 3 3 1m6-4 3-1m-3 5 3-1"/></symbol>
+  <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="icon-construction" viewBox="0 0 24 24"><path d="M5 15v6m14-6v6M3 7h18v8H3Zm4 0 5 8m1-8 5 8"/></symbol>
+  <symbol id="icon-edit" viewBox="0 0 24 24"><path d="m14 5 5 5M4 20l1-6L16 3a2 2 0 0 1 3 0l2 2a2 2 0 0 1 0 3L10 19Zm1-6 5 5m-6 1 6-1"/></symbol>
+  <symbol id="icon-eye" viewBox="0 0 24 24"><path d="M2 12S5.5 5 12 5s10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="icon-printer" viewBox="0 0 24 24"><path d="M7 8V3h10v5M7 17H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-3M7 14h10v7H7Z"/><path d="M17 11h2"/></symbol>
+  <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3Zm5-5 3 3 3-3"/></symbol>
+  <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V3h8v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/></symbol>
+  <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10h.01"/></symbol>
+  <symbol id="icon-arrow-left" viewBox="0 0 24 24"><path d="M20 12H4m6-6-6 6 6 6"/></symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+  <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="icon-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></symbol>
+  <symbol id="icon-checkbox" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/></symbol>
+  <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Zm0 0v6h6M12 18v-7m-3 3 3-3 3 3"/></symbol>
+</svg>
+<!-- SVG ICONS:END -->
+<div id="fillPage">
+<header class="toolbar">
+  <div class="toolbar-inner">
+  <div class="toolbar-left">
+    <a class="toolbar-logo" href="../index.html" aria-label="回到首頁"><img src="../assets/icons/brand.svg" alt=""></a>
+    <div class="toolbar-brand">
+      <h1>免用統一發票收據</h1>
+      <p>Uniform Invoice Exempt Receipt</p>
+    </div>
+  </div>
+  <div class="toolbar-right">
+    <div class="toolbar-secondary" id="toolbarSecondary">
+      <button class="btn btn-outline-white" onclick="DraftLibrary.openSave()" title="儲存目前填寫內容">儲存草稿</button>
+      <button class="btn btn-outline-white" data-draft-library onclick="DraftLibrary.open()" title="開啟草稿庫，可搜尋、載入、命名及刪除">草稿庫</button>
+      <button type="button" class="btn btn-outline-white" data-template-library onclick="DraftLibrary.openTemplates()" title="套用及管理固定常用內容">範本庫</button>
+      <button class="btn btn-outline-white" data-recent-library onclick="DraftLibrary.openRecent()" title="載入最近列印紀錄">最近完成</button>
+      <a class="btn btn-outline-white" href="../index.html" title="返回首頁"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-left"></use></svg> 回到首頁</a>
+      <button class="btn btn-outline-white" onclick="fillSample()" title="填入範例資料"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-edit"></use></svg> 填入範例</button>
+      <button class="btn btn-outline-white" onclick="clearForm()" title="清除所有欄位"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-trash"></use></svg> 清除</button>
+    </div>
+    <button type="button" class="btn btn-outline-white toolbar-more-toggle" id="toolbarMore" aria-expanded="false" aria-controls="toolbarSecondary">更多 <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-more"></use></svg></button>
+    <button class="btn btn-white toolbar-primary" onclick="goToPreview()">下一步 <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg></button>
+  </div>
+  </div>
+</header>
+
+<main class="main">
+<details class="form-help" data-mobile-collapse open><summary>填寫與列印說明</summary><div class="banner">通用／書局版。列印紙張設為 A5 橫向（210 × 148 mm）、縮放 100%、四邊頁邊距至少 5 mm。收據專用章區留白，列印後蓋章。</div></details>
+<details class="form-doc-number" data-mobile-collapse open><summary>收據編號（選填，不列印）</summary><div class="doc-no-row"><div class="doc-no-badge"><label for="docNo">收據編號</label><input class="fi" id="docNo" placeholder="選填，供草稿與紀錄辨識"></div></div></details>
+<div class="card"><div class="card-head"><div class="card-head-num">1</div><h2>收據資訊</h2></div>
+<div class="card-body"><div class="frow"><div class="fg"><label class="flabel" for="reqDate">開立日期 *</label><input class="fi" id="reqDate" type="date" ></div>
+<div class="fg"><label class="flabel" for="sellerTaxId">開立人統一編號</label><input class="fi" id="sellerTaxId" type="text" inputmode="numeric" maxlength="8" placeholder="8 碼，列印於右上方"></div></div>
+<div class="frow"><div class="fg"><label class="flabel" for="buyer">買受人 *</label><input class="fi" id="buyer" type="text" maxlength="40"></div>
+<div class="fg"><label class="flabel" for="buyerAddress">地址</label><input class="fi" id="buyerAddress" type="text" maxlength="70"></div></div>
+<div class="frow"><div class="fg"><label class="flabel" for="buyerTaxId">買受人統一編號（選填）</label><input class="fi" id="buyerTaxId" type="text" inputmode="numeric" maxlength="8" placeholder="填寫後列印於買受人下方"></div></div></div></div>
+<div class="card"><div class="card-head"><div class="card-head-num">2</div><h2>品名與金額</h2></div>
+<div class="card-body"><div class="receipt-item-row"><div class="fg"><label class="flabel" for="item1Name">品名 1</label><input class="fi" id="item1Name" type="text" maxlength="30"></div>
+<div class="fg"><label class="flabel" for="item1Qty">數量</label><input class="fi" id="item1Qty" type="number" min="0.01" max="999999" step="0.01"></div>
+<div class="fg"><label class="flabel" for="item1Price">單價</label><input class="fi" id="item1Price" type="number" min="0" max="999999999" step="0.01"></div>
+<div class="fg"><label class="flabel" for="item1Total">總價</label><input class="fi" id="item1Total" type="text" readonly></div></div>
+<div class="receipt-item-row"><div class="fg"><label class="flabel" for="item2Name">品名 2</label><input class="fi" id="item2Name" type="text" maxlength="30"></div>
+<div class="fg"><label class="flabel" for="item2Qty">數量</label><input class="fi" id="item2Qty" type="number" min="0.01" max="999999" step="0.01"></div>
+<div class="fg"><label class="flabel" for="item2Price">單價</label><input class="fi" id="item2Price" type="number" min="0" max="999999999" step="0.01"></div>
+<div class="fg"><label class="flabel" for="item2Total">總價</label><input class="fi" id="item2Total" type="text" readonly></div></div>
+<div class="receipt-item-row"><div class="fg"><label class="flabel" for="item3Name">品名 3</label><input class="fi" id="item3Name" type="text" maxlength="30"></div>
+<div class="fg"><label class="flabel" for="item3Qty">數量</label><input class="fi" id="item3Qty" type="number" min="0.01" max="999999" step="0.01"></div>
+<div class="fg"><label class="flabel" for="item3Price">單價</label><input class="fi" id="item3Price" type="number" min="0" max="999999999" step="0.01"></div>
+<div class="fg"><label class="flabel" for="item3Total">總價</label><input class="fi" id="item3Total" type="text" readonly></div></div>
+<div class="receipt-item-row"><div class="fg"><label class="flabel" for="item4Name">品名 4</label><input class="fi" id="item4Name" type="text" maxlength="30"></div>
+<div class="fg"><label class="flabel" for="item4Qty">數量</label><input class="fi" id="item4Qty" type="number" min="0.01" max="999999" step="0.01"></div>
+<div class="fg"><label class="flabel" for="item4Price">單價</label><input class="fi" id="item4Price" type="number" min="0" max="999999999" step="0.01"></div>
+<div class="fg"><label class="flabel" for="item4Total">總價</label><input class="fi" id="item4Total" type="text" readonly></div></div>
+<div class="receipt-item-row"><div class="fg"><label class="flabel" for="item5Name">品名 5</label><input class="fi" id="item5Name" type="text" maxlength="30"></div>
+<div class="fg"><label class="flabel" for="item5Qty">數量</label><input class="fi" id="item5Qty" type="number" min="0.01" max="999999" step="0.01"></div>
+<div class="fg"><label class="flabel" for="item5Price">單價</label><input class="fi" id="item5Price" type="number" min="0" max="999999999" step="0.01"></div>
+<div class="fg"><label class="flabel" for="item5Total">總價</label><input class="fi" id="item5Total" type="text" readonly></div></div>
+<div class="receipt-item-row"><div class="fg"><label class="flabel" for="item6Name">品名 6</label><input class="fi" id="item6Name" type="text" maxlength="30"></div>
+<div class="fg"><label class="flabel" for="item6Qty">數量</label><input class="fi" id="item6Qty" type="number" min="0.01" max="999999" step="0.01"></div>
+<div class="fg"><label class="flabel" for="item6Price">單價</label><input class="fi" id="item6Price" type="number" min="0" max="999999999" step="0.01"></div>
+<div class="fg"><label class="flabel" for="item6Total">總價</label><input class="fi" id="item6Total" type="text" readonly></div></div>
+<div class="receipt-item-row"><div class="fg"><label class="flabel" for="item7Name">品名 7</label><input class="fi" id="item7Name" type="text" maxlength="30"></div>
+<div class="fg"><label class="flabel" for="item7Qty">數量</label><input class="fi" id="item7Qty" type="number" min="0.01" max="999999" step="0.01"></div>
+<div class="fg"><label class="flabel" for="item7Price">單價</label><input class="fi" id="item7Price" type="number" min="0" max="999999999" step="0.01"></div>
+<div class="fg"><label class="flabel" for="item7Total">總價</label><input class="fi" id="item7Total" type="text" readonly></div></div>
+<div class="frow"><div class="fg"><label class="flabel" for="amountTotal">合計新臺幣</label><input class="fi" id="amountTotal" type="text" readonly></div>
+<div class="fg"><label class="flabel" for="amountChinese">中文大寫金額</label><input class="fi" id="amountChinese" type="text" readonly></div></div></div></div>
+<div class="card"><div class="card-head"><div class="card-head-num">3</div><h2>備註</h2></div>
+<div class="card-body"><div class="frow"><div class="fg"><label class="flabel" for="reason">備註（列印於專用章區上方）</label><textarea class="fi form-textarea" id="reason" maxlength="100"></textarea></div></div><label class="cbox-item"><input type="checkbox" id="paid" name="paid" value="yes" checked> 顯示「銀貨兩訖」</label></div></div></main>
+</div>
+
+<div id="previewPage">
+  <div class="pv-toolbar">
+    <div class="pv-toolbar-left">
+      <a class="btn btn-outline-white" href="../index.html"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-home"></use></svg> 回到首頁</a>
+      <button class="btn btn-outline-white" onclick="goBack()"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-left"></use></svg> 返回編輯</button>
+      <span class="pv-hint">確認內容後再列印</span>
+    </div>
+    <div class="pv-toolbar-right">
+      <span class="pv-hint">A5 橫向 210 × 148 mm</span>
+      <button class="btn btn-white" onclick="printRecord()"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-printer"></use></svg> 列印 / 另存 PDF</button>
+    </div>
+  </div>
+  <p class="pv-overflow-notice" id="pvOverflow" role="status" hidden>內容超過一頁，超出部分會被裁切。請返回編輯，精簡較長的文字。</p>
+
+  <div class="pv-outer">
+<div class="pv-sheet receipt-sheet" id="pvSheet">
+<div class="receipt-heading"><h2>免用統一發票收據</h2><div class="receipt-meta"><div>統一編號 <span class="receipt-tax-boxes" id="pv-sellerTaxId"></span></div>
+<div class="receipt-date" id="pv-date"></div></div></div>
+<div class="receipt-buyer"><span>買受人：<span id="pv-buyer"></span></span><span>地址：<span id="pv-buyerAddress"></span></span></div>
+<div class="receipt-buyer-tax" id="pv-buyerTaxRow" hidden>買受人統一編號：<span id="pv-buyerTaxId"></span></div>
+<table class="receipt-table"><colgroup><col style="width:29%"><col style="width:12%"><col style="width:11%"><col style="width:15%"><col style="width:33%"></colgroup>
+<thead><tr><th>品　　名</th><th>數 量</th><th>單 價</th><th>總 價</th><th>備　　註</th></tr></thead><tbody><tr><td id="pv-item1Name"></td><td class="receipt-number" id="pv-item1Qty"></td><td class="receipt-number" id="pv-item1Price"></td><td class="receipt-number" id="pv-item1Total"></td><td class="receipt-stamp-cell" rowspan="7"><div class="receipt-stamp-title">收 據 專 用 章</div>
+<div class="receipt-note" id="pv-reason"></div></td></tr>
+<tr><td id="pv-item2Name"></td><td class="receipt-number" id="pv-item2Qty"></td><td class="receipt-number" id="pv-item2Price"></td><td class="receipt-number" id="pv-item2Total"></td></tr>
+<tr><td id="pv-item3Name"></td><td class="receipt-number" id="pv-item3Qty"></td><td class="receipt-number" id="pv-item3Price"></td><td class="receipt-number" id="pv-item3Total"></td></tr>
+<tr><td id="pv-item4Name"></td><td class="receipt-number" id="pv-item4Qty"></td><td class="receipt-number" id="pv-item4Price"></td><td class="receipt-number" id="pv-item4Total"></td></tr>
+<tr><td id="pv-item5Name"></td><td class="receipt-number" id="pv-item5Qty"></td><td class="receipt-number" id="pv-item5Price"></td><td class="receipt-number" id="pv-item5Total"></td></tr>
+<tr><td id="pv-item6Name"></td><td class="receipt-number" id="pv-item6Qty"></td><td class="receipt-number" id="pv-item6Price"></td><td class="receipt-number" id="pv-item6Total"></td></tr>
+<tr><td id="pv-item7Name"></td><td class="receipt-number" id="pv-item7Qty"></td><td class="receipt-number" id="pv-item7Price"></td><td class="receipt-number" id="pv-item7Total"></td></tr>
+<tr class="receipt-total-row"><td colspan="4"><div class="receipt-total"><span>合計新臺幣</span><span id="pv-amountChinese"></span></div></td><td class="receipt-seals-cell"><div class="receipt-seals"><div class="receipt-paid-slot"><span class="receipt-paid" id="pv-paid">銀貨兩訖</span></div><div class="receipt-owner-seal" role="img" aria-label="負責人小章蓋章處"></div></div></td></tr></tbody></table>
+</div>
+  </div>
+</div>
+
+<script src="../assets/js/form-toolbar.js"></script>
+<script src="../assets/js/favorites-ui.js"></script>
+<script src="../assets/js/form-recent-records.js"></script>
+<script src="../assets/js/form-templates.js"></script>
+<script src="../assets/js/form-calculations.js"></script>
+<script src="../assets/js/form-page.js"></script>
+<script src="../assets/js/forms/receipt_form.js"></script>
+<script src="../assets/js/blank-form-print.js"></script>
+<script src="../assets/js/draft-library.js"></script>
+<script src="../assets/js/form-desktop.js"></script>
+<script src="../assets/js/pwa.js"></script>
+</body>
+</html>

@@ -3,13 +3,15 @@ const FormTemplates = (() => {
   const KEY = 'hr_form_templates';
   const LIMIT = 20;
   const fields = {
+    simple_receipt: ['payer', 'amount', 'payMethod', 'bankName', 'bankBranch', 'bankAccount', 'accountLast5', 'methodOther', 'reason', 'recipient', 'contactPhone'],
+    receipt: ['sellerTaxId', 'buyer', 'buyerAddress', 'buyerTaxId', 'reason', 'paid', ...Array.from({ length: 7 }, (_, i) => ['Name', 'Qty', 'Price'].map(field => `item${i + 1}${field}`)).flat()],
     payment: ['printLayout', 'acctCategory', 'reason', 'taxMode', 'amtGross', 'payee', 'payeeType', 'taxId', 'payMethod', 'bankName', 'bankBranch', 'bankAccount', 'voucherType', 'hasAttach', 'attachCount', 'attachTypes', 'attachOtherText', 'paymentNote'],
     leave: ['printLayout', 'leaveType', 'leaveTypeOther', 'startHour', 'startMinute', 'endHour', 'endMinute', 'reasonMode', 'reasonPreset', 'reason', 'bereavementRelation', 'handover', 'hasProof', 'proofNote', 'remark', 'note'],
     overtime: ['applyType', 'dayType', 'compensation', 'startHour', 'startMinute', 'endHour', 'endMinute', 'restMinutes', 'reason', 'workContent', 'remark'],
     travel: ['travelType', 'tripType', 'destination', 'visitTarget', 'startHour', 'startMinute', 'endHour', 'endMinute', 'reason', 'transportModes', 'transportOther', 'needLodging', 'lodgingNote', 'handover', 'costTransport', 'costLodging', 'costMeal', 'costOther', 'advanceNeeded', 'advanceAmount', 'remark'],
     purchase: ['purchaseMode', 'category', 'categoryOther', 'urgency', 'reason', 'taxBasis', ...Array.from({ length: 15 }, (_, i) => ['Name', 'Spec', 'Qty', 'Unit', 'Price'].map(field => `item${i + 1}${field}`)).flat(), 'supplier1Channel', 'supplier1Name', 'supplier1Contact', 'supplier1Quote', 'supplier2Channel', 'supplier2Name', 'supplier2Contact', 'supplier2Quote', 'supplier3Channel', 'supplier3Name', 'supplier3Contact', 'supplier3Quote', 'recommendedSupplier', 'hasQuote', 'quoteCount', 'remark'],
   };
-  const arrayFields = new Set(['attachTypes', 'transportModes']);
+  const arrayFields = new Set(['attachTypes', 'transportModes', 'paid']);
   function extract(type, data) {
     if (!Object.hasOwn(fields, type) || !data || typeof data !== 'object' || Array.isArray(data)) throw new Error('範本內容格式不正確。');
     const result = {};

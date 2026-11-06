@@ -76,6 +76,37 @@
 .pv-sign { flex: 1; }
 .pv-sign-cell { display: flex; flex-direction: column; }
 .pv-sign-body { flex: 1; min-height: 10mm; height: auto; }
+/* Overtime: prioritize readable work details and cap the signing area. */
+.overtime-sheet .pv-hd-meta { font-size: 9pt; }
+.overtime-sheet .pv-row { min-height: 8.5mm; }
+.overtime-sheet .pv-lbl { width: 18mm !important; padding-inline: 1mm; font-size: 9.5pt; }
+.overtime-sheet .pv-val,
+.overtime-sheet .pv-subval,
+.overtime-sheet .pv-multi { font-size: 10.5pt; line-height: 1.35; overflow-wrap: anywhere; }
+.overtime-sheet .pv-subcell-hd { font-size: 10pt; padding-block: 1mm; }
+.overtime-sheet .pv-sublbl { width: 17mm !important; padding-inline: 1mm; font-size: 9.5pt; }
+.overtime-sheet .pv-twocol { min-height: 40mm; }
+.overtime-sheet .pv-tcol-l { width: 89mm; }
+.overtime-sheet .pv-tcol-l .pv-subrow { flex: 1; min-height: 8mm; }
+.overtime-sheet .pv-tcol-r .pv-subrow { min-height: 14mm; }
+.overtime-sheet .pv-tcol-r .pv-multi { align-items: flex-start; padding-block: 1.5mm; }
+.overtime-sheet .pv-small { font-size: 10pt; }
+.overtime-sheet .pv-wrap { flex: 1 0 auto; }
+.overtime-sheet .pv-wrap > .pv-row:last-child { flex: 1 0 9mm; min-height: 9mm; }
+.overtime-sheet .pv-spacer { display: none; }
+.overtime-sheet .pv-bottom { flex: 0 0 auto; }
+.overtime-sheet .pv-ac-head,
+.overtime-sheet .pv-ac-row,
+.overtime-sheet .pv-sign-head { font-size: 9pt; }
+.overtime-sheet .pv-ac-body { padding: 3mm 2.5mm; }
+.overtime-sheet .pv-ac-items { display: flex; flex-wrap: wrap; column-gap: 4mm; row-gap: 3mm; }
+.overtime-sheet .pv-ac-item { flex: 0 0 auto; min-height: 5mm; align-items: baseline; }
+.overtime-sheet .pv-ac-item:last-child { flex: 1 1 auto; }
+.overtime-sheet .pv-ac-item > .pv-uline { flex: 1; min-width: 20mm; transform: translateY(.5mm); }
+.overtime-sheet .pv-ac-item[data-review-name="實際打卡"] > .pv-uline { flex: 0 0 32mm; min-width: 0; width: 32mm; }
+.overtime-sheet .pv-ac-item[data-review-name="核定時數"] > .pv-uline { flex: 0 0 18mm; min-width: 0; width: 18mm; }
+.overtime-sheet .pv-sign { flex: 0 0 auto; }
+.overtime-sheet .pv-sign-body { flex: 0 0 23mm; height: 23mm; min-height: 23mm; }
 .pv-overflow-notice { margin: 0; padding: 8px 16px; background: #fff4e0; border-bottom: 1.5px solid #e8a84c; color: #7a3b10; font-size: 13px; text-align: center; }
 .pv-overflow-notice[hidden] { display: none; }
 @media print {

@@ -95,7 +95,7 @@ window.FavoritesBackup = (() => {
   });
 
   registerDataset('templates', {
-    key: FormTemplates.KEY, label: '表單範本', empty: { payment: [], leave: [], overtime: [], travel: [], purchase: [] },
+    key: FormTemplates.KEY, label: '表單範本', empty: { payment: [], leave: [], overtime: [], travel: [], purchase: [], receipt: [], simple_receipt: [] },
     validate: FormTemplates.validateAll, merge: FormTemplates.merge,
     count: value => Object.values(value).reduce((total, list) => total + list.length, 0),
   });
