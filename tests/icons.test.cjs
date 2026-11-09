@@ -19,9 +19,8 @@ test('every page embeds the same original SVG library and resolves all icon refe
     symbols.forEach(symbol => assert.ok(html.includes(symbol), `${path}: rebuild SVG symbols`));
     for (const match of html.matchAll(/<use href="#([^"]+)"/g)) assert.ok(ids.has(match[1]), `${path}: ${match[1]}`);
     assert.match(html, /assets\/css\/icons\.css/);
-    assert.match(html, /rel="icon"[^>]*assets\/images\/branding\/form-center-favicon\.ico/);
-    assert.match(html, /rel="icon"[^>]*assets\/images\/branding\/form-center-windows\.ico/);
-    assert.match(html, /<img[^>]*assets\/images\/branding\/form-center-logo\.png/);
+    assert.match(html, /rel="icon"[^>]*assets\/icons\/brand\.svg/);
+    assert.match(html, /<img[^>]*assets\/icons\/brand\.svg/);
   });
 });
 
@@ -40,7 +39,7 @@ test('form identity artwork is used on its pages and works offline', () => {
       assert.ok(readFileSync(resolve(root, path)).length > 0, path);
     });
   }
-  for (const path of ['assets/images/branding/form-center-logo.png', 'assets/images/branding/form-center-favicon.ico', 'assets/images/branding/form-center-windows.ico', 'assets/icons/ui.svg', 'assets/css/icons.css']) assert.ok(worker.includes(`"${path}"`), path);
+  for (const path of ['assets/icons/brand.svg', 'assets/icons/ui.svg', 'assets/css/icons.css']) assert.ok(worker.includes(`"${path}"`), path);
 });
 
 test('functional arrow and checkbox glyphs are rendered with SVG rather than text', () => {

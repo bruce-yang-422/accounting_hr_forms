@@ -17,8 +17,8 @@ def build():
     build_icons()
     icons = ROOT / 'assets/images/pwa'
     icons.mkdir(parents=True, exist_ok=True)
-    # Export the full-resolution brand logo at platform-required sizes.
-    with Image.open(ROOT / 'assets/images/branding/form-center-logo.png') as source:
+    # Export the original brand icon at platform-required sizes.
+    with Image.open(ROOT / 'assets/images/branding/form-center.ico') as source:
         logo = source.convert('RGBA')
         for name, size in [('icon-192.png', 192), ('icon-512.png', 512), ('apple-touch-icon.png', 180)]:
             image = Image.new('RGBA', (size, size), '#fdf5ef')
@@ -30,10 +30,7 @@ def build():
              'offline.html', 'manifest.webmanifest']
     paths += [path.relative_to(ROOT).as_posix() for folder in ['assets/js', 'assets/css', 'assets/images/pwa', 'assets/icons']
               for path in sorted((ROOT / folder).rglob('*')) if path.is_file()]
-    paths += ['assets/images/branding/form-center-logo.png',
-              'assets/images/branding/form-center-favicon.ico',
-              'assets/images/branding/form-center-windows.ico',
-              'assets/images/branding/form-center-hero-banner-desktop.png',
+    paths += ['assets/images/branding/form-center-hero-banner-desktop.png',
               'assets/images/branding/form-center-hero-banner-mobile.png']
     paths = sorted(set(paths))
     template = (ROOT / 'scripts/service-worker.template.js').read_text(encoding='utf-8')

@@ -300,13 +300,7 @@ PWA 測試會比對原始檔與快取版本；若提示版本不符，請先執�
 避免直接改寫。行內圖示可在離線或直接開啟本機 HTML 時顯示。
 各表單與常用資料的識別圖示依指定使用 `assets/icons/` 的 PNG，操作圖示維持 SVG。PWA 安裝與 Apple 主畫面圖示也保留平台所需的 PNG。
 
-品牌圖示依用途歸檔如下，全站頁首及離線頁使用文件托盤 Logo；PWA 與 Apple 主畫面圖示由該 Logo 原圖產生。
-
-| 原檔名 | 歸檔路徑 | 用途 |
-| --- | --- | --- |
-| `表單管理文件托盤圖示.png` | `assets/images/branding/form-center-logo.png` | 全站 Logo 與 PWA 圖示來源 |
-| `Favicon.ico` | `assets/images/branding/form-center-favicon.ico` | 瀏覽器分頁圖示（16、32、48 px） |
-| `Windows.ico` | `assets/images/branding/form-center-windows.ico` | Windows 多尺寸 ICO，亦提供瀏覽器 256 px 圖示 |
+全站頁首、離線頁與瀏覽器分頁使用 `assets/icons/brand.svg`；PWA 與 Apple 主畫面圖示由原有 `assets/images/branding/form-center.ico` 產生。
 
 首頁八種表單的 PNG 圖示依內容命名並集中歸檔於 `assets/icons/`，保留原圖透明背景：
 
