@@ -292,13 +292,34 @@ PWA 測試會比對原始檔與快取版本；若提示版本不符，請先執�
 ### 維護 SVG 圖示
 
 共用線條圖示位於 [ui.svg](assets/icons/ui.svg)，
-品牌標誌及首頁表單圖示也集中於 `assets/icons/`。
+首頁表單圖示集中於 `assets/icons/`，品牌圖片與平台圖示集中於 `assets/images/branding/`。
 修改後執行 `python scripts/build_pwa.py`，會自動呼叫 `scripts/build_icons.py`，
 將圖示定義同步至各頁並更新離線資源版本。
 
 頁面中 `SVG ICONS:START` 至 `SVG ICONS:END` 為產生區塊，請修改來源圖示後重建，
 避免直接改寫。行內圖示可在離線或直接開啟本機 HTML 時顯示。
 各表單與常用資料的識別圖示依指定使用 `assets/icons/` 的 PNG，操作圖示維持 SVG。PWA 安裝與 Apple 主畫面圖示也保留平台所需的 PNG。
+
+品牌圖示依用途歸檔如下，全站頁首及離線頁使用文件托盤 Logo；PWA 與 Apple 主畫面圖示由該 Logo 原圖產生。
+
+| 原檔名 | 歸檔路徑 | 用途 |
+| --- | --- | --- |
+| `表單管理文件托盤圖示.png` | `assets/images/branding/form-center-logo.png` | 全站 Logo 與 PWA 圖示來源 |
+| `Favicon.ico` | `assets/images/branding/form-center-favicon.ico` | 瀏覽器分頁圖示（16、32、48 px） |
+| `Windows.ico` | `assets/images/branding/form-center-windows.ico` | Windows 多尺寸 ICO，亦提供瀏覽器 256 px 圖示 |
+
+首頁八種表單的 PNG 圖示依內容命名並集中歸檔於 `assets/icons/`，保留原圖透明背景：
+
+| 表單 | 圖示檔名 | 圖像內容 |
+| --- | --- | --- |
+| 請假單 | `leave-calendar-document.png` | 文件、行事曆與簽核勾選 |
+| 請款單 | `payment-banknote-document.png` | 文件、鈔票與硬幣 |
+| 加班申請單 | `overtime-clock-plus.png` | 文件、時鐘與加號 |
+| 出差申請單 | `travel-plane-suitcase.png` | 文件、飛機與行李箱 |
+| 採購申請單 | `purchase-cart-document.png` | 文件、購物車與包裹 |
+| 免用統一發票收據 | `receipt-itemized-stamp.png` | 明細收據與印章 |
+| 簡便式收據 | `simple-receipt-signature-check.png` | 收據、簽名筆與確認勾選 |
+| 支出證明單 | `expense-certificate-coins-shield.png` | 文件、硬幣與勾選盾牌 |
 
 ## 部署與更新
 
