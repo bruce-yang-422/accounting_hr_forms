@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#b65c22">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="表單中心">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/images/pwa/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/css/pwa.css">
+
+<title>線上公出申請單｜線上填寫與 PDF 列印｜表單填寫中心</title>
+<meta name="description" content="線上填寫公出申請單，同日公出起訖時間與時數計算，支援草稿、範本、A5 橫向預覽、列印與另存 PDF。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://office-forms.stack-base.com/forms/outing_request_form.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:site_name" content="表單填寫中心">
+<meta property="og:title" content="線上公出申請單｜線上填寫與 PDF 列印｜表單填寫中心">
+<meta property="og:description" content="線上填寫公出申請單，同日公出起訖時間與時數計算，支援草稿、範本、A5 橫向預覽、列印與另存 PDF。">
+<meta property="og:url" content="https://office-forms.stack-base.com/forms/outing_request_form.html">
+<meta property="og:image" content="https://office-forms.stack-base.com/assets/images/branding/form-center-hero-banner-desktop.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="2172">
+<meta property="og:image:height" content="724">
+<meta property="og:image:alt" content="表單填寫中心：請假單與請款單線上填寫工具">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="線上公出申請單｜線上填寫與 PDF 列印｜表單填寫中心">
+<meta name="twitter:description" content="線上填寫公出申請單，同日公出起訖時間與時數計算，支援草稿、範本、A5 橫向預覽、列印與另存 PDF。">
+<meta name="twitter:image" content="https://office-forms.stack-base.com/assets/images/branding/form-center-hero-banner-desktop.png">
+<meta name="twitter:image:alt" content="表單填寫中心：請假單與請款單線上填寫工具">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://office-forms.stack-base.com/forms/outing_request_form.html#webpage",
+      "url": "https://office-forms.stack-base.com/forms/outing_request_form.html",
+      "name": "線上公出申請單｜線上填寫與 PDF 列印｜表單填寫中心",
+      "description": "線上填寫公出申請單，同日公出起訖時間與時數計算，支援草稿、範本、A5 橫向預覽、列印與另存 PDF。",
+      "inLanguage": "zh-TW",
+      "isPartOf": {
+        "@id": "https://office-forms.stack-base.com/#website"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://office-forms.stack-base.com/assets/images/branding/form-center-hero-banner-desktop.png",
+        "width": 2172,
+        "height": 724
+      },
+      "breadcrumb": {
+        "@id": "https://office-forms.stack-base.com/forms/outing_request_form.html#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://office-forms.stack-base.com/forms/outing_request_form.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首頁",
+          "item": "https://office-forms.stack-base.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "公出申請單",
+          "item": "https://office-forms.stack-base.com/forms/outing_request_form.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="../assets/icons/brand.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="stylesheet" href="../assets/css/favorites-ui.css">
+<link rel="stylesheet" href="../assets/css/draft-library.css">
+<link rel="stylesheet" href="../assets/css/form-toolbar.css">
+<link rel="stylesheet" href="../assets/css/form-desktop.css">
+<link rel="stylesheet" href="../assets/css/request-forms.css">
+<link rel="stylesheet" href="../assets/css/icons.css">
+</head>
+<body>
+<!-- SVG ICONS:START -->
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden">
+  <!-- Original 24-unit line icons for the form center. -->
+  <symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7M5 9v11h5v-6h4v6h5V9"/></symbol>
+  <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 10h18m-14 4h3m4 0h3m-10 4h3"/><path d="m14 17 1.5 1.5L19 15"/></symbol>
+  <symbol id="icon-payment" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Zm0 0v6h6M8 12h3m-3 4h3"/><path d="M17 12v7m2-6h-3a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-3"/></symbol>
+  <symbol id="icon-overtime" viewBox="0 0 24 24"><circle cx="11" cy="13" r="8"/><path d="M11 8v5l3 2M8 2h6M19 4l2 2"/></symbol>
+  <symbol id="icon-travel" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M8 8V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3M3 14h18m-11-1v2m4-2v2"/></symbol>
+  <symbol id="icon-purchase" viewBox="0 0 24 24"><path d="M2 3h3l3 12h11l2-8H6"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></symbol>
+  <symbol id="icon-forms" viewBox="0 0 24 24"><rect x="5" y="5" width="15" height="16" rx="2"/><path d="M9 5V3H3v15m6-9h7m-7 4h7m-7 4h4"/></symbol>
+  <symbol id="icon-book" viewBox="0 0 24 24"><path d="M12 6C9 4 6 3.5 3 4v15c3-.5 6 0 9 2m0-15c3-2 6-2.5 9-2v15c-3-.5-6 0-9 2Zm-6 2 3 1m-3 3 3 1m6-4 3-1m-3 5 3-1"/></symbol>
+  <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="icon-construction" viewBox="0 0 24 24"><path d="M5 15v6m14-6v6M3 7h18v8H3Zm4 0 5 8m1-8 5 8"/></symbol>
+  <symbol id="icon-edit" viewBox="0 0 24 24"><path d="m14 5 5 5M4 20l1-6L16 3a2 2 0 0 1 3 0l2 2a2 2 0 0 1 0 3L10 19Zm1-6 5 5m-6 1 6-1"/></symbol>
+  <symbol id="icon-eye" viewBox="0 0 24 24"><path d="M2 12S5.5 5 12 5s10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="icon-printer" viewBox="0 0 24 24"><path d="M7 8V3h10v5M7 17H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-3M7 14h10v7H7Z"/><path d="M17 11h2"/></symbol>
+  <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3Zm5-5 3 3 3-3"/></symbol>
+  <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V3h8v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/></symbol>
+  <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10h.01"/></symbol>
+  <symbol id="icon-arrow-left" viewBox="0 0 24 24"><path d="M20 12H4m6-6-6 6 6 6"/></symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+  <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="icon-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></symbol>
+  <symbol id="icon-checkbox" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/></symbol>
+  <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Zm0 0v6h6M12 18v-7m-3 3 3-3 3 3"/></symbol>
+</svg>
+<!-- SVG ICONS:END -->
+<div id="fillPage">
+<header class="toolbar">
+  <div class="toolbar-inner">
+  <div class="toolbar-left">
+    <a class="toolbar-logo" href="../index.html" aria-label="回到首頁"><img src="../assets/icons/brand.svg" alt=""></a>
+    <div class="toolbar-brand">
+      <h1>公出申請單</h1>
+      <p>Official Outing Request</p>
+    </div>
+  </div>
+  <div class="toolbar-right">
+    <div class="toolbar-secondary" id="toolbarSecondary">
+      <button class="btn btn-outline-white" onclick="DraftLibrary.openSave()" title="儲存目前填寫內容">儲存草稿</button>
+      <button class="btn btn-outline-white" data-draft-library onclick="DraftLibrary.open()" title="開啟草稿庫，可搜尋、載入、命名及刪除">草稿庫</button>
+      <button type="button" class="btn btn-outline-white" data-template-library onclick="DraftLibrary.openTemplates()" title="套用及管理固定常用內容">範本庫</button>
+      <button class="btn btn-outline-white" data-recent-library onclick="DraftLibrary.openRecent()" title="載入最近列印紀錄">最近完成</button>
+      <a class="btn btn-outline-white" href="../index.html" title="返回首頁"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-left"></use></svg> 回到首頁</a>
+      <button class="btn btn-outline-white" onclick="fillSample()" title="填入範例資料"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-edit"></use></svg> 填入範例</button>
+      <button class="btn btn-outline-white" onclick="clearForm()" title="清除所有欄位"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-trash"></use></svg> 清除</button>
+    </div>
+    <button type="button" class="btn btn-outline-white toolbar-more-toggle" id="toolbarMore" aria-expanded="false" aria-controls="toolbarSecondary">更多 <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-more"></use></svg></button>
+    <button class="btn btn-white toolbar-primary" onclick="goToPreview()">下一步 <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg></button>
+  </div>
+  </div>
+</header>
+
+<main class="main"><details class="form-help" data-mobile-collapse open><summary>填寫與列印說明</summary><div class="banner"><span>同日公出起訖時間與時數計算。列印請選 <strong>A5 橫向（210 × 148 mm）</strong>、縮放 <strong>100%</strong>、邊距 <strong>無</strong>。</span></div></details><details class="form-doc-number" data-mobile-collapse open><summary>單據編號（選填）</summary><div class="doc-no-row"><div class="doc-no-badge"><label for="docNo">單據編號</label><input type="text" class="fi" id="docNo" maxlength="40"></div></div></details><div class="card"><div class="card-head"><div class="card-head-num">1</div><h2>基本資訊</h2></div><div class="card-body"><div class="frow"><div class="fg"><label class="flabel" for="reqDate">申請日期 <span class="req">*</span></label><input type="date" class="fi" id="reqDate" ></div><div class="fg"><label class="flabel" for="applicant">申請人 <span class="req">*</span></label><input type="text" class="fi" id="applicant" maxlength="30"></div><div class="fg"><label class="flabel" for="department">單位 <span class="req">*</span></label><input type="text" class="fi" id="department" maxlength="40"></div></div><div class="frow"><div class="fg"><label class="flabel" for="jobTitle">職稱</label><input type="text" class="fi" id="jobTitle" maxlength="30"></div></div></div></div><div class="card"><div class="card-head"><div class="card-head-num">2</div><h2>公出資訊</h2></div><div class="card-body"><div class="frow"><div class="fg"><label class="flabel" for="outingDate">公出日期 <span class="req">*</span></label><input type="date" class="fi" id="outingDate" ></div><div class="fg"><label class="flabel" for="startTime">開始時間 <span class="req">*</span></label><input type="time" class="fi" id="startTime" ></div><div class="fg"><label class="flabel" for="endTime">結束時間 <span class="req">*</span></label><input type="time" class="fi" id="endTime" ></div><div class="fg"><label class="flabel" for="duration">公出時數</label><input type="text" class="fi" id="duration" readonly></div></div><div class="frow"><div class="fg"><label class="flabel" for="destination">公出地點 <span class="req">*</span></label><input type="text" class="fi" id="destination" maxlength="80"></div><div class="fg"><label class="flabel" for="visitTarget">洽辦對象</label><input type="text" class="fi" id="visitTarget" maxlength="40"></div></div><div class="frow"><div class="fg"><label class="flabel" for="reason">公出事由 <span class="req">*</span></label><textarea class="fi form-textarea" id="reason" maxlength="120" ></textarea></div></div></div></div><div class="card"><div class="card-head"><div class="card-head-num">3</div><h2>聯絡與交接</h2></div><div class="card-body"><div class="frow"><div class="fg"><label class="flabel" for="transport">交通方式</label><input type="text" class="fi" id="transport" maxlength="30"></div><div class="fg"><label class="flabel" for="agent">職務代理人</label><input type="text" class="fi" id="agent" maxlength="30"></div><div class="fg"><label class="flabel" for="contactPhone">聯絡電話 <span class="req">*</span></label><input type="tel" class="fi" id="contactPhone" ></div></div><div class="frow"><div class="fg"><label class="flabel" for="remark">備註</label><textarea class="fi form-textarea" id="remark" maxlength="120" ></textarea></div></div></div></div>
+  <div class="card">
+    <div class="card-head"><div class="card-head-num">4</div><h2>審核資訊</h2></div>
+    <div class="card-body">
+      <p class="form-hint">由審核人填寫，尚未審核可留空。選擇同意或退回時，須填審核人及日期；退回時須說明原因。</p>
+      <div class="frow">
+        <div class="fg"><label class="flabel" for="reviewer">審核人</label><input type="text" class="fi" id="reviewer" maxlength="30"></div>
+        <div class="fg"><label class="flabel" for="reviewDate">審核日期</label><input type="date" class="fi" id="reviewDate"></div>
+        <div class="fg"><label class="flabel" for="reviewStatus">審核結果</label><select class="fi" id="reviewStatus"><option value="">尚未審核</option><option>同意</option><option>退回</option></select></div>
+      </div>
+      <div class="frow"><div class="fg"><label class="flabel" for="reviewComment">審核意見（退回時必填）</label><textarea class="fi form-textarea" id="reviewComment" maxlength="120"></textarea></div></div>
+      <p class="form-hint">列印簽核欄與審核項目可至<a href="../favorites.html#signoff-manager" target="_blank" rel="noopener">常用資料管理 → 簽核設定</a>調整。</p>
+    </div>
+  </div>
+</main>
+</div>
+
+<div id="previewPage">
+  <div class="pv-toolbar">
+    <div class="pv-toolbar-left">
+      <a class="btn btn-outline-white" href="../index.html"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-home"></use></svg> 回到首頁</a>
+      <button class="btn btn-outline-white" onclick="goBack()"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-left"></use></svg> 返回編輯</button>
+      <span class="pv-hint">確認內容後再列印</span>
+    </div>
+    <div class="pv-toolbar-right">
+      <span class="pv-hint">A5 橫向 210 × 148 mm</span>
+      <button class="btn btn-white" onclick="printRecord()"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-printer"></use></svg> 列印 / 另存 PDF</button>
+    </div>
+  </div>
+  <p class="pv-overflow-notice" id="pvOverflow" role="status" hidden>內容超過一頁，超出部分會被裁切。請返回編輯，精簡較長的文字。</p>
+
+  <div class="pv-outer">
+    <div class="pv-sheet operations-sheet" id="pvSheet">
+      <div class="pv-hd">
+        <div class="pv-hd-title">公出申請單</div>
+        <div class="pv-hd-meta">
+          <span class="pv-hd-field">單號：<span id="pv-docno" class="pv-hd-uline"></span></span>
+          <span class="pv-hd-divider">|</span>
+          <span class="pv-hd-field">日期：<span id="pv-date"></span></span>
+        </div>
+      </div>
+      <div class="pv-wrap"><div class="pv-row"><div class="pv-lbl" style="width:22mm">申請人</div><div class="pv-val pv-multi" id="pv-applicant"></div><div class="pv-lbl" style="width:22mm">單位</div><div class="pv-val pv-multi" id="pv-department"></div><div class="pv-lbl" style="width:22mm">職稱</div><div class="pv-val pv-multi" id="pv-jobTitle"></div></div><div class="pv-row"><div class="pv-lbl" style="width:22mm">公出期間</div><div class="pv-val pv-multi" id="pv-period"></div></div><div class="pv-row"><div class="pv-lbl" style="width:22mm">公出地點</div><div class="pv-val pv-multi" id="pv-destination"></div><div class="pv-lbl" style="width:22mm">洽辦對象</div><div class="pv-val pv-multi" id="pv-visitTarget"></div></div><div class="pv-row"><div class="pv-lbl" style="width:22mm">公出事由</div><div class="pv-val pv-multi" id="pv-reason"></div></div><div class="pv-row"><div class="pv-lbl" style="width:22mm">交通方式</div><div class="pv-val pv-multi" id="pv-transport"></div><div class="pv-lbl" style="width:22mm">代理人</div><div class="pv-val pv-multi" id="pv-agent"></div></div><div class="pv-row"><div class="pv-lbl" style="width:22mm">聯絡電話</div><div class="pv-val pv-multi" id="pv-contactPhone"></div></div><div class="pv-row"><div class="pv-lbl" style="width:22mm">備註</div><div class="pv-val pv-multi" id="pv-remark"></div></div><div class="pv-row ops-review-row"><div class="pv-lbl" style="width:22mm">審核人</div><div class="pv-val" id="pv-reviewer"></div><div class="pv-lbl" style="width:22mm">審核日期</div><div class="pv-val" id="pv-reviewDate"></div><div class="pv-lbl" style="width:22mm">審核結果</div><div class="pv-val" id="pv-reviewStatus"></div></div>
+<div class="pv-row ops-review-row"><div class="pv-lbl" style="width:22mm">審核意見</div><div class="pv-val pv-multi" id="pv-reviewComment"></div></div></div><div class="pv-spacer"></div>
+      <div class="pv-bottom">
+        <div class="pv-acct-cashier" data-review="outing"></div>
+        <div class="pv-sign" data-signoff="outing"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/form-toolbar.js"></script>
+<script src="../assets/js/favorites-ui.js"></script>
+<script src="../assets/js/form-recent-records.js"></script>
+<script src="../assets/js/form-templates.js"></script>
+<script src="../assets/js/signoff-store.js"></script>
+<script src="../assets/js/form-calculations.js"></script>
+<script src="../assets/js/form-page.js"></script>
+<script src="../assets/js/operational-forms.js"></script>
+<script src="../assets/js/forms/outing_request_form.js"></script>
+<script src="../assets/js/blank-form-print.js"></script>
+<script src="../assets/js/draft-library.js"></script>
+<script src="../assets/js/form-desktop.js"></script>
+<script src="../assets/js/profile-store.js"></script>
+<script src="../assets/js/profile-autofill.js"></script>
+<script src="../assets/js/pwa.js"></script>
+</body>
+</html>

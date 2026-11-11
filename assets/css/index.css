@@ -187,6 +187,22 @@ a.nav-logo:hover { background: rgba(255,255,255,.28); }
 .sec-head p  { font-size: 12px; color: var(--c-muted); margin-top: 1px; }
 
 /* FORM CARDS GRID */
+.form-filters { margin-bottom: 20px; }
+.form-filters[hidden], .form-card[hidden] { display: none; }
+.form-filter-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.form-filter-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  min-height: 44px; padding: 8px 16px;
+  border: 1.5px solid var(--c-border-md); border-radius: 24px;
+  background: var(--c-card); color: var(--c-blue-mid);
+  font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+}
+.form-filter-btn:hover { border-color: var(--c-accent); background: var(--c-blue-light); }
+.form-filter-btn[aria-pressed="true"] { background: var(--c-head-grad); border-color: var(--c-accent); color: #fff; }
+.form-filter-btn:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 3px; }
+.form-filter-count { font-size: 12px; }
+.form-filter-status { margin-top: 10px; font-size: 12px; color: var(--c-muted); }
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

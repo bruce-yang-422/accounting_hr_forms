@@ -3,6 +3,10 @@ const FormTemplates = (() => {
   const KEY = 'hr_form_templates';
   const LIMIT = 20;
   const fields = {
+    outing: ['startTime', 'endTime', 'destination', 'visitTarget', 'reason', 'transport', 'remark'],
+    petty_cash: ['cashMode', 'reason', ...Array.from({ length: 5 }, (_, i) => ['Name', 'Amount'].map(key => `item${i + 1}${key}`)).flat(), 'remark'],
+    supply: ['warehouse', 'reason', ...Array.from({ length: 5 }, (_, i) => ['Name', 'Spec', 'Qty', 'Unit'].map(key => `item${i + 1}${key}`)).flat(), 'remark'],
+    acceptance: ['supplier', 'location', 'reason', ...Array.from({ length: 5 }, (_, i) => ['Name', 'Spec', 'Ordered', 'Unit'].map(key => `item${i + 1}${key}`)).flat(), 'remark'],
     expense: ['acctCategory', 'reason', 'noVoucherReason', 'amount'],
     simple_receipt: ['payer', 'amount', 'payMethod', 'bankName', 'bankBranch', 'bankAccount', 'accountLast5', 'methodOther', 'reason', 'recipient', 'contactPhone'],
     receipt: ['sellerTaxId', 'buyer', 'buyerAddress', 'buyerTaxId', 'reason', 'paid', ...Array.from({ length: 7 }, (_, i) => ['Name', 'Qty', 'Price'].map(field => `item${i + 1}${field}`)).flat()],

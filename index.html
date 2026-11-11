@@ -147,10 +147,20 @@
     </div>
   </div>
 
-  <div class="form-grid">
+  <div class="form-filters" id="formFilters" hidden>
+    <div class="form-filter-options" role="group" aria-label="表單分類篩選">
+      <button type="button" class="form-filter-btn" data-category="all" aria-pressed="true" aria-controls="formGrid">全部 <span class="form-filter-count"></span></button>
+      <button type="button" class="form-filter-btn" data-category="hr" aria-pressed="false" aria-controls="formGrid">人事差勤 <span class="form-filter-count"></span></button>
+      <button type="button" class="form-filter-btn" data-category="finance" aria-pressed="false" aria-controls="formGrid">財務核銷 <span class="form-filter-count"></span></button>
+      <button type="button" class="form-filter-btn" data-category="purchase" aria-pressed="false" aria-controls="formGrid">採購 <span class="form-filter-count"></span></button>
+    </div>
+    <p class="form-filter-status" id="formFilterStatus" role="status" aria-live="polite" aria-atomic="true"></p>
+  </div>
+
+  <div class="form-grid" id="formGrid">
 
     <!-- 請假單 -->
-    <div class="form-card">
+    <div class="form-card" data-category="hr">
       <div class="fc-head">
         <div class="fc-icon fc-icon--image" aria-hidden="true">
           <img src="./assets/icons/leave-calendar-document.png" width="64" height="64" alt="" decoding="async">
@@ -179,7 +189,7 @@
     </div>
 
     <!-- 請款單 -->
-    <div class="form-card">
+    <div class="form-card" data-category="finance">
       <div class="fc-head">
         <div class="fc-icon fc-icon--image" aria-hidden="true">
           <img src="./assets/icons/payment-banknote-document.png" width="64" height="64" alt="" decoding="async">
@@ -208,7 +218,7 @@
     </div>
 
     <!-- 加班申請單 -->
-    <div class="form-card">
+    <div class="form-card" data-category="hr">
       <div class="fc-head">
         <div class="fc-icon fc-icon--image" aria-hidden="true">
           <img src="./assets/icons/overtime-clock-plus.png" width="64" height="64" alt="" decoding="async">
@@ -237,7 +247,7 @@
     </div>
 
     <!-- 出差申請單 -->
-    <div class="form-card">
+    <div class="form-card" data-category="hr">
       <div class="fc-head">
         <div class="fc-icon fc-icon--image" aria-hidden="true">
           <img src="./assets/icons/travel-plane-suitcase.png" width="64" height="64" alt="" decoding="async">
@@ -266,7 +276,7 @@
     </div>
 
     <!-- 採購申請單 -->
-    <div class="form-card">
+    <div class="form-card" data-category="purchase">
       <div class="fc-head">
         <div class="fc-icon fc-icon--image" aria-hidden="true">
           <img src="./assets/icons/purchase-cart-document.png" width="64" height="64" alt="" decoding="async">
@@ -294,19 +304,39 @@
       </div>
     </div>
 
-    <div class="form-card">
+    <div class="form-card" data-category="finance">
       <div class="fc-head"><div class="fc-icon fc-icon--image" aria-hidden="true"><img src="./assets/icons/receipt-itemized-stamp.png" width="64" height="64" alt="" decoding="async"></div><div class="fc-head-text"><div class="fc-title">免用統一發票收據</div><div class="fc-en">Uniform Invoice Exempt Receipt</div></div></div>
       <div class="fc-body"><div class="fc-preview"><div class="fc-preview-bar dark short"></div><div class="fc-preview-bar"></div><div class="fc-preview-bar shorter"></div><div class="fc-preview-bar short"></div></div><p class="fc-desc">通用／書局版，保留收據專用章區<br>品項金額與中文大寫自動計算</p><div class="fc-tags"><span class="fc-tag">通用／書局版</span><span class="fc-tag">A5 橫向</span><span class="fc-tag">PDF 輸出</span></div><a href="./forms/receipt_form.html" class="fc-btn">開始填寫 <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a></div>
     </div>
 
-    <div class="form-card">
+    <div class="form-card" data-category="finance">
       <div class="fc-head"><div class="fc-icon fc-icon--image" aria-hidden="true"><img src="./assets/icons/simple-receipt-signature-check.png" width="64" height="64" alt="" decoding="async"></div><div class="fc-head-text"><div class="fc-title">簡便式收據</div><div class="fc-en">General Receipt</div></div></div>
       <div class="fc-body"><div class="fc-preview"><div class="fc-preview-bar dark short"></div><div class="fc-preview-bar"></div><div class="fc-preview-bar shorter"></div><div class="fc-preview-bar short"></div></div><p class="fc-desc">適用個人、單位與各種臨時收款<br>實收金額、付款方式與簽名／蓋章區</p><div class="fc-tags"><span class="fc-tag">通用版</span><span class="fc-tag">A5 橫向</span><span class="fc-tag">PDF 輸出</span></div><a href="./forms/simple_receipt_form.html" class="fc-btn">開始填寫 <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a></div>
     </div>
 
-    <div class="form-card">
+    <div class="form-card" data-category="finance">
       <div class="fc-head"><div class="fc-icon fc-icon--image" aria-hidden="true"><img src="./assets/icons/expense-certificate-coins-shield.png" width="64" height="64" alt="" decoding="async"></div><div class="fc-head-text"><div class="fc-title">支出證明單</div><div class="fc-en">Expense Certificate</div></div></div>
       <div class="fc-body"><div class="fc-preview"><div class="fc-preview-bar dark short"></div><div class="fc-preview-bar"></div><div class="fc-preview-bar shorter"></div><div class="fc-preview-bar short"></div></div><p class="fc-desc">科目、事由及不能取得單據原因<br>金額位數、大寫金額與六欄簽核</p><div class="fc-tags"><span class="fc-tag">書局版</span><span class="fc-tag">A5 橫向</span><span class="fc-tag">PDF 輸出</span></div><a href="./forms/expense_certificate_form.html" class="fc-btn">開始填寫 <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a></div>
+    </div>
+
+    <div class="form-card" data-category="hr">
+      <div class="fc-head"><div class="fc-icon fc-icon--image" aria-hidden="true"><img src="./assets/icons/travel-plane-suitcase.png" width="64" height="64" alt="" decoding="async"></div><div class="fc-head-text"><div class="fc-title">公出申請單</div><div class="fc-en">Official Outing Request</div></div></div>
+      <div class="fc-body"><div class="fc-preview"><div class="fc-preview-bar dark short"></div><div class="fc-preview-bar"></div><div class="fc-preview-bar shorter"></div><div class="fc-preview-bar short"></div></div><p class="fc-desc">同日公出起訖時間與時數計算</p><div class="fc-tags"><span class="fc-tag">A5 橫向</span><span class="fc-tag">PDF 輸出</span></div><a href="./forms/outing_request_form.html" class="fc-btn">開始填寫 <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a></div>
+    </div>
+
+    <div class="form-card" data-category="finance">
+      <div class="fc-head"><div class="fc-icon fc-icon--image" aria-hidden="true"><img src="./assets/icons/payment-banknote-document.png" width="64" height="64" alt="" decoding="async"></div><div class="fc-head-text"><div class="fc-title">零用金申請單</div><div class="fc-en">Petty Cash Request</div></div></div>
+      <div class="fc-body"><div class="fc-preview"><div class="fc-preview-bar dark short"></div><div class="fc-preview-bar"></div><div class="fc-preview-bar shorter"></div><div class="fc-preview-bar short"></div></div><p class="fc-desc">預支或核銷撥付，支出合計與大寫金額</p><div class="fc-tags"><span class="fc-tag">A5 橫向</span><span class="fc-tag">PDF 輸出</span></div><a href="./forms/petty_cash_request_form.html" class="fc-btn">開始填寫 <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a></div>
+    </div>
+
+    <div class="form-card" data-category="purchase">
+      <div class="fc-head"><div class="fc-icon fc-icon--image" aria-hidden="true"><img src="./assets/icons/purchase-cart-document.png" width="64" height="64" alt="" decoding="async"></div><div class="fc-head-text"><div class="fc-title">物品領用單</div><div class="fc-en">Supply Requisition</div></div></div>
+      <div class="fc-body"><div class="fc-preview"><div class="fc-preview-bar dark short"></div><div class="fc-preview-bar"></div><div class="fc-preview-bar shorter"></div><div class="fc-preview-bar short"></div></div><p class="fc-desc">領用物品、規格、數量與保管人紀錄</p><div class="fc-tags"><span class="fc-tag">A5 橫向</span><span class="fc-tag">PDF 輸出</span></div><a href="./forms/supply_requisition_form.html" class="fc-btn">開始填寫 <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a></div>
+    </div>
+
+    <div class="form-card" data-category="purchase">
+      <div class="fc-head"><div class="fc-icon fc-icon--image" aria-hidden="true"><img src="./assets/icons/expense-certificate-coins-shield.png" width="64" height="64" alt="" decoding="async"></div><div class="fc-head-text"><div class="fc-title">採購驗收單</div><div class="fc-en">Purchase Acceptance</div></div></div>
+      <div class="fc-body"><div class="fc-preview"><div class="fc-preview-bar dark short"></div><div class="fc-preview-bar"></div><div class="fc-preview-bar shorter"></div><div class="fc-preview-bar short"></div></div><p class="fc-desc">訂購、實收與合格數量核對及異常處理</p><div class="fc-tags"><span class="fc-tag">A5 橫向</span><span class="fc-tag">PDF 輸出</span></div><a href="./forms/purchase_acceptance_form.html" class="fc-btn">開始填寫 <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a></div>
     </div>
 
     <!-- 即將推出 -->
@@ -408,6 +438,7 @@ function closeNav() {
   document.getElementById('navHamburger').setAttribute('aria-expanded', false);
 }
 </script>
+<script src="./assets/js/form-filter.js"></script>
 <script src="./assets/js/pwa.js"></script>
 </body>
 </html>

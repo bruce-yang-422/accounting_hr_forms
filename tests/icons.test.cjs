@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const { readFileSync } = require('node:fs');
 const { resolve } = require('node:path');
 const root = resolve(__dirname, '..');
-const pages = ['index.html', 'guide.html', 'favorites.html', '404.html', 'offline.html', 'forms/leave_request_form.html', 'forms/payment_request_form.html', 'forms/overtime_request_form.html', 'forms/travel_request_form.html', 'forms/purchase_request_form.html', 'forms/receipt_form.html', 'forms/simple_receipt_form.html', 'forms/expense_certificate_form.html'];
+const pages = ['index.html', 'guide.html', 'favorites.html', '404.html', 'offline.html', 'forms/leave_request_form.html', 'forms/payment_request_form.html', 'forms/overtime_request_form.html', 'forms/travel_request_form.html', 'forms/purchase_request_form.html', 'forms/receipt_form.html', 'forms/simple_receipt_form.html', 'forms/expense_certificate_form.html', 'forms/outing_request_form.html', 'forms/petty_cash_request_form.html', 'forms/supply_requisition_form.html', 'forms/purchase_acceptance_form.html'];
 const emoji = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\uFE0F]/u;
 const read = path => readFileSync(resolve(root, path), 'utf8');
 

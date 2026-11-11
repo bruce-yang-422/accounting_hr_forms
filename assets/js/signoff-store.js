@@ -4,6 +4,10 @@ const SignoffStore = (() => {
   const MAX_BOXES = 6;
   const MAX_NAME = 10;
   const FORMS = [
+    { id: 'outing', label: '公出申請單', defaults: ['申請人', '代理人', '部門主管', '人資'] },
+    { id: 'petty_cash', label: '零用金申請單', defaults: ['申請人', '部門主管', '會計', '出納', '領款人'] },
+    { id: 'supply', label: '物品領用單', defaults: ['領用人', '部門主管', '保管人', '發放人'] },
+    { id: 'acceptance', label: '採購驗收單', defaults: ['驗收人', '採購', '保管人', '部門主管', '會計'] },
     { id: 'expense', label: '支出證明單', defaults: ['核准', '會計', '覆核', '出納', '經辦', '製單'] },
     { id: 'leave', label: '請假單', defaults: ['申請人', '代理人', '核決主管', '人資', '備查', '歸檔'] },
     { id: 'payment', label: '請款單', defaults: ['總經理', '經理', '覆核', '會計', '出納', '製單'] },
@@ -82,6 +86,10 @@ const ReviewStore = (() => {
   const approve = { name: '核決主管', options: ['同意', '退回'] };
   const line = name => ({ name, options: [] });
   const DEFAULTS = {
+    outing: [approve, line('人資確認')],
+    petty_cash: [approve, line('撥付日期'), line('核銷確認')],
+    supply: [approve, line('發放日期')],
+    acceptance: [approve, line('改善追蹤')],
     expense: [],
     leave: [{ name: '核決主管審核', options: ['同意', '退回'] }, line('人資確認'), line('簽核備註')],
     payment: [line('科目代碼'), { name: '稅別', options: ['應稅', '免稅', '零稅率'] }, line('憑證編號'), line('付款日期'), line('付款編號')],

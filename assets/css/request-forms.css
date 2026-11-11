@@ -2,6 +2,19 @@
 .form-textarea { height: 76px; padding: 9px 11px; resize: vertical; }
 .choice-block { flex: 0 0 auto; max-width: 100%; }
 .form-hint { font-size: 12px; color: var(--c-muted); margin: 0; }
+.ops-items { margin-top: 12px; }
+.ops-item { min-width: 0; border: 1px solid var(--c-border); border-radius: 8px; padding: 12px; margin-bottom: 12px; }
+.ops-item legend { padding-inline: 6px; color: var(--c-muted); font-size: 12px; }
+.ops-item .frow { flex-wrap: wrap; }
+.ops-item .fg { flex: 1 1 120px; min-width: 0; }
+.operations-sheet .pv-row { min-height: 7mm; }
+.operations-sheet .pv-items th, .operations-sheet .pv-items td { height: 6mm; }
+.operations-sheet .pv-bottom, .operations-sheet .pv-sign { flex: 0 0 auto; }
+.operations-sheet .pv-sign-body { height: 15mm; min-height: 15mm; }
+.operations-sheet .pv-lbl { font-size: 8pt; }
+.operations-sheet .ops-review-row { min-height: 6mm; }
+.operations-sheet.acceptance-sheet .pv-row { min-height: 6mm; }
+.operations-sheet.acceptance-sheet .pv-items th, .operations-sheet.acceptance-sheet .pv-items td { height: 5mm; }
 
 @media (max-width: 480px) {
   .frow > .fg:not(.fg-sm):not(.choice-block) { flex: 1 1 100%; }
