@@ -387,6 +387,7 @@ function buildBookstorePreview() {
 }
 
 function buildPreview() {
+  SignoffStore.refreshPreview?.();
   buildBookstorePreview();
   pset('pv-docno', gv('docNo'));
   pset('pv-date', gv('reqDate'));

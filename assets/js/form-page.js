@@ -102,6 +102,7 @@ const FormPage = (() => {
       text('pv-docno', value('docNo'));
       text('pv-date', FormCalc.slashDate(value('reqDate')));
       options.preview();
+      if (typeof SignoffStore !== 'undefined') SignoffStore.refreshPreview?.();
     }
     function goToPreview() {
       const missing = validateForm();

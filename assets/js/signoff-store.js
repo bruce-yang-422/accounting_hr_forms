@@ -72,8 +72,11 @@ const SignoffStore = (() => {
   function render(container) {
     const names = get(container.dataset.signoff);
     container.style.gridTemplateColumns = `repeat(${names.length}, 1fr)`;
-    container.replaceChildren(...names.map(name => {
+    const fixedOrder = !container.closest('.bookstore-sheet');
+    if (fixedOrder) container.style.direction = 'ltr';
+    container.replaceChildren(...names.map((name, index) => {
       const cell = document.createElement('div'); cell.className = 'pv-sign-cell';
+      if (fixedOrder) cell.style.gridColumn = String(index + 1);
       const head = document.createElement('div'); head.className = 'pv-sign-head'; head.textContent = name;
       const body = document.createElement('div'); body.className = 'pv-sign-body';
       cell.append(head, body);
@@ -81,13 +84,16 @@ const SignoffStore = (() => {
     }));
   }
   function renderAll() { document.querySelectorAll('[data-signoff]').forEach(render); }
+  function refreshPreview() {
+    document.querySelectorAll('#previewPage .pv-sheet:not(.bookstore-sheet) [data-signoff]').forEach(render);
+  }
   if (typeof document !== 'undefined') {
     document.addEventListener('DOMContentLoaded', renderAll);
     // The manager opens in another tab, so an open form picks up changes without a reload.
     window.addEventListener('storage', event => { if (event.key === null || event.key === KEY) renderAll(); });
   }
 
-  return { KEY, MAX_BOXES, MAX_NAME, FORMS, validate, load, isCustom, get, check, save, reset, merge, render, renderAll };
+  return { KEY, MAX_BOXES, MAX_NAME, FORMS, validate, load, isCustom, get, check, save, reset, merge, render, renderAll, refreshPreview };
 })();
 
 /* The review section above the sign-off boxes. An item with options prints checkboxes, otherwise a blank line. */

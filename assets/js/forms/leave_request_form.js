@@ -713,6 +713,8 @@ function buildBookstorePreview(leaveType) {
 }
 
 function buildPreview() {
+  // Re-read settings for the full layout; the bookstore layout keeps its existing design.
+  SignoffStore.refreshPreview?.();
   const leaveTypeMap = {
     annual: '特休',
     personal: '事假',
