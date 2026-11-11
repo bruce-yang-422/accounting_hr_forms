@@ -138,7 +138,24 @@
 <!-- MAIN -->
 <main class="idx-main">
 
+  <div class="form-shortcuts" id="formShortcuts" role="group" aria-label="表單快捷功能" hidden>
+    <button type="button" class="shortcut-card" data-shortcut="recent" aria-controls="shortcutPanel" aria-expanded="false">
+      <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-clock"></use></svg>
+      <span class="shortcut-card-text"><strong>最近使用</strong><span>快速開啟</span></span><span class="shortcut-count" id="shortcutRecentCount">0 種</span>
+    </button>
+    <button type="button" class="shortcut-card" data-shortcut="favorites" aria-controls="shortcutPanel" aria-expanded="false">
+      <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.78 5.63L21 9.54l-4.5 4.39L17.56 20 12 17.08 6.44 20l1.06-6.07L3 9.54l6.22-.91Z"></path></svg>
+      <span class="shortcut-card-text"><strong>我的收藏</strong><span>常用表單</span></span><span class="shortcut-count" id="shortcutFavoritesCount">0 種</span>
+    </button>
+    <button type="button" class="shortcut-card" data-shortcut="drafts" aria-controls="shortcutPanel" aria-expanded="false">
+      <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-edit"></use></svg>
+      <span class="shortcut-card-text"><strong>未完成草稿</strong><span>繼續填寫</span></span><span class="shortcut-count" id="shortcutDraftsCount">0 筆</span>
+    </button>
+  </div>
+  <p class="shortcut-message" id="shortcutStatus" role="status"></p>
+
   <!-- FORM LIST -->
+  <div class="form-list-toolbar">
   <div class="sec-head">
     <div class="sec-head-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-forms"></use></svg></div>
     <div>
@@ -155,6 +172,7 @@
       <button type="button" class="form-filter-btn" data-category="purchase" aria-pressed="false" aria-controls="formGrid">採購 <span class="form-filter-count"></span></button>
     </div>
     <p class="form-filter-status" id="formFilterStatus" role="status" aria-live="polite" aria-atomic="true"></p>
+  </div>
   </div>
 
   <div class="form-grid" id="formGrid">
@@ -439,6 +457,9 @@ function closeNav() {
 }
 </script>
 <script src="./assets/js/form-filter.js"></script>
+<script src="./assets/js/form-recent-records.js"></script>
+<script src="./assets/js/form-shortcuts-store.js"></script>
+<script src="./assets/js/index-shortcuts.js"></script>
 <script src="./assets/js/pwa.js"></script>
 </body>
 </html>

@@ -214,6 +214,14 @@ window.DraftLibrary = (() => {
     window.addEventListener('storage', event => {
       if (event.key === null || [FormTemplates.KEY, `hr_form_draft_${config.type}`, `hr_form_recent_${config.type}`].includes(event.key)) { updateSession(); if (dialog.open && !saveState) renderLibrary(); }
     }); updateSession();
+    const draftId = new URLSearchParams(window.location.search).get('draft');
+    if (draftId) {
+      try {
+        loadRecord(draftId, 'drafts');
+        const url = new URL(window.location.href); url.searchParams.delete('draft');
+        window.history.replaceState(window.history.state, '', url.href);
+      } catch (error) { open('drafts'); fail(error); }
+    }
   }
   document.addEventListener('DOMContentLoaded', init);
   return { open, openSave: () => openSave('drafts'), openTemplates: () => open('templates'), openRecent: () => open('recent'), resetCurrent, refreshCounts: updateSession,
