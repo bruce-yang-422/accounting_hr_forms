@@ -18,8 +18,8 @@
   };
   const date = value => Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false }) : '時間未記錄';
   const time = value => Number.isFinite(Date.parse(value)) ? Date.parse(value) : 0;
-  const titles = { recent: '最近使用', favorites: '我的收藏', drafts: '未完成草稿' };
-  const emptyMessages = { recent: '還沒有使用紀錄，開啟表單後會自動出現在這裡。', favorites: '還沒有收藏，按表單標題旁的星號即可加入。', drafts: '目前沒有已儲存的草稿。填寫表單時按「儲存草稿」，即可從這裡繼續。' };
+  const titles = { recent: '最近使用', drafts: '未完成草稿' };
+  const emptyMessages = { recent: '還沒有使用紀錄，開啟表單後會自動出現在這裡。', drafts: '目前沒有已儲存的草稿。填寫表單時按「儲存草稿」，即可從這裡繼續。' };
   const favoriteButtons = new Map();
   let active = 'recent';
   let opener;
@@ -36,7 +36,7 @@
 
   function collapse(focus) {
     panel.hidden = true;
-    shortcuts.querySelectorAll('[data-shortcut]').forEach(button => button.setAttribute('aria-expanded', 'false'));
+    shortcuts.querySelectorAll('[data-shortcut]:not([data-shortcut="favorites"])').forEach(button => button.setAttribute('aria-expanded', 'false'));
     if (focus) opener?.focus();
   }
 
@@ -64,16 +64,14 @@
     catch { document.getElementById('shortcutRecentCount').textContent = '無法讀取'; }
     const saved = drafts();
     document.getElementById('shortcutDraftsCount').textContent = `${saved.records.length} 筆${saved.errors.length ? '・部分無法讀取' : ''}`;
+    window.dispatchEvent(new Event('form-favorites-changed'));
   }
   function toggle(type) {
     try {
       FormShortcuts.toggleFavorite(type); refresh();
       const status = document.getElementById('shortcutStatus'); delete status.dataset.error;
       status.textContent = `${formOf(type).label}${FormShortcuts.favorites().includes(type) ? '已加入收藏' : '已取消收藏'}`;
-      if (!panel.hidden && active === 'favorites') {
-        const restoreFocus = panel.contains(document.activeElement);
-        render(); if (restoreFocus) (list.querySelector('.shortcut-unfavorite') || heading).focus();
-      }
+
     } catch (error) {
       if (!panel.hidden) message.textContent = `未能更新收藏：${error.message}`;
       else {
@@ -90,27 +88,20 @@
       if (active === 'drafts') {
         const saved = drafts(); entries = saved.records;
         if (saved.errors.length) message.textContent = `以下表單的草稿無法讀取：${saved.errors.join('、')}。其他草稿仍可開啟。`;
-      } else entries = active === 'recent' ? FormShortcuts.recent().map(record => ({ form: formOf(record.type), usedAt: record.usedAt })) : FormShortcuts.favorites().map(type => ({ form: formOf(type) }));
+      } else entries = FormShortcuts.recent().map(record => ({ form: formOf(record.type), usedAt: record.usedAt }));
       if (!entries.length) list.append(node('p', 'shortcut-empty', emptyMessages[active]));
       entries.forEach(({ form, record, usedAt }) => {
         const row = node('article', 'shortcut-row');
         const info = node('div', 'shortcut-info');
         info.append(node('h3', '', record ? record.title : form.label));
         if (record || usedAt) info.append(node('p', '', record ? `${form.label} · 更新 ${date(record.updatedAt)}` : `最近開啟 ${date(usedAt)}`));
-        const actions = node('div', 'shortcut-row-actions');
         const link = node('a', 'shortcut-row-link');
         link.href = `./${form.path}${record ? `?draft=${encodeURIComponent(record.id)}` : ''}`;
         link.setAttribute('aria-label', `${record ? '繼續填寫' : '開啟'}${form.label}${record ? `：${record.title}` : ''}`);
         link.title = `${record ? '繼續填寫' : '開啟'}${form.label}`;
         const actionHint = node('span', 'shortcut-link-hint', record ? '繼續填寫' : '開啟');
         actionHint.append(icon('open')); link.append(info, actionHint);
-        if (active === 'favorites') {
-          const remove = node('button', 'shortcut-action shortcut-unfavorite'); remove.type = 'button';
-          remove.append(icon('star')); remove.title = `取消收藏${form.label}`;
-          remove.setAttribute('aria-label', `取消收藏${form.label}`); remove.setAttribute('aria-pressed', 'true');
-          remove.addEventListener('click', () => toggle(form.type)); actions.prepend(remove);
-        }
-        row.append(link); if (actions.childElementCount) row.append(actions); list.append(row);
+        row.append(link); list.append(row);
       });
     } catch (error) { message.textContent = error.message; }
   }
@@ -122,11 +113,17 @@
     card.querySelector('.fc-head').append(favorite); favoriteButtons.set(form.type, favorite);
   });
   shortcuts.querySelectorAll('[data-shortcut]').forEach(button => {
-    button.removeAttribute('aria-haspopup'); button.setAttribute('aria-controls', panel.id); button.setAttribute('aria-expanded', 'false');
+    button.removeAttribute('aria-haspopup');
+    if (button.dataset.shortcut === 'favorites') {
+      button.removeAttribute('aria-expanded'); button.setAttribute('aria-controls', 'formGrid');
+      button.title = '只看收藏表單，再按一次取消篩選';
+      button.addEventListener('click', () => collapse(false)); return;
+    }
+    button.setAttribute('aria-controls', panel.id); button.setAttribute('aria-expanded', 'false');
     button.addEventListener('click', () => {
       if (!panel.hidden && active === button.dataset.shortcut) { collapse(false); return; }
       opener = button; active = button.dataset.shortcut; render(); panel.hidden = false;
-      shortcuts.querySelectorAll('[data-shortcut]').forEach(option => option.setAttribute('aria-expanded', String(option === button)));
+      shortcuts.querySelectorAll('[data-shortcut]:not([data-shortcut="favorites"])').forEach(option => option.setAttribute('aria-expanded', String(option === button)));
     });
   });
   document.addEventListener('keydown', event => {
