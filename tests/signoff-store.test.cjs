@@ -30,14 +30,41 @@ test('every form has one to six default boxes, and its page has a sign-off slot'
 test('saving trims names, drops blank boxes and keeps other forms; reset restores defaults', () => {
   const { api } = setup();
   api.save('leave', ['老闆']);
-  assert.deepEqual(plain(api.save('payment', [' 申請人 ', '', '老闆', '   ', '', ''])), ['申請人', '老闆']);
-  assert.deepEqual(plain(api.get('payment')), ['申請人', '老闆']);
+  assert.deepEqual(plain(api.save('payment', [' 申請人 ', '', '老闆', '   ', '', ''])), ['老闆', '申請人']);
+  assert.deepEqual(plain(api.get('payment')), ['老闆', '申請人']);
   assert.equal(api.isCustom('payment'), true);
   assert.deepEqual(plain(api.get('leave')), ['老闆']);
   api.reset('payment');
   assert.equal(api.isCustom('payment'), false);
   assert.equal(api.get('payment').length, 6);
   assert.deepEqual(plain(api.get('leave')), ['老闆']);
+});
+
+test('all default layouts place approvers on the left and the originator on the far right', () => {
+  const { api } = setup();
+  api.FORMS.forEach(form => {
+    const names = api.get(form.id);
+    assert.match(names[0], /^(總經理|部門主管|核決主管|核准)$/u, form.id);
+    assert.match(names.at(-1), /^(製單|製單人|申請人)$/u, form.id);
+    assert.deepEqual(plain(names), plain(form.defaults), form.id);
+  });
+  const html = readFileSync(resolve(root, 'forms/leave_request_form.html'), 'utf8');
+  const bookstore = html.slice(html.indexOf('id="bookstoreSheet"'), html.indexOf('id="pvSheet"'));
+  assert.ok(bookstore.includes('data-signoff="leave"'));
+});
+
+test('saved and imported common titles use descending seniority without changing equal-level custom order', () => {
+  const { api } = setup(JSON.stringify({ travel: ['申請人', '代理人', '部門主管', '人資', '會計', '總經理'] }));
+  assert.deepEqual(plain(api.get('travel')), ['總經理', '部門主管', '人資', '會計', '代理人', '申請人']);
+  assert.deepEqual(plain(api.save('payment', ['製單人', '出納', '會計', '覆核', '經理', '總經理'])), ['總經理', '經理', '覆核', '會計', '出納', '製單人']);
+  assert.deepEqual(plain(api.validate({ outing: ['申請人', '自訂乙', '自訂甲', '部門主管'] }).outing), ['部門主管', '自訂乙', '自訂甲', '申請人']);
+});
+
+test('legacy supply and acceptance defaults acquire a rightmost originator while custom labels remain intact', () => {
+  const { api } = setup(JSON.stringify({ supply: ['領用人', '部門主管', '保管人', '發放人'], acceptance: ['驗收人', '採購', '保管人', '部門主管', '會計'] }));
+  assert.equal(api.get('supply').at(-1), '申請人');
+  assert.equal(api.get('acceptance').at(-1), '製單人');
+  assert.deepEqual(plain(api.save('supply', ['自訂欄位', '申請人'])), ['自訂欄位', '申請人']);
 });
 
 test('invalid settings are refused without changing what is stored', () => {

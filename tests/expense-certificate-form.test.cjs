@@ -67,6 +67,6 @@ test('expense templates exclude transaction identifiers; signature defaults matc
     reason: '搬運費', noVoucherReason: '無法取得收據', amount: '1500', amountChinese: '舊金額' });
   assert.equal(fields.noVoucherReason, '無法取得收據');
   for (const key of ['reqDate', 'docNo', 'amountChinese']) assert.equal(Object.hasOwn(fields, key), false);
-  assert.deepEqual(JSON.parse(JSON.stringify(context.signoffs.get('expense'))), ['核准', '會計', '覆核', '出納', '經辦', '製單']);
+  assert.deepEqual(JSON.parse(JSON.stringify(context.signoffs.get('expense'))), ['核准', '覆核', '會計', '出納', '經辦', '製單']);
   assert.equal(context.reviews.get('expense').length, 0);
 });

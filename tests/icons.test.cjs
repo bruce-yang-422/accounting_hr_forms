@@ -26,8 +26,8 @@ test('every page embeds the same original SVG library and resolves all icon refe
 
 test('form identity artwork is used on its pages and works offline', () => {
   const art = {
-    'index.html': ['leave-calendar-document.png', 'payment-banknote-document.png', 'overtime-clock-plus.png', 'travel-plane-suitcase.png', 'purchase-cart-document.png', 'receipt-itemized-stamp.png', 'simple-receipt-signature-check.png', 'expense-certificate-coins-shield.png'],
-    'favorites.html': ['profile-folder-sync.png'],
+    'index.html': ['leave-calendar-document.svg', 'payment-banknote-document.svg', 'overtime-clock-plus.svg', 'travel-plane-suitcase.svg', 'purchase-cart-document.svg', 'receipt-itemized-stamp.svg', 'simple-receipt-signature-check.svg', 'expense-certificate-coins-shield.svg', 'outing-map-pin-document.svg', 'petty-cash-box-document.svg', 'supply-boxes-handover.svg', 'purchase-acceptance-clipboard-box.svg'],
+    'favorites.html': ['profile-folder-sync.svg'],
   };
   const worker = read('service-worker.js');
   for (const [page, names] of Object.entries(art)) {
@@ -40,6 +40,12 @@ test('form identity artwork is used on its pages and works offline', () => {
     });
   }
   for (const path of ['assets/icons/brand.svg', 'assets/icons/ui.svg', 'assets/css/icons.css']) assert.ok(worker.includes(`"${path}"`), path);
+});
+
+test('every form card has its own identity icon', () => {
+  const icons = [...read('index.html').matchAll(/fc-icon--image[^>]*>\s*<img src="([^"]+)"/g)].map(match => match[1]);
+  assert.equal(icons.length, 12);
+  assert.equal(new Set(icons).size, icons.length);
 });
 
 test('functional arrow and checkbox glyphs are rendered with SVG rather than text', () => {

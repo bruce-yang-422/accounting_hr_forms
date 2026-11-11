@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ReviewStore.reset(form.id);
     }, '已恢復預設。'));
 
-    article.append(heading, make('p', 'signoff-section', '簽核欄（由左到右列印）'), boxes,
+    article.append(heading, make('p', 'signoff-section', '簽核欄（左側職級最高，右側製單人／申請人；常見職稱自動排序）'), boxes,
       make('p', 'signoff-section', '審核區（左：名稱；右：勾選項目，以「、」分隔）'), reviews, actions, status);
     show();
     return { article, show };

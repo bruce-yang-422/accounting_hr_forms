@@ -71,6 +71,8 @@
 人事差勤包含請假、加班、出差及公出；財務核銷包含請款、兩種收據、支出證明及零用金；採購包含採購申請、物品領用及採購驗收。
 公出、零用金、物品領用及採購驗收沿用既有表單的紙本審核設計，
 於列印預覽底部提供主管同意／退回勾選、各單位確認填寫線及簽名蓋章欄，可至「簽核設定」自訂。
+簽核欄統一由左側高階主管往右排列，最右為製單人／申請人，簽核流程由右向左；請假書店版也使用相同簽核欄。
+常見職稱會自動依層級排序；同級或自訂職稱保留相對順序，自訂職稱列於中段。
 頁首只保留「首頁」與「常用資料管理」，避免表單增加後導覽擁擠。
 常用資料清單與表單選擇視窗每頁顯示 20 或 50 筆，
 搜尋與篩選涵蓋全部資料，不必逐頁尋找。
@@ -316,22 +318,26 @@ PWA 測試會比對原始檔與快取版本；若提示版本不符，請先執�
 
 頁面中 `SVG ICONS:START` 至 `SVG ICONS:END` 為產生區塊，請修改來源圖示後重建，
 避免直接改寫。行內圖示可在離線或直接開啟本機 HTML 時顯示。
-各表單與常用資料的識別圖示依指定使用 `assets/icons/` 的 PNG，操作圖示維持 SVG。PWA 安裝與 Apple 主畫面圖示也保留平台所需的 PNG。
+各表單與常用資料的識別圖示使用 `assets/icons/` 的獨立 SVG，操作圖示同樣為 SVG。PWA 安裝與 Apple 主畫面圖示保留平台所需的 PNG。
 
 全站頁首、離線頁與瀏覽器分頁使用 `assets/icons/brand.svg`；PWA 與 Apple 主畫面圖示由原有 `assets/images/branding/form-center.ico` 產生。
 
-首頁十二種表單的 PNG 圖示依內容命名並集中歸檔於 `assets/icons/`，保留原圖透明背景：
+首頁十二種表單的 SVG 圖示依內容命名並集中歸檔於 `assets/icons/`，背景透明：
 
 | 表單 | 圖示檔名 | 圖像內容 |
 | --- | --- | --- |
-| 請假單 | `leave-calendar-document.png` | 文件、行事曆與簽核勾選 |
-| 請款單 | `payment-banknote-document.png` | 文件、鈔票與硬幣 |
-| 加班申請單 | `overtime-clock-plus.png` | 文件、時鐘與加號 |
-| 出差申請單 | `travel-plane-suitcase.png` | 文件、飛機與行李箱 |
-| 採購申請單 | `purchase-cart-document.png` | 文件、購物車與包裹 |
-| 免用統一發票收據 | `receipt-itemized-stamp.png` | 明細收據與印章 |
-| 簡便式收據 | `simple-receipt-signature-check.png` | 收據、簽名筆與確認勾選 |
-| 支出證明單 | `expense-certificate-coins-shield.png` | 文件、硬幣與勾選盾牌 |
+| 請假單 | `leave-calendar-document.svg` | 文件、行事曆與簽核勾選 |
+| 請款單 | `payment-banknote-document.svg` | 文件、鈔票與硬幣 |
+| 加班申請單 | `overtime-clock-plus.svg` | 文件、時鐘與加號 |
+| 出差申請單 | `travel-plane-suitcase.svg` | 文件、飛機與行李箱 |
+| 採購申請單 | `purchase-cart-document.svg` | 文件、購物車與包裹 |
+| 免用統一發票收據 | `receipt-itemized-stamp.svg` | 明細收據與印章 |
+| 簡便式收據 | `simple-receipt-signature-check.svg` | 收據、簽名筆與確認勾選 |
+| 支出證明單 | `expense-certificate-coins-shield.svg` | 文件、硬幣與勾選盾牌 |
+| 公出申請單 | `outing-map-pin-document.svg` | 文件、地圖與定位點 |
+| 零用金申請單 | `petty-cash-box-document.svg` | 文件、現金盒與硬幣 |
+| 物品領用單 | `supply-boxes-handover.svg` | 文件、堆疊紙箱與領出箭頭 |
+| 採購驗收單 | `purchase-acceptance-clipboard-box.svg` | 檢核板、包裹與確認勾選 |
 
 ## 部署與更新
 

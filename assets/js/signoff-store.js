@@ -4,19 +4,32 @@ const SignoffStore = (() => {
   const MAX_BOXES = 6;
   const MAX_NAME = 10;
   const FORMS = [
-    { id: 'outing', label: '公出申請單', defaults: ['申請人', '代理人', '部門主管', '人資'] },
-    { id: 'petty_cash', label: '零用金申請單', defaults: ['申請人', '部門主管', '會計', '出納', '領款人'] },
-    { id: 'supply', label: '物品領用單', defaults: ['領用人', '部門主管', '保管人', '發放人'] },
-    { id: 'acceptance', label: '採購驗收單', defaults: ['驗收人', '採購', '保管人', '部門主管', '會計'] },
-    { id: 'expense', label: '支出證明單', defaults: ['核准', '會計', '覆核', '出納', '經辦', '製單'] },
-    { id: 'leave', label: '請假單', defaults: ['申請人', '代理人', '核決主管', '人資', '備查', '歸檔'] },
+    { id: 'outing', label: '公出申請單', defaults: ['部門主管', '人資', '代理人', '申請人'] },
+    { id: 'petty_cash', label: '零用金申請單', defaults: ['部門主管', '會計', '出納', '領款人', '申請人'] },
+    { id: 'supply', label: '物品領用單', defaults: ['部門主管', '保管人', '發放人', '申請人'] },
+    { id: 'acceptance', label: '採購驗收單', defaults: ['部門主管', '會計', '採購', '保管人', '驗收人', '製單人'] },
+    { id: 'expense', label: '支出證明單', defaults: ['核准', '覆核', '會計', '出納', '經辦', '製單'] },
+    { id: 'leave', label: '請假單', defaults: ['核決主管', '人資', '代理人', '備查', '歸檔', '申請人'] },
     { id: 'payment', label: '請款單', defaults: ['總經理', '經理', '覆核', '會計', '出納', '製單'] },
-    { id: 'overtime', label: '加班申請單', defaults: ['申請人', '直屬主管', '部門主管', '人資', '薪資', '歸檔'] },
-    { id: 'travel', label: '出差申請單', defaults: ['申請人', '代理人', '部門主管', '人資', '會計', '總經理'] },
-    { id: 'purchaseSimple', label: '採購申請單（精簡版）', defaults: ['申請人', '部門主管', '會計'] },
-    { id: 'purchaseFull', label: '採購申請單（完整版）', defaults: ['申請人', '部門主管', '採購', '會計', '財務', '總經理'] },
+    { id: 'overtime', label: '加班申請單', defaults: ['部門主管', '直屬主管', '人資', '薪資', '歸檔', '申請人'] },
+    { id: 'travel', label: '出差申請單', defaults: ['總經理', '部門主管', '人資', '會計', '代理人', '申請人'] },
+    { id: 'purchaseSimple', label: '採購申請單（精簡版）', defaults: ['部門主管', '會計', '申請人'] },
+    { id: 'purchaseFull', label: '採購申請單（完整版）', defaults: ['總經理', '部門主管', '財務', '會計', '採購', '申請人'] },
   ];
   const formOf = id => FORMS.find(form => form.id === id);
+  // Equal-level and unfamiliar titles retain their configured relative order.
+  const rankGroups = [
+    ['董事長', '負責人', '老闆'], ['總經理'], ['副總經理'], ['核准', '核決主管'],
+    ['部門主管', '經理'], ['直屬主管'], ['覆核'], ['財務'], ['會計', '人資'],
+    ['薪資'], ['採購'], ['保管人', '出納'], ['代理人', '發放人'], ['領款人', '驗收人'],
+    ['經辦'], ['備查', '歸檔'], ['領用人'], ['製單', '製單人', '申請人'],
+  ];
+  const rankOf = name => { const rank = rankGroups.findIndex(group => group.includes(name)); return rank < 0 ? 10 : rank; };
+  const ordered = names => [...names].sort((a, b) => rankOf(a) - rankOf(b));
+  const legacyDefaults = {
+    supply: ['領用人', '部門主管', '保管人', '發放人'],
+    acceptance: ['驗收人', '採購', '保管人', '部門主管', '會計'],
+  };
 
   function validate(value) {
     if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('簽核欄設定格式不正確。');
@@ -24,10 +37,11 @@ const SignoffStore = (() => {
     Object.entries(value).forEach(([id, names]) => {
       if (!formOf(id)) throw new Error(`不支援此表單的簽核欄設定：${id}。`);
       if (!Array.isArray(names) || !names.length || names.length > MAX_BOXES) throw new Error(`每張表單需有 1–${MAX_BOXES} 格簽核欄。`);
-      result[id] = names.map(name => {
+      const source = JSON.stringify(names) === JSON.stringify(legacyDefaults[id]) ? formOf(id).defaults : names;
+      result[id] = ordered(source.map(name => {
         if (typeof name !== 'string' || !name.trim() || name.trim().length > MAX_NAME) throw new Error(`簽核欄名稱須為 1–${MAX_NAME} 字。`);
         return name.trim();
-      });
+      }));
     });
     return result;
   }
@@ -36,7 +50,7 @@ const SignoffStore = (() => {
     try { return validate(JSON.parse(localStorage.getItem(KEY) ?? '{}')); } catch { return {}; }
   }
   const isCustom = id => Object.hasOwn(load(), id);
-  const get = id => [...(load()[id] || formOf(id)?.defaults || [])];
+  const get = id => ordered(load()[id] || formOf(id)?.defaults || []);
   function check(id, names) {
     if (!formOf(id)) throw new Error('不支援此表單。');
     const filled = names.map(name => String(name).trim()).filter(Boolean);

@@ -22,7 +22,7 @@
 .bs-leave-type { padding-top: 2mm; }
 .bookstore-table .bs-period { text-align: left; padding: 1mm 1.5mm; font-size: 10pt; white-space: nowrap; }
 .bs-vertical { writing-mode: vertical-rl; letter-spacing: 1mm; }
-.bs-remark-label { display: flex; flex-direction: column; justify-content: space-around; height: 40mm; }
+.bs-remark-label { display: flex; flex-direction: column; justify-content: space-around; height: 24mm; }
 .bookstore-table .bs-notes { text-align: left; }
 #bs-details { margin-top: 2mm; white-space: pre-wrap; font-size: 9pt; line-height: 1.5; }
 .bs-reason { white-space: pre-wrap; font-size: 10pt; text-align: left; }
@@ -31,7 +31,10 @@
 .bs-row-four { height: 8mm; }
 .bs-row-five { height: 16mm; }
 .bs-row-six { height: 8mm; }
-.bs-row-seven { height: 39mm; }
+.bs-row-seven { height: 18mm; }
+.bookstore-sign { margin-top: 1mm; flex: 0 0 auto; border-top: 0.25mm solid #333; }
+.bookstore-sign .pv-sign-head { background: #fff !important; color: #000 !important; font-size: 9pt; font-weight: 400; }
+.bookstore-sign .pv-sign-body { height: 10mm; }
 .bookstore-footer { margin-top: 1mm; font-size: 10pt; }
 @media screen and (max-width: 600px) { .bookstore-sheet { margin-bottom: -66.6mm; } }
 @media screen and (max-width: 400px) { .bookstore-sheet { margin-bottom: -85.84mm; } }

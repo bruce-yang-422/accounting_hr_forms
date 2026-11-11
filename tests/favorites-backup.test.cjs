@@ -127,7 +127,7 @@ test('backup round trip carries sign-off settings, and merge keeps local choices
   target.api.importData(target.api.parse(JSON.stringify(exported)), 'merge');
   assert.deepEqual(JSON.parse(target.storage.get('hr_form_signoffs')), { leave: ['本機'], travel: ['主管'] });
   target.api.importData(target.api.parse(JSON.stringify(exported)), 'replace');
-  assert.deepEqual(JSON.parse(target.storage.get('hr_form_signoffs')).leave, ['申請人', '老闆']);
+  assert.deepEqual(JSON.parse(target.storage.get('hr_form_signoffs')).leave, ['老闆', '申請人']);
   assert.throws(() => target.api.parse(envelope({ signoffs: { leave: Array(7).fill('甲') } })));
 });
 
