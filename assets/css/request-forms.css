@@ -3,8 +3,8 @@
 .choice-block { flex: 0 0 auto; max-width: 100%; }
 .form-hint { font-size: 12px; color: var(--c-muted); margin: 0; }
 .ops-items { margin-top: 12px; }
-.ops-item { min-width: 0; border: 1px solid var(--c-border); border-radius: 8px; padding: 12px; margin-bottom: 12px; }
-.ops-item legend { padding-inline: 6px; color: var(--c-muted); font-size: 12px; }
+.ops-item { min-width: 0; border: 0; padding: 0; margin: 0 0 20px; }
+.ops-item legend { padding: 0 0 8px; color: var(--c-muted); font-size: 12px; }
 .ops-item .frow { flex-wrap: wrap; }
 .ops-item .fg { flex: 1 1 120px; min-width: 0; }
 .operations-sheet .pv-row { min-height: 7mm; }
