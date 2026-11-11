@@ -63,28 +63,6 @@ test('outing calculates same-day duration and refuses reversed or incomplete tim
   }
 });
 
-test('review is optional until decided, requires reviewer/date, and requires an explanation when returned', () => {
-  for (const slug of forms) {
-    const { config, byId, missing } = setup(slug);
-    assert.equal(missing().length, 0, slug);
-    byId('reviewStatus').value = '同意';
-    assert.ok(missing().some(rule => rule.id === 'reviewer'));
-    assert.ok(missing().some(rule => rule.label.includes('有效的審核日期')));
-    byId('reviewer').value = '王主管'; byId('reviewDate').value = '2026-11-11';
-    assert.equal(missing().length, 0);
-    byId('reviewStatus').value = '退回';
-    assert.ok(missing().some(rule => rule.id === 'reviewComment'));
-    byId('reviewComment').value = '請補充明細';
-    assert.equal(missing().length, 0);
-    config.preview();
-    assert.equal(byId('pv-reviewer').textContent, '王主管');
-    assert.equal(byId('pv-reviewStatus').textContent, '退回');
-    assert.equal(byId('pv-reviewDate').textContent, '2026/11/11');
-    assert.equal(byId('pv-reviewComment').textContent, '請補充明細');
-    byId('reviewDate').validity.valid = false;
-    assert.ok(missing().length > 0);
-  }
-});
 
 test('petty cash adds cents accurately and rejects incomplete rows, invalid values, and excessive totals', () => {
   const { config, byId, missing } = setup('petty_cash_request');

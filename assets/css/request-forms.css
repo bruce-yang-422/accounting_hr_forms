@@ -12,9 +12,6 @@
 .operations-sheet .pv-bottom, .operations-sheet .pv-sign { flex: 0 0 auto; }
 .operations-sheet .pv-sign-body { height: 15mm; min-height: 15mm; }
 .operations-sheet .pv-lbl { font-size: 8pt; }
-.operations-sheet .ops-review-row { min-height: 6mm; }
-.operations-sheet.acceptance-sheet .pv-row { min-height: 6mm; }
-.operations-sheet.acceptance-sheet .pv-items th, .operations-sheet.acceptance-sheet .pv-items td { height: 5mm; }
 
 @media (max-width: 480px) {
   .frow > .fg:not(.fg-sm):not(.choice-block) { flex: 1 1 100%; }

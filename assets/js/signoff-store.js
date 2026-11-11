@@ -86,10 +86,10 @@ const ReviewStore = (() => {
   const approve = { name: '核決主管', options: ['同意', '退回'] };
   const line = name => ({ name, options: [] });
   const DEFAULTS = {
-    outing: [approve, line('人資確認')],
-    petty_cash: [approve, line('撥付日期'), line('核銷確認')],
-    supply: [approve, line('發放日期')],
-    acceptance: [approve, line('改善追蹤')],
+    outing: [approve, line('人資確認'), line('簽核備註')],
+    petty_cash: [approve, line('會計確認'), line('撥付日期'), line('核銷確認')],
+    supply: [approve, line('保管人確認'), line('發放日期')],
+    acceptance: [approve, line('採購確認'), line('保管人確認'), line('改善追蹤')],
     expense: [],
     leave: [{ name: '核決主管審核', options: ['同意', '退回'] }, line('人資確認'), line('簽核備註')],
     payment: [line('科目代碼'), { name: '稅別', options: ['應稅', '免稅', '零稅率'] }, line('憑證編號'), line('付款日期'), line('付款編號')],
